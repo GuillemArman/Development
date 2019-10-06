@@ -32,7 +32,7 @@ bool j1Scene::Start()
 {
 	background = App->tex->Load("textures/BG_.png");
 	santa = App->tex->Load("textures/Sprites/png/Object/Mushroom_1.png");//placeholder for now
-	App->map->Load("hello2.tmx");
+	App->map->Load("test.tmx");
 	return true;
 }
 
