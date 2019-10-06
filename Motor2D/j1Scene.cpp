@@ -31,8 +31,9 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	background = App->tex->Load("textures/BG_.png");
-	santa = App->tex->Load("textures/Sprites/png/Object/Mushroom_1.png");//placeholder for now
+	santa = App->tex->Load("textures/Sprites/Santasprites/Idle (1).png");//placeholder for now
 	App->map->Load("test.tmx");
+	App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 	return true;
 }
 
@@ -67,7 +68,8 @@ bool j1Scene::Update(float dt)
 		App->map->Draw();
 
 
-		App->render->Blit(santa, 0, 640);
+	App->render->Blit(santa, 0, 100);
+
 	// TODO 7: Set the window title like
 	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"
 	p2SString title("Platformer:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
