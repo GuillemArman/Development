@@ -31,7 +31,7 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	background = App->tex->Load("textures/BG_.png");
-	//App->map->Load("hello2.tmx");
+	App->map->Load("hello2.tmx");
 	return true;
 }
 
@@ -63,7 +63,7 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x += 1;
 
 	App->render->Blit(background, 0, 0);
-	//App->map->Draw();
+		App->map->Draw();
 
 	// TODO 7: Set the window title like
 	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"
