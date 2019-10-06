@@ -33,6 +33,7 @@ public:
 	bool CleanUp();
 
 private:
+	SDL_Texture* background;
 };
 
 #endif // __j1SCENE_H__
