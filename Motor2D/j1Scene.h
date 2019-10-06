@@ -34,6 +34,7 @@ public:
 
 private:
 	SDL_Texture* background;
+	SDL_Texture* santa;
 };
 
 #endif // __j1SCENE_H__
