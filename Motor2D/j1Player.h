@@ -23,17 +23,21 @@ public:
 	bool PreUpdate();
 	bool Update();
 	bool PostUpdate();
+	bool CleanUp();
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
+	void OnCollision(Collider* c1, Collider* c2);
+
 	/*iPoint GetPosition();*/ //FUNCTION TO MAKE PRIVATE POSITION, PUBLIC IS MESSY CODE
 
 public:
 
 	bool isDead = false;
-	iPoint position;//should be private
 
 	SDL_Texture* santa;
 	Collider* player_collider = nullptr;
+
+	fPoint collider_move;
 };
 
 #endif

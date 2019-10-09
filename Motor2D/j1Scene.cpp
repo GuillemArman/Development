@@ -35,9 +35,13 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	background = App->tex->Load("textures/BG_.png");
-	App->player->santa = App->tex->Load("textures/Sprites/Santasprites/Idle (1).png");//placeholder for now
+	
 	App->map->Load("test.tmx");
 	//App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
+
+	player_initial_position.x = 0;
+	player_initial_position.y = 0;
+
 	return true;
 }
 
@@ -91,9 +95,14 @@ bool j1Scene::Update(float dt)
 		App->map->Draw();
 
 
-	App->render->Blit(App->player->santa, App->player->position.x, App->player->position.y + 100);//HARDCODED INITIAL Y
+	App->render->Blit(App->player->santa, player_initial_position.x, player_initial_position.y + 100);//HARDCODED INITIAL Y
 	App->player->player_collider->SetPos(App->player->position.x, App->player->position.y + 300);//collider test
 	
+	if (App->player->position.y >= 300)
+	{
+		App->player->position.x = player_initial_position.x;
+		App->player->position.y = player_initial_position.y;
+	}
 
 	// TODO 7: Set the window title like
 	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"

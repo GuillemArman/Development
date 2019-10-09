@@ -16,9 +16,9 @@
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>
-	<player speed="4.1"/>
   </window>
 
+	<player speed="0.1"/>
   <file_system>
     <path>data.zip</path>
   </file_system>

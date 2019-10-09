@@ -3,10 +3,10 @@
 <game_state>
 
   <renderer>
-    <camera x="100" y="0"/>
+    <camera x="0" y="0"/>
   </renderer>
  <player>
-	<position x = "0" y = "0"/>
+	<position x = "position_x" y = "50 position_y"/>
   </player>
 
 </game_state>

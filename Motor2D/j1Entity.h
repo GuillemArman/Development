@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "p2Point.h"
 
+#define gravity -0.0025
 
 struct SDL_Texture;
 
@@ -61,6 +62,7 @@ public:
 	Collider* collidingFloor;
 
 	float speed;
+	float jump_force;
 	
 };
 

@@ -39,6 +39,7 @@ private:
 
 	SDL_Texture* background;
 	
+	iPoint player_initial_position;
 	Collider* floor_colliders[];
 };
 
