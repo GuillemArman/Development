@@ -13,13 +13,26 @@ j1Player::j1Player()
 	name.create("player");
 
 
-	idle_right.PushBack({ 7, 31, 369, 392 });
-	idle_right.PushBack({ 687, 34, 369, 389 });
-	idle_right.PushBack({ 9, 513, 367, 382 });
-	idle_right.PushBack({ 690, 515, 368, 380 });
+	idle_right.PushBack({ 1128, 1313, 344, 546 });
+	idle_right.PushBack({ 2063, 1314, 344, 545 });
+	idle_right.PushBack({ 2998, 1315, 344, 544 });
+	idle_right.PushBack({ 3934, 1316, 340, 543 });
+	idle_right.PushBack({ 4869, 1318, 340, 541 });
+	idle_right.PushBack({ 5804, 1319, 339, 540 });
+	idle_right.PushBack({ 6739, 1320, 338, 538 });
+	idle_right.PushBack({ 202, 1961, 338, 539 });
+	idle_right.PushBack({ 1138, 1962, 335, 538 });
+	idle_right.PushBack({ 2073, 1962, 335, 538 });
+	idle_right.PushBack({ 3008, 1964, 334, 536 });
+	idle_right.PushBack({ 3940, 1961, 335, 539 });
+	idle_right.PushBack({ 4871, 1959, 338, 541 });
+	idle_right.PushBack({ 5803, 1957, 340, 542 });
+	idle_right.PushBack({ 6734, 1955, 343, 545 });
+	idle_right.PushBack({ 195, 2596, 343, 544 });
+	
 	idle_right.speed = 0.07f;
 
-	idle_left.PushBack({ 7, 66, 369, 392 });
+	/*idle_left.PushBack({ 7, 66, 369, 392 });
 
 	jumping_right.PushBack({ 2643, 504, 409, 398 });
 	jumping_left.PushBack({ 2643, 504, 409, 398 });
@@ -30,7 +43,7 @@ j1Player::j1Player()
 
 	left.PushBack({ -687, -34, 369, 392 });
 
-	left.speed = 0.007f;
+	left.speed = 0.007f;*/
 
 }
 
@@ -49,7 +62,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 bool j1Player::Start() {
 
-	graphics = App->tex->Load("textures/Sprites/SantaSprites/SantaSpritesSheet).png");//placeholder for now
+	graphics = App->tex->Load("textures/Sprites/SantaSprites/_Santa.png");//placeholder for now
 
 	if (player_collider == nullptr)
 		player_collider = App->collision->AddCollider({ 0, 0, 50, 50 }, COLLIDER_PLAYER, this);
