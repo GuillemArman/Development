@@ -31,6 +31,8 @@ bool j1Player::Start() {
 	virtualPosition.x = position.x;
 	virtualPosition.y = position.y;
 
+	player_collider = App->collision->AddCollider({ 0, 0, 50, 50 }, COLLIDER_PLAYER, this);
+
 	return true;
 
 }
