@@ -19,7 +19,7 @@ j1Scene::j1Scene() : j1Module()
 // Destructor
 j1Scene::~j1Scene()
 {
-	delete[] floor_colliders;
+
 }
 
 // Called before render is available
@@ -39,8 +39,6 @@ bool j1Scene::Start()
 	App->map->Load("test.tmx");
 	//App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 
-	player_initial_position.x = 0;
-	player_initial_position.y = 0;
 
 	return true;
 }
@@ -50,26 +48,26 @@ bool j1Scene::PreUpdate()
 {
 	return true;
 }
-
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
 
-	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		App->SaveGame("save_game.xml");
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	//camera
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y -= 1;
 
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 		App->render->camera.y += 1;
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		App->render->camera.x -= 1;
 
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x += 1;
 
 	//player
@@ -91,25 +89,22 @@ bool j1Scene::Update(float dt)
 		App->render->virtualCamPos -= App->player->speed * 2;
 	}
 
+
+
+
 	App->render->Blit(background, 0, 0);
-		App->map->Draw();
+	App->map->Draw();
 
 
-	App->render->Blit(App->player->santa, player_initial_position.x, player_initial_position.y + 100);//HARDCODED INITIAL Y
-	App->player->player_collider->SetPos(App->player->position.x, App->player->position.y + 300);//collider test
-	
-	if (App->player->position.y >= 300)
-	{
-		App->player->position.x = player_initial_position.x;
-		App->player->position.y = player_initial_position.y;
-	}
+	App->player->player_collider->SetPos(App->player->position.x, App->player->position.y); //need to resize 
+
 
 	// TODO 7: Set the window title like
 	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"
 	p2SString title("Platformer:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
-					App->map->data.width, App->map->data.height,
-					App->map->data.tile_width, App->map->data.tile_height,
-					App->map->data.tilesets.count());
+		App->map->data.width, App->map->data.height,
+		App->map->data.tile_width, App->map->data.tile_height,
+		App->map->data.tilesets.count());
 
 	App->win->SetTitle(title.GetString());
 	return true;
@@ -120,7 +115,7 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
 	return ret;
@@ -133,4 +128,3 @@ bool j1Scene::CleanUp()
 
 	return true;
 }
-

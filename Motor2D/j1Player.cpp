@@ -6,6 +6,7 @@
 #include "j1Player.h"
 #include "p2Log.h"
 #include "j1Window.h"
+#include "j1Scene.h"
 #include<stdio.h>
 
 j1Player::j1Player() 
@@ -13,22 +14,23 @@ j1Player::j1Player()
 	name.create("player");
 
 
-	idle_right.PushBack({ 1128, 1313, 344, 546 });
-	idle_right.PushBack({ 2063, 1314, 344, 545 });
-	idle_right.PushBack({ 2998, 1315, 344, 544 });
-	idle_right.PushBack({ 3934, 1316, 340, 543 });
-	idle_right.PushBack({ 4869, 1318, 340, 541 });
-	idle_right.PushBack({ 5804, 1319, 339, 540 });
-	idle_right.PushBack({ 6739, 1320, 338, 538 });
-	idle_right.PushBack({ 202, 1961, 338, 539 });
-	idle_right.PushBack({ 1138, 1962, 335, 538 });
+	idle_right.PushBack({ 304, 308, 73, 113 });
+	idle_right.PushBack({ 494, 308, 73, 113 });
+	idle_right.PushBack({ 648, 308, 73, 113 });
+	idle_right.PushBack({ 874, 308, 72, 113 });
+	idle_right.PushBack({ 1064, 308, 72, 113 });
+	idle_right.PushBack({ 1255, 309, 71, 112 });
+	idle_right.PushBack({ 1445, 309, 71, 112 });
+	idle_right.PushBack({ 116, 439, 71, 113 });
+	////
+	/*idle_right.PushBack({ 1138, 1962, 335, 538 });
 	idle_right.PushBack({ 2073, 1962, 335, 538 });
 	idle_right.PushBack({ 3008, 1964, 334, 536 });
 	idle_right.PushBack({ 3940, 1961, 335, 539 });
 	idle_right.PushBack({ 4871, 1959, 338, 541 });
 	idle_right.PushBack({ 5803, 1957, 340, 542 });
 	idle_right.PushBack({ 6734, 1955, 343, 545 });
-	idle_right.PushBack({ 195, 2596, 343, 544 });
+	idle_right.PushBack({ 195, 2596, 343, 544 });*/
 	
 	idle_right.speed = 0.07f;
 
@@ -62,10 +64,10 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 bool j1Player::Start() {
 
-	graphics = App->tex->Load("textures/Sprites/SantaSprites/_Santa.png");//placeholder for now
+	graphics = App->tex->Load("textures/Sprites/SantaSprites/_Santa1.png");//placeholder for now
 
 	if (player_collider == nullptr)
-		player_collider = App->collision->AddCollider({ 0, 0, 50, 50 }, COLLIDER_PLAYER, this);
+		player_collider = App->collision->AddCollider({ 0, 0, 400, 425	 }, COLLIDER_PLAYER, this);
 
 	animation = &idle_right;
 
@@ -82,6 +84,7 @@ bool j1Player::Start() {
 
 }
 
+
 bool j1Player::CleanUp()
 {
 	LOG("Unloading player");
@@ -96,7 +99,6 @@ bool j1Player::CleanUp()
 	return true;
 }
 
-
 bool j1Player::PreUpdate() {
 
 	return true;
@@ -105,6 +107,7 @@ bool j1Player::PreUpdate() {
 bool j1Player::Update() {
 
 	// Defining states
+
 
 	Entity_Update();
 
@@ -159,7 +162,6 @@ bool j1Player::PostUpdate() {
 		v.x = -speed;
 	}
 
-
 	//position.x = virtualPosition.x;
 	//position.y = virtualPosition.y;
 
@@ -172,7 +174,7 @@ bool j1Player::PostUpdate() {
 
 bool j1Player::Load(pugi::xml_node& data)
 {
-	//loading player pos from xml
+	//carregar posicio player desde xml
 	virtualPosition.x = data.attribute("position_x").as_int();
 	virtualPosition.y = data.attribute("position_y").as_int();
 	return true;
@@ -181,7 +183,7 @@ bool j1Player::Load(pugi::xml_node& data)
 
 bool j1Player::Save(pugi::xml_node& data) const
 {
-	//saving pos into xml
+	//guardar posicio al xml
 
 	data.append_attribute("position_x") = position.x;
 	data.append_attribute("position_y") = position.y;
@@ -193,7 +195,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	Entity_OnCollision(c1, c2);
 }
-
 //iPoint j1Player::GetPosition()
 //{
 //	return position;

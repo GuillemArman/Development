@@ -15,7 +15,6 @@ class j1Player : public Entity
 public:
 
 	j1Player();
-
 	virtual ~j1Player();
 
 	bool Awake(pugi::xml_node&);
@@ -27,16 +26,14 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 	void OnCollision(Collider* c1, Collider* c2);
-
 	/*iPoint GetPosition();*/ //FUNCTION TO MAKE PRIVATE POSITION, PUBLIC IS MESSY CODE
 
 public:
 
 	bool isDead = false;
-
+	iPoint position;//should be private
 	SDL_Texture* santa;
 	Collider* player_collider = nullptr;
-
 	fPoint collider_move;
 };
 

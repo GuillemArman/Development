@@ -18,7 +18,6 @@ bool Entity::Entity_Update()
 	colliding_left = false;
 
 	setAnimation();
-
 	return true;
 }
 
