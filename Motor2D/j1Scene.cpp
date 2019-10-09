@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
+#include "j1Collision.h"
 #include "j1Player.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -34,7 +35,7 @@ bool j1Scene::Start()
 	background = App->tex->Load("textures/BG_.png");
 	santa = App->tex->Load("textures/Sprites/Santasprites/Idle (1).png");//placeholder for now
 	App->map->Load("test.tmx");
-	App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
+	//App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 	return true;
 }
 

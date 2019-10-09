@@ -33,6 +33,9 @@ public:
 	bool CleanUp();
 
 private:
+	uint win_width;
+	uint win_height;
+
 	SDL_Texture* background;
 	SDL_Texture* santa;
 };

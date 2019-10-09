@@ -1,4 +1,5 @@
 #include "j1Player.h"
+#include "j1Collision.h"
 
 j1Player::j1Player() :j1Module()
 {

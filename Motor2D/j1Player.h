@@ -3,6 +3,8 @@
 
 #include "j1Module.h"
 #include "p2Point.h"
+#include "j1Entity.h"
+#include "Animation.h"
 #include "PugiXml\src\pugixml.hpp"
 
 class j1Player : public j1Module
