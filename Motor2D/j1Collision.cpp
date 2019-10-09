@@ -72,7 +72,10 @@ bool j1Collision::Update(float dt)
 				if (matrix[c2->type][c1->type] && c2->callback)
 					c2->callback->OnCollision(c2, c1);
 			}
-
+			else if ((c1 == App->player->collidingFloor || c2 == App->player->collidingFloor) && ((c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR) || (c2->type == COLLIDER_PLAYER && c1->type == COLLIDER_FLOOR)))
+			{
+				App->player->colliding_bottom = false;
+			}
 		}
 	}
 

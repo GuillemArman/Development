@@ -7,7 +7,10 @@
 #include "Animation.h"
 #include "PugiXml\src\pugixml.hpp"
 
-class j1Player : public j1Module
+struct SDL_Texture;
+struct Collider;
+
+class j1Player : public Entity
 {
 public:
 
@@ -15,6 +18,7 @@ public:
 
 	virtual ~j1Player();
 
+	bool Awake(pugi::xml_node&);
 	bool Start();
 	bool PreUpdate();
 	bool Update();

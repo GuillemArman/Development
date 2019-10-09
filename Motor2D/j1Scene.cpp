@@ -79,6 +79,12 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		App->player->position.x -= 1;
 
+	App->win->GetWindowSize(win_width, win_height);
+	if (App->player->pos_relCam > (win_width / App->win->GetScale() / 2))
+	{
+		App->render->virtualCamPos -= App->player->speed * 2;
+	}
+
 	App->render->Blit(background, 0, 0);
 		App->map->Draw();
 

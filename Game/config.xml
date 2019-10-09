@@ -16,6 +16,7 @@
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>
+	<player speed="4.1"/>
   </window>
 
   <file_system>
