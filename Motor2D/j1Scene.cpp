@@ -18,7 +18,9 @@ j1Scene::j1Scene() : j1Module()
 
 // Destructor
 j1Scene::~j1Scene()
-{}
+{
+	delete[] floor_colliders;
+}
 
 // Called before render is available
 bool j1Scene::Awake()
@@ -91,6 +93,7 @@ bool j1Scene::Update(float dt)
 
 	App->render->Blit(App->player->santa, App->player->position.x, App->player->position.y + 100);//HARDCODED INITIAL Y
 	App->player->player_collider->SetPos(App->player->position.x, App->player->position.y + 300);//collider test
+	
 
 	// TODO 7: Set the window title like
 	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"
@@ -121,3 +124,4 @@ bool j1Scene::CleanUp()
 
 	return true;
 }
+

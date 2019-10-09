@@ -201,6 +201,18 @@ bool j1Map::Load(const char* file_name)
 			data.layers.add(lay);
 	}
 
+	pugi::xml_node object;
+	p2SString object_name;
+	for (object = map_file.child("map").child("objectgroup"); object && ret; object = object.next_sibling("objectgroup"))
+	{
+		object_name = object.attribute("name").as_string();
+		if (object_name == "Collision")
+		{
+			LoadColliders(object);
+			break;
+		}
+	}
+
 	if(ret == true)
 	{
 		LOG("Successfully parsed map XML file: %s", file_name);
@@ -363,6 +375,38 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	return ret;
 }
 
+bool j1Map::LoadColliders(pugi::xml_node& node)
+{
+	bool ret = true;
+
+	pugi::xml_node object;
+	COLLIDER_TYPE collider_type;
+	p2SString type;
+	for (object = node.child("object"); object; object = object.next_sibling("object"))
+	{
+		type = object.attribute("type").as_string();
+		if (type == "floor")
+		{
+			collider_type = COLLIDER_FLOOR;
+		}
+
+		else
+		{
+			LOG("Collider type undefined");
+			continue;
+		}
+
+		SDL_Rect shape;
+		shape.x = object.attribute("x").as_int();
+		shape.y = object.attribute("y").as_int();
+		shape.w = object.attribute("width").as_int();
+		shape.h = object.attribute("height").as_int();
+
+		App->collision->AddCollider(shape, collider_type);
+	}
+
+	return ret;
+}
 
 bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 {

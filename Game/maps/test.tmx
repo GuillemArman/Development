@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="93" height="24" tilewidth="32" tileheight="32" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="93" height="24" tilewidth="32" tileheight="32" nextobjectid="7">
  <tileset firstgid="1" name="Desert" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="48" columns="8">
   <image source="tmw_desert_spacing.png" width="265" height="199"/>
   <terraintypes>
@@ -4578,4 +4578,12 @@
    <tile gid="0"/>
   </data>
  </layer>
+ <objectgroup color="#ff0000" name="Collision">
+  <object id="1" type="floor" x="2" y="674" width="504" height="60"/>
+  <object id="2" type="floor" x="609" y="582" width="253" height="53"/>
+  <object id="3" type="floor" x="995" y="579" width="378" height="62"/>
+  <object id="4" type="floor" x="1381" y="451" width="373" height="281"/>
+  <object id="5" type="floor" x="1891" y="357" width="374" height="375"/>
+  <object id="6" type="floor" x="2403" y="227" width="564" height="505"/>
+ </objectgroup>
 </map>

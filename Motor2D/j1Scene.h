@@ -32,12 +32,14 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+
 private:
 	uint win_width;
 	uint win_height;
 
 	SDL_Texture* background;
 	
+	Collider* floor_colliders[];
 };
 
 #endif // __j1SCENE_H__
