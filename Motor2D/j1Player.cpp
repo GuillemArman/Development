@@ -47,6 +47,25 @@ j1Player::j1Player()
 
 	right.speed = 0.02;
 
+	jumping_right.PushBack({313, 572, 72, 110});
+	jumping_right.PushBack({ 506, 575, 72, 107 });
+	jumping_right.PushBack({ 697, 575, 71, 107 });
+	jumping_right.PushBack({ 882, 572, 72, 115 });
+	jumping_right.PushBack({ 1060, 569, 89, 115 });
+	jumping_right.PushBack({ 1241, 567, 98, 111 });
+	jumping_right.PushBack({ 1429, 567, 100, 111 });
+	jumping_right.PushBack({ 100, 697, 100, 112 });
+	jumping_right.PushBack({ 288, 697, 102, 113 });
+	jumping_right.PushBack({ 478, 697, 101, 113 });
+	jumping_right.PushBack({ 667, 697, 102, 114 });
+	jumping_right.PushBack({ 857, 697, 102, 114 });
+	jumping_right.PushBack({ 1060, 699, 88, 118 });
+	jumping_right.PushBack({ 1259, 701, 74, 116 });
+	jumping_right.PushBack({ 1452, 702, 71, 113 });
+	jumping_right.PushBack({ 123, 833, 72, 110 });
+
+	jumping_right.speed = 0.02;
+
 	/*idle_left.PushBack({ 7, 66, 369, 392 });
 
 	jumping_right.PushBack({ 2643, 504, 409, 398 });
@@ -71,6 +90,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 {
 	speed = config.attribute("speed").as_float();
 
+	jump_force = config.attribute("jump_force").as_float();
 
 	return true;
 }
@@ -157,6 +177,15 @@ bool j1Player::Update(float dt) {
 		}
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		if (state != JUMPING)
+		{
+			v.y = jump_force;
+			state = JUMPING;
+		}
+	}
+
 	player_collider->SetPos(virtualPosition.x + collider_move.x, virtualPosition.y + collider_move.y);
 	App->player->colliding_left = false;
 	App->player->colliding_right = false;
@@ -181,13 +210,17 @@ bool j1Player::PostUpdate() {
 	int win_scale = App->win->GetScale();
 	pos_relCam = App->player->position.x + App->render->camera.x / win_scale;
 
+
 	App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame());
+
+
+
 	return true;
 }
 
 bool j1Player::Load(pugi::xml_node& data)
 {
-	//carregar posicio player desde xml
+	//loading player pos from xml
 	virtualPosition.x = data.attribute("position_x").as_int();
 	virtualPosition.y = data.attribute("position_y").as_int();
 	return true;
@@ -196,7 +229,7 @@ bool j1Player::Load(pugi::xml_node& data)
 
 bool j1Player::Save(pugi::xml_node& data) const
 {
-	//guardar posicio al xml
+	//saving pos into xml
 
 	data.append_attribute("position_x") = position.x;
 	data.append_attribute("position_y") = position.y;
@@ -205,10 +238,6 @@ bool j1Player::Save(pugi::xml_node& data) const
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
-
 	Entity_OnCollision(c1, c2);
 }
-//iPoint j1Player::GetPosition()
-//{
-//	return position;
-//}
+

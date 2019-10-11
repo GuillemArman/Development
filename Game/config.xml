@@ -18,7 +18,7 @@
     <fullscreen_window value="false"/>
   </window>
 
-	<player speed="2"/>
+	<player speed="2" jump_force="8"/>
   <file_system>
     <path>data.zip</path>
   </file_system>

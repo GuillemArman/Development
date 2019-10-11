@@ -32,7 +32,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	void PaintColliders();
+	float gravity_speed;
+	float jump_speed;
 
 
 private:
@@ -40,6 +41,7 @@ private:
 	uint win_height;
 
 	SDL_Texture* background;
+	iPoint player_initial_position;
 
 	Collider* floor_colliders[];
 };

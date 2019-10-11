@@ -39,6 +39,12 @@ bool j1Scene::Start()
 	App->map->Load("test.tmx");
 	//App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 
+	/*player_initial_position.x = 0;
+	player_initial_position.y = 0;*/
+	App->player->touchingFloor = false;
+	gravity_speed = 0.002f;
+	jump_speed = 0.01f;
+
 
 	return true;
 }
@@ -51,6 +57,18 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+
+	App->player->position.y += gravity_speed;
+
+	/*if (App->player->touchingFloor == false)
+	{
+	App->player->position.y += gravity_speed;
+	}
+	else if (App->player->touchingFloor == true)
+	{
+	App->player->position.y = 0.0f;
+	}*/
+
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
 
@@ -61,23 +79,18 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y -= 1;
 
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
 		App->render->camera.y += 1;
 
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x -= 1;
+		App->render->camera.x -= 4;
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x += 1;
+		App->render->camera.x += 4;
 
 	
 
-	App->win->GetWindowSize(win_width, win_height);
-	if (App->player->pos_relCam > (win_width / App->win->GetScale() / 2))
-	{
-		App->render->virtualCamPos -= App->player->speed * 2;
-	}
-
+	
 
 
 
@@ -85,7 +98,7 @@ bool j1Scene::Update(float dt)
 	App->map->Draw();
 
 
-	App->player->player_collider->SetPos(App->player->position.x, App->player->position.y); //need to resize 
+	App->player->player_collider->SetPos(App->player->position.x, App->player->position.y); //need to resize	
 
 
 	// TODO 7: Set the window title like

@@ -31,10 +31,10 @@ public:
 public:
 
 	bool isDead = false;
-	iPoint position;//should be private
 	SDL_Texture* santa;
 	Collider* player_collider = nullptr;
 	fPoint collider_move;
+	bool touchingFloor;
 };
 
 #endif
