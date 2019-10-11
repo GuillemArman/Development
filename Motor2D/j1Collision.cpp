@@ -11,7 +11,7 @@ j1Collision::j1Collision()
 		colliders[i] = nullptr;
 
 	matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
-	matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = true;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_FLOOR] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;

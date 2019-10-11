@@ -70,18 +70,7 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x += 1;
 
-	//player
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		App->player->position.y -= 1;
-
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		App->player->position.y += 1;
-
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		App->player->position.x += 1;
-
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		App->player->position.x -= 1;
+	
 
 	App->win->GetWindowSize(win_width, win_height);
 	if (App->player->pos_relCam > (win_width / App->win->GetScale() / 2))

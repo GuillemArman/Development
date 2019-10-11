@@ -16,23 +16,36 @@ j1Player::j1Player()
 
 	idle_right.PushBack({ 304, 308, 73, 113 });
 	idle_right.PushBack({ 494, 308, 73, 113 });
-	idle_right.PushBack({ 648, 308, 73, 113 });
+	idle_right.PushBack({ 684, 308, 73, 113 });
 	idle_right.PushBack({ 874, 308, 72, 113 });
 	idle_right.PushBack({ 1064, 308, 72, 113 });
 	idle_right.PushBack({ 1255, 309, 71, 112 });
 	idle_right.PushBack({ 1445, 309, 71, 112 });
 	idle_right.PushBack({ 116, 439, 71, 113 });
-	////
-	/*idle_right.PushBack({ 1138, 1962, 335, 538 });
-	idle_right.PushBack({ 2073, 1962, 335, 538 });
-	idle_right.PushBack({ 3008, 1964, 334, 536 });
-	idle_right.PushBack({ 3940, 1961, 335, 539 });
-	idle_right.PushBack({ 4871, 1959, 338, 541 });
-	idle_right.PushBack({ 5803, 1957, 340, 542 });
-	idle_right.PushBack({ 6734, 1955, 343, 545 });
-	idle_right.PushBack({ 195, 2596, 343, 544 });*/
+	idle_right.PushBack({ 306, 439, 71, 113 });
+	idle_right.PushBack({ 496, 439, 71, 113 });
+	idle_right.PushBack({ 686, 439, 71, 113 });
+	idle_right.PushBack({ 875, 439, 71, 113 });
+	idle_right.PushBack({ 1065, 438, 71, 114 });
+	idle_right.PushBack({ 1254, 438, 72, 114 });
+	idle_right.PushBack({ 1444, 438, 72, 114 });
 	
-	idle_right.speed = 0.07f;
+	
+	idle_right.speed = 0.05;
+
+	right.PushBack({ 309, 829, 71, 114 });
+	right.PushBack({ 497, 828, 73, 114 });
+	right.PushBack({ 687, 828, 78, 114 });
+	right.PushBack({ 877, 828, 73, 115 });
+	right.PushBack({ 1068, 828, 70, 115 });
+	right.PushBack({ 1259, 829, 69, 114 });
+	right.PushBack({ 1444, 828, 84, 117 });
+	right.PushBack({ 108, 958, 94, 116 });
+	right.PushBack({ 306, 958, 82, 117 });
+	right.PushBack({ 499, 959, 71, 115 });
+	right.PushBack({ 689, 959, 70, 115 });
+
+	right.speed = 0.02;
 
 	/*idle_left.PushBack({ 7, 66, 369, 392 });
 
@@ -67,12 +80,12 @@ bool j1Player::Start() {
 	graphics = App->tex->Load("textures/Sprites/SantaSprites/_Santa1.png");//placeholder for now
 
 	if (player_collider == nullptr)
-		player_collider = App->collision->AddCollider({ 0, 0, 400, 425	 }, COLLIDER_PLAYER, this);
+		player_collider = App->collision->AddCollider({ 0, 0, 75, 110	 }, COLLIDER_PLAYER, this);
 
 	animation = &idle_right;
 
 	position.x = 50;
-	position.y = -50;
+	position.y = 270;
 
 	virtualPosition.x = position.x;
 	virtualPosition.y = position.y;
@@ -104,7 +117,7 @@ bool j1Player::PreUpdate() {
 	return true;
 }
 
-bool j1Player::Update() {
+bool j1Player::Update(float dt) {
 
 	// Defining states
 
@@ -144,9 +157,9 @@ bool j1Player::Update() {
 		}
 	}
 
-	//player_collider->SetPos(virtualPosition.x + collider_move.x, virtualPosition.y + collider_move.y);
-	//App->player->colliding_left = false;
-	//App->player->colliding_right = false;
+	player_collider->SetPos(virtualPosition.x + collider_move.x, virtualPosition.y + collider_move.y);
+	App->player->colliding_left = false;
+	App->player->colliding_right = false;
 
 	return true;
 }
@@ -162,8 +175,8 @@ bool j1Player::PostUpdate() {
 		v.x = -speed;
 	}
 
-	//position.x = virtualPosition.x;
-	//position.y = virtualPosition.y;
+	position.x = virtualPosition.x;
+	position.y = virtualPosition.y;
 
 	int win_scale = App->win->GetScale();
 	pos_relCam = App->player->position.x + App->render->camera.x / win_scale;
