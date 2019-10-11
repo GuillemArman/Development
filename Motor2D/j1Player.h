@@ -35,6 +35,7 @@ public:
 	Collider* player_collider = nullptr;
 	fPoint collider_move;
 	bool touchingFloor;
+	bool jump;
 };
 
 #endif

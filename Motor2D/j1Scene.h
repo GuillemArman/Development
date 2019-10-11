@@ -34,6 +34,7 @@ public:
 
 	float gravity_speed;
 	float jump_speed;
+	fPoint player_initial_position;
 
 
 private:
@@ -41,9 +42,9 @@ private:
 	uint win_height;
 
 	SDL_Texture* background;
-	iPoint player_initial_position;
+	Collider* pit_collider = nullptr;
 
-	Collider* floor_colliders[];
+	
 };
 
 #endif // __j1SCENE_H__

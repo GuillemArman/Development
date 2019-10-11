@@ -12,12 +12,17 @@ j1Collision::j1Collision()
 
 	matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_FLOOR][COLLIDER_PIT] = true;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_FLOOR] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_PIT] = false;
 
-	/*matrix[COLLIDER_NONE][COLLIDER_FLOOR] = false;
-	matrix[COLLIDER_NONE][COLLIDER_PLAYER] = false;*/
+	matrix[COLLIDER_PIT][COLLIDER_PIT] = false;
+	matrix[COLLIDER_PIT][COLLIDER_FLOOR] = false;
+	matrix[COLLIDER_PIT][COLLIDER_PLAYER] = true;
+	
+	
 
 }
 
@@ -89,7 +94,7 @@ bool j1Collision::Update(float dt)
 
 void j1Collision::DebugDraw()
 {
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		debug = !debug;
 
 	if (debug == false)
@@ -112,6 +117,10 @@ void j1Collision::DebugDraw()
 		case COLLIDER_PLAYER: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
+		case COLLIDER_PIT://RED
+			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
+			break;
+		
 		}
 	}
 }

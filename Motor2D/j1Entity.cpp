@@ -3,12 +3,13 @@
 #include "j1Render.h"
 #include "j1Collision.h"
 #include "j1Input.h"
+#include "j1Player.h"
 
 bool Entity::Entity_Update()
 {
 	v.y += (gravity * ((colliding_bottom) ? 0 : 1));
 	if (v.y < -1)
-		v.y = -4.5;
+		v.y = -15;
 	virtualPosition.y -= v.y;
 
 	if (pos_relCam > 0 || v.x > 0)
@@ -27,7 +28,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 	{
 		if (((c2->rect.y - v.y + 1) > (c1->rect.y + (c1->rect.h)))) //The collision is from bottom
 		{
-			virtualPosition.y = c2->rect.y - animation->GetCurrentFrame().h;
+			//virtualPosition.y = c2->rect.y - animation->GetCurrentFrame().h;
 			if (colliding_bottom == false)
 			{
 				v.y = 0;
@@ -71,6 +72,15 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 				v.y = 0;
 			}
 		}
+	}
+
+	if (c2->type == COLLIDER_PIT)
+	{
+		App->player->isDead = true;
+		virtualPosition.x = 0;
+		virtualPosition.y = 0;
+		App->render->camera.x = 0;
+		App->render->camera.y = 0;
 	}
 }
 

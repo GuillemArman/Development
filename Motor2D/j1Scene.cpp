@@ -39,8 +39,7 @@ bool j1Scene::Start()
 	App->map->Load("test.tmx");
 	//App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 
-	/*player_initial_position.x = 0;
-	player_initial_position.y = 0;*/
+	pit_collider = App->collision->AddCollider({ 0, 0, 3000, 30 }, COLLIDER_PIT, this);
 	App->player->touchingFloor = false;
 	gravity_speed = 0.002f;
 	jump_speed = 0.01f;
@@ -57,8 +56,11 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	if (App->render->camera.x > -1970)
+	{
+		//App->render->camera.x -= 1; // Coment this line for working
+	}
 
-	App->player->position.y += gravity_speed;
 
 	/*if (App->player->touchingFloor == false)
 	{
@@ -69,10 +71,10 @@ bool j1Scene::Update(float dt)
 	App->player->position.y = 0.0f;
 	}*/
 
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		App->SaveGame("save_game.xml");
 
 	//camera
@@ -99,6 +101,8 @@ bool j1Scene::Update(float dt)
 
 
 	App->player->player_collider->SetPos(App->player->position.x, App->player->position.y); //need to resize	
+
+	pit_collider->SetPos(0, 770);
 
 
 	// TODO 7: Set the window title like

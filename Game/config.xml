@@ -7,7 +7,7 @@
   </app>
 	
   <renderer>
-    <vsync value="false"/>
+    <vsync value="true"/>
   </renderer>
 
   <window>
@@ -18,7 +18,7 @@
     <fullscreen_window value="false"/>
   </window>
 
-	<player speed="2" jump_force="8"/>
+	<player speed="8" jump_force="22"/>
   <file_system>
     <path>data.zip</path>
   </file_system>

@@ -7,7 +7,7 @@
 #include "p2Log.h"
 #include "j1Window.h"
 #include "j1Scene.h"
-#include<stdio.h>
+#include <stdio.h>
 
 j1Player::j1Player() 
 {
@@ -45,7 +45,7 @@ j1Player::j1Player()
 	right.PushBack({ 499, 959, 71, 115 });
 	right.PushBack({ 689, 959, 70, 115 });
 
-	right.speed = 0.02;
+	right.speed = 0.25;
 
 	jumping_right.PushBack({313, 572, 72, 110});
 	jumping_right.PushBack({ 506, 575, 72, 107 });
