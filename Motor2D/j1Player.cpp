@@ -64,7 +64,7 @@ j1Player::j1Player()
 	jumping_right.PushBack({ 1452, 702, 71, 113 });
 	jumping_right.PushBack({ 123, 833, 72, 110 });
 
-	jumping_right.speed = 0.02;
+	jumping_right.speed = 0.2;
 
 	/*idle_left.PushBack({ 7, 66, 369, 392 });
 
