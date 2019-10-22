@@ -5,6 +5,8 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Collision.h"
+#include "j1Player.h"
+#include "j1Window.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -131,7 +133,16 @@ bool j1Map::CleanUp()
 	}
 	data.tilesets.clear();
 
-	
+	p2List_item<ImageLayer*>* item_imageLayer;
+	item_imageLayer = data.image_layers.start;
+
+	while (item_imageLayer != NULL)
+	{
+		RELEASE(item_imageLayer->data);
+		item_imageLayer = item_imageLayer->next;
+	}
+	data.image_layers.clear();
+
 	// Remove all layers
 	p2List_item<MapLayer*>* item2;
 	item2 = data.layers.start;
@@ -150,9 +161,13 @@ bool j1Map::CleanUp()
 }
 
 // Load new map
-bool j1Map::Load(const char* file_name)
+bool j1Map::Load(const char* file_name, int& map_length)
 {
 	bool ret = true;
+
+	CleanUp();
+	App->collision->CleanUp();
+
 	p2SString tmp("%s%s", folder.GetString(), file_name);
 
 	pugi::xml_parse_result result = map_file.load_file(tmp.GetString());
@@ -210,6 +225,11 @@ bool j1Map::Load(const char* file_name)
 		{
 			LoadColliders(object);
 			break;
+		}
+
+		else if (object_name == "Logic")
+		{
+			LoadLogic(object, map_length);
 		}
 	}
 
@@ -460,5 +480,39 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 		}
 	}
 
+	return ret;
+}
+
+bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length)
+{
+	bool ret = true;
+
+	pugi::xml_node object;
+	p2SString name;
+	for (object = node.child("object"); object; object = object.next_sibling("object"))
+	{
+		name = object.attribute("name").as_string();
+		if (name == "player_start_pos")
+		{
+			App->player->position.x = object.attribute("x").as_int();
+			App->player->position.y = object.attribute("y").as_int();
+
+			App->render->virtualCamPos = -(App->player->position.x * (int)App->win->GetScale() - 100);
+			if (App->render->virtualCamPos > 0)
+			{
+				App->render->virtualCamPos = 0;
+			}
+		}
+	}
+
+	pugi::xml_node property;
+	for (property = node.child("properties").child("property"); property; property = property.next_sibling("property"))
+	{
+		p2SString name = property.attribute("name").as_string();
+		if (name == "map_length")
+		{
+			map_length = property.attribute("value").as_int();
+		}
+	}
 	return ret;
 }

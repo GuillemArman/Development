@@ -9,7 +9,7 @@ bool Entity::Entity_Update()
 {
 	v.y += (gravity * ((colliding_bottom) ? 0 : 1));
 	if (v.y < -1)
-		v.y = -15;
+		v.y = -13;
 	virtualPosition.y -= v.y;
 
 	if (pos_relCam > 0 || v.x > 0)

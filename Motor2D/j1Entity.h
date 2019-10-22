@@ -5,7 +5,7 @@
 #include "Animation.h"
 #include "p2Point.h"
 
-#define gravity -0.5
+#define gravity -1.3
 
 struct SDL_Texture;
 

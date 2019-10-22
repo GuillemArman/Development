@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="93" height="24" tilewidth="32" tileheight="32" nextobjectid="7">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="93" height="24" tilewidth="32" tileheight="32" nextobjectid="14">
  <tileset firstgid="1" name="Desert" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="48" columns="8">
   <image source="tmw_desert_spacing.png" width="265" height="199"/>
   <terraintypes>
-   <terrain name="Bricks" tile="9"/>
+   <terrain name="Bricks" tile="9">
+    <properties>
+     <property name="map_length" type="int" value="2100"/>
+    </properties>
+   </terrain>
    <terrain name="Rocks" tile="33"/>
    <terrain name="Dirt" tile="14"/>
    <terrain name="Desert" tile="29"/>
@@ -4585,5 +4589,12 @@
   <object id="4" type="floor" x="1381" y="451" width="373" height="281"/>
   <object id="5" type="floor" x="1891" y="357" width="374" height="375"/>
   <object id="6" type="floor" x="2403" y="227" width="564" height="505"/>
+ </objectgroup>
+ <objectgroup color="#0000ff" name="Logic">
+  <properties>
+   <property name="map_length" type="int" value="2500"/>
+  </properties>
+  <object id="12" name="player_start_pos" x="125.5" y="554.5" width="21" height="33"/>
+  <object id="13" name="end" x="2056.88" y="207.083" width="150.25" height="101.833"/>
  </objectgroup>
 </map>

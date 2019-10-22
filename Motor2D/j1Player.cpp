@@ -104,8 +104,6 @@ bool j1Player::Start() {
 
 	animation = &idle_right;
 
-	position.x = 50;
-	position.y = 270;
 
 	virtualPosition.x = position.x;
 	virtualPosition.y = position.y;
@@ -210,6 +208,11 @@ bool j1Player::PostUpdate() {
 	int win_scale = App->win->GetScale();
 	pos_relCam = App->player->position.x + App->render->camera.x / win_scale;
 
+	/*if (position.y > App->win->screen_surface->h / win_scale + 50 && !won)
+	{
+	App->scene->LoadLvl(App->scene->current_lvl->data->lvl);
+	}*/
+
 
 	App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame());
 
@@ -221,6 +224,7 @@ bool j1Player::PostUpdate() {
 bool j1Player::Load(pugi::xml_node& data)
 {
 	//loading player pos from xml
+	App->scene->LoadLvl(data.attribute("level").as_int());
 	virtualPosition.x = data.attribute("position_x").as_int();
 	virtualPosition.y = data.attribute("position_y").as_int();
 	return true;
@@ -233,6 +237,7 @@ bool j1Player::Save(pugi::xml_node& data) const
 
 	data.append_attribute("position_x") = position.x;
 	data.append_attribute("position_y") = position.y;
+	data.append_attribute("level") = App->scene->current_lvl->data->lvl;
 	return true;
 }
 

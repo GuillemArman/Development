@@ -5,6 +5,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Module.h"
+#include "j1App.h"
 
 struct Properties
 {
@@ -56,6 +57,42 @@ struct MapLayer
 	}
 };
 
+
+struct ImageLayer
+{
+	p2SString name;
+	SDL_Texture* texture;
+	int offset_x;
+	int offset_y;
+	int width;
+	int height;
+	fPoint position;
+	float speed = 0;
+	bool constant_movement = false;
+
+	ImageLayer()
+	{}
+
+	ImageLayer(ImageLayer* copy)
+	{
+		name = copy->name;
+		texture = copy->texture;
+		offset_x = copy->offset_x;
+		offset_y = copy->offset_y;
+		width = copy->width;
+		height = copy->height;
+		position = copy->position;
+		speed = copy->speed;
+		constant_movement = copy->constant_movement;
+	}
+
+	~ImageLayer()
+	{
+		App->tex->UnLoad(texture);
+		texture = nullptr;
+	}
+
+};
 // ----------------------------------------------------
 struct TileSet
 {
@@ -95,6 +132,7 @@ struct MapData
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
 	p2List<MapLayer*>	layers;
+	p2List<ImageLayer*> image_layers;
 };
 
 // ----------------------------------------------------
@@ -117,7 +155,7 @@ public:
 	bool CleanUp();
 
 	// Load new map
-	bool Load(const char* path);
+	bool Load(const char* path, int& map_length);
 
 
 	iPoint MapToWorld(int x, int y) const;
@@ -130,6 +168,7 @@ private:
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadColliders(pugi::xml_node& node);
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
+	bool LoadLogic(pugi::xml_node& node, int& map_length);
 
 	TileSet* GetTilesetFromTileId(int id) const;
 

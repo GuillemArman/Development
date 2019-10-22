@@ -36,6 +36,8 @@ public:
 	fPoint collider_move;
 	bool touchingFloor;
 	bool jump;
+	bool won;
+
 };
 
 #endif

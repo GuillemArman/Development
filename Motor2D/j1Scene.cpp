@@ -14,6 +14,15 @@
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
+
+	// Add all levels to the list
+	level* lvl1 = new level(1, "test.tmx");
+	level* lvl2 = new level(2, "platformer.tmx");
+
+	levels.add(lvl1);
+	levels.add(lvl2);
+
+	current_lvl = levels.start;
 }
 
 // Destructor
@@ -34,15 +43,15 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	background = App->tex->Load("textures/BG_.png");
+	App->map->Load(levels.start->data->mapPath.GetString(), current_lvl->data->length);
+	background = App->tex->Load("textures/BG_.png"); // Should add it throught tiled (ERASE ONCE DONE)
 	
-	App->map->Load("test.tmx");
+	
 	//App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 
 	pit_collider = App->collision->AddCollider({ 0, 0, 3000, 30 }, COLLIDER_PIT, this);
 	App->player->touchingFloor = false;
-	gravity_speed = 0.002f;
-	jump_speed = 0.01f;
+
 
 
 	return true;
@@ -61,15 +70,6 @@ bool j1Scene::Update(float dt)
 		//App->render->camera.x -= 1; // Coment this line for working
 	}
 
-
-	/*if (App->player->touchingFloor == false)
-	{
-	App->player->position.y += gravity_speed;
-	}
-	else if (App->player->touchingFloor == true)
-	{
-	App->player->position.y = 0.0f;
-	}*/
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
@@ -90,7 +90,28 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x += 4;
 
-	
+	if (App->player->position.x > current_lvl->data->length - 32 - App->player->animation->GetCurrentFrame().w)
+	{
+		if (end_reached == 0)
+		{
+			App->player->won = true;
+			end_reached = SDL_GetTicks();
+			if (current_lvl == levels.end)
+			{
+				// Should play Fx
+			}
+			else
+			{
+				//FX
+			}
+		}
+		if ((current_lvl == levels.end && SDL_GetTicks() > end_reached + 500) || (current_lvl != levels.end && SDL_GetTicks() > end_reached + 500))
+		{
+			end_reached = 0;
+			App->player->won = false;
+			App->scene->LoadLvl(0);
+		}
+	}
 
 	
 
@@ -133,4 +154,38 @@ bool j1Scene::CleanUp()
 	LOG("Freeing scene");
 
 	return true;
+}
+
+void j1Scene::LoadLvl(int num)
+{
+	if (num == 0)
+	{
+		current_lvl = current_lvl->next;
+		if (current_lvl == nullptr)
+		{
+			current_lvl = levels.start;
+		}
+	}
+	else
+	{
+		p2List_item<level*>* lvl = levels.start;
+		for (int i = 1; i < num; i++)
+		{
+			lvl = lvl->next;
+			if (lvl == nullptr)
+			{
+				LOG("There is no level %d to load", num);
+				break;
+			}
+		}
+		current_lvl = lvl;
+	}
+
+	if (current_lvl != nullptr)
+	{
+		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length);
+		// Restart player data
+		App->player->collider = nullptr; //Has to be null in order to be created
+		App->player->Start();
+	}
 }
