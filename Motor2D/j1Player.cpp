@@ -79,6 +79,8 @@ j1Player::j1Player()
 
 	left.speed = 0.007f;*/
 
+	position.x = 80;
+	position.y = 240;
 }
 
 j1Player::~j1Player()
@@ -103,6 +105,8 @@ bool j1Player::Start() {
 	if (player_collider == nullptr)
 		player_collider = App->collision->AddCollider({ 0, 0, 75, 110	 }, COLLIDER_PLAYER, this);
 
+	pit_collider = App->collision->AddCollider({ 0, 0, 3000, 30 }, COLLIDER_PIT, this);
+	pit_collider->SetPos(0, 750);
 
 	collidingFloor = nullptr;
 	colliding_bottom = false;
@@ -111,8 +115,7 @@ bool j1Player::Start() {
 
 	animation = &idle_right;
 
-	position.x = 80;
-	position.y = 240;
+	
 
 
 	virtualPosition.x = position.x;

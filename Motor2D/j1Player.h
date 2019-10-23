@@ -33,6 +33,7 @@ public:
 	bool isDead = false;
 	SDL_Texture* santa;
 	Collider* player_collider;
+	Collider* pit_collider;
 	fPoint collider_move;
 	bool touchingFloor;
 	bool jump;

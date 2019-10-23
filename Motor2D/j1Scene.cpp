@@ -50,10 +50,6 @@ bool j1Scene::Start()
 	
 	//App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 
-	pit_collider = App->collision->AddCollider({ 0, 0, 3000, 30 }, COLLIDER_PIT, this);
-	
-
-
 
 	return true;
 }
@@ -66,14 +62,16 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	if (App->render->camera.x > -1970)
-	{
+	//if (App->render->camera.x > -1970)
+	//{
 		//App->render->camera.x -= 1; // Coment this line for working
+	//}
+
+
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+
+		LoadLvl(1);
 	}
-
-
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		App->LoadGame("save_game.xml");
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
@@ -82,9 +80,11 @@ bool j1Scene::Update(float dt)
 		LoadLvl(0);
 	}
 		
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		App->SaveGame("save_game.xml");
 
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-			App->SaveGame("save_game.xml");
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+		App->LoadGame("save_game.xml");
 
 	//camera
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -103,16 +103,12 @@ bool j1Scene::Update(float dt)
 	App->win->GetWindowSize(win_width, win_height);
 	if (App->player->pos_relCam > (win_width / App->win->GetScale() / 10))
 	{
-		App->render->virtualCamPos -= App->player->speed * 2;
+		//App->render->virtualCamPos -= App->player->speed * 2;
 	}
 
 	App->render->Blit(background, 0, 0);
 	App->map->Draw();
 
-
-		
-
-	pit_collider->SetPos(0, 770);
 
 
 	// TODO 7: Set the window title like
@@ -174,6 +170,7 @@ void j1Scene::LoadLvl(int num)
 		App->map->Load(current_lvl->data->mapPath.GetString());
 		// Restart player data
 		App->player->player_collider = nullptr; //Has to be null in order to be created
+		pit_collider = nullptr;
 		App->player->Start();
 
 
