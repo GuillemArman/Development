@@ -196,6 +196,8 @@ bool j1Player::Update(float dt) {
 		if (jumps >= 2)
 			jump = true;
 
+		state = JUMPING;
+
 	}
 
 	player_collider->SetPos(virtualPosition.x + collider_move.x, virtualPosition.y + collider_move.y);

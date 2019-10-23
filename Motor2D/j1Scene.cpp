@@ -70,6 +70,8 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 
+		float time = 2.0f;
+		App->transition->FadeToBlack(App->scene, App->scene, time);
 		LoadLvl(1);
 	}
 
