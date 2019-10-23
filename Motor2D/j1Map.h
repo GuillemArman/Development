@@ -152,6 +152,7 @@ private:
 	bool LoadMap();
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
+	bool LoadImageLayer(pugi::xml_node& node, ImageLayer* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadColliders(pugi::xml_node& node);
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);

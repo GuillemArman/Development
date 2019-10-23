@@ -76,7 +76,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 
 	if (c2->type == COLLIDER_PIT)
 	{
-		App->player->isDead = true;
+		//App->player->isDead = true;
 		virtualPosition.x = 0;
 		virtualPosition.y = 0;
 		App->render->camera.x = 0;

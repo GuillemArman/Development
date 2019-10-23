@@ -203,6 +203,18 @@ bool j1Map::Load(const char* file_name)
 		data.tilesets.add(set);
 	}
 
+	pugi::xml_node image_layer;
+	for (image_layer = map_file.child("map").child("imagelayer"); image_layer && ret; image_layer = image_layer.next_sibling("imagelayer"))
+	{
+		ImageLayer* set = new ImageLayer();
+
+		if (ret == true)
+		{
+			ret = LoadImageLayer(image_layer, set);
+		}
+
+		data.image_layers.add(set);
+	}
 	
 	// Load layer info ----------------------------------------------
 	pugi::xml_node layer;
@@ -514,5 +526,21 @@ bool j1Map::LoadLogic(pugi::xml_node& node)
 			//map_length = property.attribute("value").as_int();
 		}
 	}
+	return ret;
+}
+
+bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* set)
+{
+	bool ret = true;
+
+	set->name = node.attribute("name").as_string();
+	set->offset_x = node.attribute("offsetx").as_int();
+	set->offset_y = node.attribute("offsety").as_int();
+
+	pugi::xml_node image = node.child("image");
+	set->width = image.attribute("width").as_int();
+	set->height = image.attribute("height").as_int();
+	set->texture = App->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
+
 	return ret;
 }

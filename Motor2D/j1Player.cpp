@@ -111,6 +111,10 @@ bool j1Player::Start() {
 
 	animation = &idle_right;
 
+	position.x = 80;
+	position.y = 240;
+
+
 	virtualPosition.x = position.x;
 	virtualPosition.y = position.y;
 
@@ -127,10 +131,10 @@ bool j1Player::CleanUp()
 	LOG("Unloading player");
 
 	App->tex->UnLoad(graphics);
-	if (collider != nullptr)
+	if (player_collider != nullptr)
 	{
-		collider->to_delete = true;
-		collider = nullptr;
+		player_collider->to_delete = true;
+		player_collider = nullptr;
 	}
 
 	return true;
