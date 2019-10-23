@@ -4,6 +4,8 @@
 #include "j1Collision.h"
 #include "j1Input.h"
 #include "j1Player.h"
+#include "j1Scene.h"
+#include "j1Transition.h"
 
 bool Entity::Entity_Update()
 {
@@ -76,7 +78,8 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 
 	if (c2->type == COLLIDER_PIT)
 	{
-		//App->player->isDead = true;
+		
+		////App->player->isDead = true;
 		virtualPosition.x = 0;
 		virtualPosition.y = 0;
 		App->render->camera.x = 0;

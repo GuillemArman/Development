@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "j1Collision.h"
 #include "j1Player.h"
+#include "j1Transition.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -75,7 +76,11 @@ bool j1Scene::Update(float dt)
 		App->LoadGame("save_game.xml");
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		float time = 2.0f;
+		App->transition->FadeToBlack(App->scene, App->scene, time);
 		LoadLvl(0);
+	}
 		
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
