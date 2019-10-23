@@ -10,9 +10,10 @@
 #include "j1Audio.h"
 #include "j1Scene.h"
 #include "j1Map.h"
+#include "j1App.h"
 #include "j1Collision.h"
 #include "j1Player.h"
-#include "j1App.h"
+
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -43,6 +44,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	// render last to swap buffer
 	AddModule(render);
+
+	save_game = load_game = "save_game.xml";
 }
 
 // Destructor

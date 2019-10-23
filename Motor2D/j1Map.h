@@ -66,25 +66,6 @@ struct ImageLayer
 	int offset_y;
 	int width;
 	int height;
-	fPoint position;
-	float speed = 0;
-	bool constant_movement = false;
-
-	ImageLayer()
-	{}
-
-	ImageLayer(ImageLayer* copy)
-	{
-		name = copy->name;
-		texture = copy->texture;
-		offset_x = copy->offset_x;
-		offset_y = copy->offset_y;
-		width = copy->width;
-		height = copy->height;
-		position = copy->position;
-		speed = copy->speed;
-		constant_movement = copy->constant_movement;
-	}
 
 	~ImageLayer()
 	{
@@ -112,6 +93,12 @@ struct TileSet
 	int					num_tiles_height;
 	int					offset_x;
 	int					offset_y;
+
+	~TileSet()
+	{
+		App->tex->UnLoad(texture);
+		texture = nullptr;
+	}
 };
 
 enum MapTypes
@@ -155,7 +142,7 @@ public:
 	bool CleanUp();
 
 	// Load new map
-	bool Load(const char* path, int& map_length);
+	bool Load(const char* path);
 
 
 	iPoint MapToWorld(int x, int y) const;
@@ -168,7 +155,7 @@ private:
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadColliders(pugi::xml_node& node);
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
-	bool LoadLogic(pugi::xml_node& node, int& map_length);
+	bool LoadLogic(pugi::xml_node& node);
 
 	TileSet* GetTilesetFromTileId(int id) const;
 

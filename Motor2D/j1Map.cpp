@@ -161,7 +161,7 @@ bool j1Map::CleanUp()
 }
 
 // Load new map
-bool j1Map::Load(const char* file_name, int& map_length)
+bool j1Map::Load(const char* file_name)
 {
 	bool ret = true;
 
@@ -229,7 +229,7 @@ bool j1Map::Load(const char* file_name, int& map_length)
 
 		else if (object_name == "Logic")
 		{
-			LoadLogic(object, map_length);
+			LoadLogic(object);
 		}
 	}
 
@@ -483,7 +483,7 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 	return ret;
 }
 
-bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length)
+bool j1Map::LoadLogic(pugi::xml_node& node)
 {
 	bool ret = true;
 
@@ -511,7 +511,7 @@ bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length)
 		p2SString name = property.attribute("name").as_string();
 		if (name == "map_length")
 		{
-			map_length = property.attribute("value").as_int();
+			//map_length = property.attribute("value").as_int();
 		}
 	}
 	return ret;

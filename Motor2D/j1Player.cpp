@@ -97,13 +97,19 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 bool j1Player::Start() {
 
+	if (graphics == nullptr)
 	graphics = App->tex->Load("textures/Sprites/SantaSprites/_Santa1.png");//placeholder for now
 
 	if (player_collider == nullptr)
 		player_collider = App->collision->AddCollider({ 0, 0, 75, 110	 }, COLLIDER_PLAYER, this);
 
-	animation = &idle_right;
 
+	collidingFloor = nullptr;
+	colliding_bottom = false;
+	colliding_left = false;
+	colliding_right = false;
+
+	animation = &idle_right;
 
 	virtualPosition.x = position.x;
 	virtualPosition.y = position.y;
@@ -237,7 +243,7 @@ bool j1Player::Save(pugi::xml_node& data) const
 
 	data.append_attribute("position_x") = position.x;
 	data.append_attribute("position_y") = position.y;
-	data.append_attribute("level") = App->scene->current_lvl->data->lvl;
+	//data.append_attribute("level") = App->scene->current_lvl->data->lvl;
 	return true;
 }
 

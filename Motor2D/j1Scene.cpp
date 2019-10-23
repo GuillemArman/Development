@@ -16,8 +16,8 @@ j1Scene::j1Scene() : j1Module()
 	name.create("scene");
 
 	// Add all levels to the list
-	level* lvl1 = new level(1, "test.tmx");
-	level* lvl2 = new level(2, "platformer.tmx");
+	level* lvl1 = new level("test.tmx");
+	level* lvl2 = new level("platformer.tmx");
 
 	levels.add(lvl1);
 	levels.add(lvl2);
@@ -43,14 +43,14 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load(levels.start->data->mapPath.GetString(), current_lvl->data->length);
+	App->map->Load(levels.start->data->mapPath.GetString()); //test.tmx
 	background = App->tex->Load("textures/BG_.png"); // Should add it throught tiled (ERASE ONCE DONE)
 	
 	
 	//App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 
 	pit_collider = App->collision->AddCollider({ 0, 0, 3000, 30 }, COLLIDER_PIT, this);
-	App->player->touchingFloor = false;
+	
 
 
 
@@ -75,7 +75,11 @@ bool j1Scene::Update(float dt)
 		App->LoadGame("save_game.xml");
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		App->SaveGame("save_game.xml");
+		LoadLvl(0);
+		
+
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+			App->SaveGame("save_game.xml");
 
 	//camera
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -90,38 +94,18 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x += 4;
 
-	if (App->player->position.x > current_lvl->data->length - 32 - App->player->animation->GetCurrentFrame().w)
+
+	App->win->GetWindowSize(win_width, win_height);
+	if (App->player->pos_relCam > (win_width / App->win->GetScale() / 10))
 	{
-		if (end_reached == 0)
-		{
-			App->player->won = true;
-			end_reached = SDL_GetTicks();
-			if (current_lvl == levels.end)
-			{
-				// Should play Fx
-			}
-			else
-			{
-				//FX
-			}
-		}
-		if ((current_lvl == levels.end && SDL_GetTicks() > end_reached + 500) || (current_lvl != levels.end && SDL_GetTicks() > end_reached + 500))
-		{
-			end_reached = 0;
-			App->player->won = false;
-			App->scene->LoadLvl(0);
-		}
+		App->render->virtualCamPos -= App->player->speed * 2;
 	}
-
-	
-
-
 
 	App->render->Blit(background, 0, 0);
 	App->map->Draw();
 
 
-	App->player->player_collider->SetPos(App->player->position.x, App->player->position.y); //need to resize	
+		
 
 	pit_collider->SetPos(0, 770);
 
@@ -180,12 +164,13 @@ void j1Scene::LoadLvl(int num)
 		}
 		current_lvl = lvl;
 	}
-
 	if (current_lvl != nullptr)
 	{
-		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length);
+		App->map->Load(current_lvl->data->mapPath.GetString());
 		// Restart player data
 		App->player->collider = nullptr; //Has to be null in order to be created
 		App->player->Start();
+
+
 	}
 }
