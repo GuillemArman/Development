@@ -74,6 +74,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 				v.y = 0;
 			}
 		}
+		App->player->jump = false;
 	}
 
 	if (c2->type == COLLIDER_PIT)

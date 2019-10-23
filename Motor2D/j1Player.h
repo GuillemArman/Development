@@ -36,7 +36,8 @@ public:
 	Collider* pit_collider;
 	fPoint collider_move;
 	bool touchingFloor;
-	bool jump;
+	bool jump = false;
+	int jumps = 0;
 	bool won;
 
 };

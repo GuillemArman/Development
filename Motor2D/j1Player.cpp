@@ -188,13 +188,14 @@ bool j1Player::Update(float dt) {
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump == false)
 	{
-		if (state != JUMPING)
-		{
-			v.y = jump_force;
-			state = JUMPING;
-		}
+		v.y = jump_force;
+		jumps += 1;
+
+		if (jumps >= 2)
+			jump = true;
+
 	}
 
 	player_collider->SetPos(virtualPosition.x + collider_move.x, virtualPosition.y + collider_move.y);
