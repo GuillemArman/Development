@@ -55,7 +55,8 @@ public:
 	Animation left;
 	Animation jumping_left;
 	Animation jumping_right;
-	Animation death;
+	Animation dying_right;
+	Animation dying_left;
 	int pos_relCam;
 
 	Collider* collider;

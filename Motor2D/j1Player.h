@@ -7,6 +7,8 @@
 #include "Animation.h"
 #include "PugiXml\src\pugixml.hpp"
 
+#define diff 50;
+
 struct SDL_Texture;
 struct Collider;
 
@@ -30,7 +32,7 @@ public:
 
 public:
 
-	bool isDead = false;
+	bool isDead;
 	SDL_Texture* santa;
 	Collider* player_collider;
 	Collider* pit_collider;
@@ -40,6 +42,9 @@ public:
 	int jumps = 0;
 	bool won;
 
+	//FX
+	uint jump_sound;
+	uint walking_sound;
 };
 
 #endif

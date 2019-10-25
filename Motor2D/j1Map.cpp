@@ -426,7 +426,14 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 		{
 			collider_type = COLLIDER_FLOOR;
 		}
-
+		else if (type == "pit")
+		{
+			collider_type = COLLIDER_PIT;
+		}
+		else if (type == "end")
+		{
+			collider_type = COLLIDER_END;
+		}
 		else
 		{
 			LOG("Collider type undefined");

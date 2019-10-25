@@ -52,11 +52,12 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 			}
 			collidingFloor = c2;
 		}
-		else if ((c2->rect.x + 4) >(c1->rect.x + (c1->rect.w))) // Collision is from right
+		else if ((c2->rect.x + 7) >(c1->rect.x + (c1->rect.w))) // Collision is from right
 		{
 			if (v.x > 0)
 			{
 				v.x = 0;
+				state = IDLE;
 			}
 			colliding_right = true;
 		}
@@ -65,6 +66,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 			if (v.x < 0)
 			{
 				v.x = 0;
+				state = IDLE;
 			}
 			colliding_left = true;
 		}
@@ -80,11 +82,19 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 
 	if (c2->type == COLLIDER_PIT)
 	{
-		App->player->isDead = true;
-		/*virtualPosition.x = 90; // No need magic numbers. Need to load initial position
-		virtualPosition.y = 90;*/
+		/*App->player->isDead = true;
+		state = DEAD;*/
+		state = IDLE;
+		virtualPosition.x = 0;
+		virtualPosition.y = 0;
 		App->render->camera.x = 0;
 		App->render->camera.y = 0;
+		App->render->virtualCamPos = App->render->camera.x;
+	}
+
+	if (c2->type == COLLIDER_END)
+	{
+		App->scene->LoadLvl(0);
 	}
 }
 
@@ -135,6 +145,18 @@ void Entity::setAnimation()
 			{
 				animation = &jumping_right;
 			}
+		}
+		else if (state == DEAD)
+		{
+			if (animation == &idle_right || animation == &right || animation == &jumping_right)
+			{
+				animation = &dying_right;
+			}
+			else if (animation == &idle_left || animation == &left || animation == &jumping_left)
+			{
+				animation = &dying_left;
+			}
+
 		}
 	}
 }

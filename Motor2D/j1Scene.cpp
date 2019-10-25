@@ -17,8 +17,8 @@ j1Scene::j1Scene() : j1Module()
 	name.create("scene");
 
 	// Add all levels to the list
-	level* lvl1 = new level("test.tmx");
-	level* lvl2 = new level("platformer.tmx");
+	level* lvl1 = new level(1,"test.tmx");
+	level* lvl2 = new level(2,"platformer.tmx");
 
 	levels.add(lvl1);
 	levels.add(lvl2);
@@ -82,11 +82,16 @@ bool j1Scene::Update(float dt)
 		LoadLvl(0);
 	}
 		
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	{
+		App->player->state = DEAD;
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-		App->SaveGame("save_game.xml");
+		App->SaveGame();
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-		App->LoadGame("save_game.xml");
+		App->LoadGame();
 
 	//camera
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -103,9 +108,10 @@ bool j1Scene::Update(float dt)
 
 
 	App->win->GetWindowSize(win_width, win_height);
-	if (App->player->pos_relCam > (win_width / App->win->GetScale() / 10))
+	if (App->player->pos_relCam > (win_width / App->win->GetScale() / 2))
 	{
-		//App->render->virtualCamPos -= App->player->speed * 2;
+		App->render->virtualCamPos -= App->player->speed * 1;
+		
 	}
 
 	App->render->Blit(background, 0, 0);
@@ -172,7 +178,6 @@ void j1Scene::LoadLvl(int num)
 		App->map->Load(current_lvl->data->mapPath.GetString());
 		// Restart player data
 		App->player->player_collider = nullptr; //Has to be null in order to be created
-		pit_collider = nullptr;
 		App->player->Start();
 
 

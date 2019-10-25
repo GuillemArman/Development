@@ -57,6 +57,7 @@ public:
 			pugi::xml_node animation_name = animations_file.child("test").child(name.GetString());
 			speed = animation_name.attribute("speed").as_float();
 
+			loop = animation_name.attribute("loop").as_bool();
 
 
 			for (pugi::xml_node frames = animation_name.child("frame"); frames; frames = frames.next_sibling("frame"))

@@ -7,6 +7,7 @@
 #include "p2Log.h"
 #include "j1Window.h"
 #include "j1Scene.h"
+#include "j1Audio.h"
 #include <stdio.h>
 
 j1Player::j1Player() 
@@ -19,6 +20,8 @@ j1Player::j1Player()
 	left.Animation_XML("left");
 	jumping_right.Animation_XML("jumping_right");
 	jumping_left.Animation_XML("jumping_left");
+	dying_right.Animation_XML("dying_right");
+	dying_left.Animation_XML("dying_left");
 
 	idle_right.PushBack({ 304, 308, 73, 113 });
 	idle_right.PushBack({ 494, 308, 73, 113 });
@@ -111,8 +114,6 @@ bool j1Player::Start() {
 	if (player_collider == nullptr)
 		player_collider = App->collision->AddCollider({ 0, 0, 75, 110	 }, COLLIDER_PLAYER, this);
 
-	pit_collider = App->collision->AddCollider({ 0, 0, 3000, 30 }, COLLIDER_PIT, this);
-	pit_collider->SetPos(0, 750);
 
 	collidingFloor = nullptr;
 	colliding_bottom = false;
@@ -126,6 +127,10 @@ bool j1Player::Start() {
 	virtualPosition.y = position.y;
 
 	isDead = false;
+
+	//LOADING PLAYER FX
+	jump_sound = App->audio->LoadFx("audio/sfx/jump_fx.ogg");
+	walking_sound = App->audio->LoadFx("audio/sfx/walk_fx.ogg");
 
 	return true;
 
@@ -161,6 +166,7 @@ bool j1Player::Update(float dt) {
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
 	{
+		App->audio->PlayFx(walking_sound, 1);
 		v.x = -speed;
 		if (state != JUMPING && state != DEAD)
 		{
@@ -177,6 +183,7 @@ bool j1Player::Update(float dt) {
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
 	{
+		App->audio->PlayFx(walking_sound, 1);
 		v.x = speed;
 		if (state != JUMPING && state != DEAD)
 		{
@@ -194,6 +201,9 @@ bool j1Player::Update(float dt) {
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump == false)
 	{
+
+		App->audio->PlayFx(jump_sound);
+
 		v.y = jump_force;
 		jumps += 1;
 
@@ -244,10 +254,10 @@ bool j1Player::PostUpdate() {
 
 bool j1Player::Load(pugi::xml_node& data)
 {
-	//loading player pos from xml
+	//Load player from xml
 	App->scene->LoadLvl(data.attribute("level").as_int());
 	virtualPosition.x = data.attribute("position_x").as_int();
-	virtualPosition.y = data.attribute("position_y").as_int();
+	virtualPosition.y = data.attribute("position_y").as_int() - diff; // diff is a value that makes sures that the player doesn't restart inside the collider
 	return true;
 
 }
@@ -258,7 +268,7 @@ bool j1Player::Save(pugi::xml_node& data) const
 
 	data.append_attribute("position_x") = position.x;
 	data.append_attribute("position_y") = position.y;
-	//data.append_attribute("level") = App->scene->current_lvl->data->lvl;
+	data.append_attribute("level") = App->scene->current_lvl->data->lvl;
 	return true;
 }
 
