@@ -13,6 +13,12 @@ j1Player::j1Player()
 {
 	name.create("player");
 
+	idle_right.Animation_XML("idle_right");
+	idle_left.Animation_XML("idle_left");
+	right.Animation_XML("right");
+	left.Animation_XML("left");
+	jumping_right.Animation_XML("jumping_right");
+	jumping_left.Animation_XML("jumping_left");
 
 	idle_right.PushBack({ 304, 308, 73, 113 });
 	idle_right.PushBack({ 494, 308, 73, 113 });
@@ -114,8 +120,6 @@ bool j1Player::Start() {
 	colliding_right = false;
 
 	animation = &idle_right;
-
-	
 
 
 	virtualPosition.x = position.x;
@@ -232,7 +236,8 @@ bool j1Player::PostUpdate() {
 
 	App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame());
 
-
+	LOG("%d", position.x);
+	LOG("%f", App->render->virtualCamPos);
 
 	return true;
 }

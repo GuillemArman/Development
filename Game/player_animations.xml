@@ -1,0 +1,81 @@
+<test>
+
+	<idle_right speed="0.2f">
+		<frame x="7" y="31" width="124" height="133"/>
+		<frame x="236" y="31" width="124" height="133"/>
+		<frame x="465" y="31" width="124" height="133"/>
+		<frame x="7" y="192" width="124" height="133"/>
+		<frame x="236" y="192" width="124" height="133"/>
+		<frame x="465" y="192" width="126" height="133"/>
+		<frame x="7" y="352" width="126" height="133"/>
+		<frame x="236" y="352" width="126" height="133"/>
+		<frame x="465" y="352" width="126" height="133"/>
+		<frame x="7" y="509" width="124" height="133"/>
+	</idle_right>
+
+		<idle_left speed="0.2f">
+		<frame x="2882" y="31" width="124" height="133"/>
+		<frame x="2654" y="32" width="124" height="133"/>
+		<frame x="2424" y="33" width="124" height="133"/>
+		<frame x="2882" y="190" width="124" height="133"/>
+		<frame x="2654" y="190" width="124" height="133"/>
+		<frame x="2424" y="190" width="126" height="133"/>
+		<frame x="2882" y="349" width="126" height="133"/>
+		<frame x="2654" y="349" width="126" height="133"/>
+		<frame x="2424" y="349" width="126" height="133"/>
+		<frame x="2882" y="508" width="124" height="133"/>
+	</idle_left>
+
+		<right speed="0.2f">
+		<frame x="9" y="825" width="144" height="142"/>
+		<frame x="239" y="825" width="141" height="146"/>
+		<frame x="459" y="825" width="149" height="128"/>
+		<frame x="9" y="995" width="141" height="141"/>
+		<frame x="239" y="995" width="143" height="133"/>
+		<frame x="459" y="995" width="149" height="134"/>
+		<frame x="9" y="1144" width="139" height="138"/>
+		<frame x="239" y="1144" width="141" height="152"/>
+	</right>
+
+		<left speed="0.2f">
+		<frame x="2861" y="847" width="141" height="120"/>
+		<frame x="2635" y="837" width="133" height="135"/>
+		<frame x="2406" y="827" width="142" height="125"/>
+		<frame x="2864" y="996" width="133" height="140"/>
+		<frame x="2632" y="1007" width="141" height="122"/>
+		<frame x="2406" y="996" width="132" height="134"/>
+		<frame x="2867" y="1145" width="131" height="137"/>
+		<frame x="2635" y="1156" width="133" height="141"/>
+	</left>
+
+		<jumping_right speed="0.24f">
+		<frame x="7" y="31" width="124" height="132"/>
+		<frame x="907" y="54" width="129" height="113"/>
+		<frame x="1137" y="55" width="127" height="112"/>
+		<frame x="677" y="210" width="128" height="128"/>
+		<frame x="895" y="190" width="139" height="136"/>
+		<frame x="1124" y="190" width="139" height="134"/>
+		<frame x="665" y="349" width="139" height="132"/>
+		<frame x="894" y="349" width="139" height="133"/>
+		<frame x="1124" y="349" width="139" height="135"/>
+		<frame x="665" y="511" width="135" height="150"/>
+		<frame x="894" y="517" width="136" height="137"/>
+		<frame x="1121" y="519" width="135" height="127"/>
+	</jumping_right>
+
+		<jumping_left speed="0.24f">
+		<frame x="2233" y="34" width="124" height="132"/>
+		<frame x="1978" y="54" width="129" height="113"/>
+		<frame x="1749" y="55" width="127" height="112"/>
+		<frame x="2208" y="210" width="128" height="128"/>
+		<frame x="1980" y="190" width="139" height="136"/>
+		<frame x="1750" y="190" width="138" height="134"/>
+		<frame x="2210" y="349" width="139" height="132"/>
+		<frame x="1980" y="349" width="139" height="133"/>
+		<frame x="1751" y="349" width="139" height="135"/>
+		<frame x="2210" y="511" width="135" height="150"/>
+		<frame x="1984" y="517" width="136" height="137"/>
+		<frame x="1757" y="519" width="135" height="127"/>
+	</jumping_left>
+
+</test> 

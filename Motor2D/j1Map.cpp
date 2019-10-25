@@ -236,8 +236,13 @@ bool j1Map::Load(const char* file_name)
 		if (object_name == "Collision")
 		{
 			LoadColliders(object);
-			break;
 		}
+
+		else if (object_name == "Logic")
+		{
+			LoadLogic(object);
+		}
+		
 
 		else if (object_name == "Logic")
 		{
