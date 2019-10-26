@@ -204,32 +204,42 @@ bool j1Player::Update(float dt) {
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump == false)
 	{
-
 		if (GodMode == false)
 		{
 			App->audio->PlayFx(jump_sound);
 			v.y = jump_force;
 			jumps += 1;
 
-		if (jumps >= 2)
-			jump = true;
+			if (jumps >= 2)
+				jump = true;
 
-		state = JUMPING;
-
-	}
-
-		// ONLY DURING GODMODE 
-
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && GodMode == true)
-		{
-			v.y += 5;
-		}
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_UP && GodMode == true)
-		{
-			v.y = 0;
+			state = JUMPING;
 		}
 
 	}
+
+	// ONLY DURING GODMODE 
+
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && GodMode == true)
+	{
+		v.y += 5;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP && GodMode == true)
+	{
+		v.y = 0;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && GodMode == true)
+	{
+		v.y -= 5;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_UP && GodMode == true)
+	{
+		v.y = 0;
+	}
+
 
 	player_collider->SetPos(virtualPosition.x + collider_move.x, virtualPosition.y + collider_move.y);
 	App->player->colliding_left = false;
