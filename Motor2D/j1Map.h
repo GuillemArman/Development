@@ -66,6 +66,24 @@ struct ImageLayer
 	int offset_y;
 	int width;
 	int height;
+	fPoint position;
+	float speed = 0;
+	bool constant_movement = false;
+
+	ImageLayer()
+	{}
+	ImageLayer(ImageLayer* copy)
+	{
+		name = copy->name;
+		texture = copy->texture;
+		offset_x = copy->offset_x;
+		offset_y = copy->offset_y;
+		width = copy->width;
+		height = copy->height;
+		position = copy->position;
+		speed = copy->speed;
+		constant_movement = copy->constant_movement;
+	}
 
 	~ImageLayer()
 	{

@@ -6,10 +6,10 @@
 	<audio />
 	<map />
 	<scene />
-	<player position_x="445" position_y="567" level="1" />
+	<player position_x="813" position_y="338" level="1" />
 	<:anonymous />
 	<fade />
 	<renderer>
-		<camera x="-25" y="0" />
+		<camera x="-297" y="0" />
 	</renderer>
 </game_state>

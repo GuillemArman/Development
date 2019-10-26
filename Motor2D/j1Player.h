@@ -45,6 +45,7 @@ public:
 	//FX
 	uint jump_sound;
 	uint walking_sound;
+	uint dead_sound;
 };
 
 #endif

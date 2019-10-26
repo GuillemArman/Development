@@ -85,8 +85,8 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 		/*App->player->isDead = true;
 		state = DEAD;*/
 		state = IDLE;
-		virtualPosition.x = 0;
-		virtualPosition.y = 0;
+		virtualPosition.x = 340;
+		virtualPosition.y = 300;
 		App->render->camera.x = 0;
 		App->render->camera.y = 0;
 		App->render->virtualCamPos = App->render->camera.x;
@@ -157,6 +157,6 @@ void Entity::setAnimation()
 				animation = &dying_left;
 			}
 
-		}
+		} 
 	}
 }

@@ -34,6 +34,18 @@ void j1Map::Draw()
 	if(map_loaded == false)
 		return;
 
+	p2List_item<ImageLayer*>* image = nullptr;
+	for (image = data.image_layers.start; image; image = image->next)
+	{
+		SDL_Texture* texture = image->data->texture;
+		SDL_Rect section = { 0, 0, image->data->width, image->data->height };
+		if (image->data->position.x < -image->data->width)
+		{
+			image->data->position.x = image->data->width;
+		}
+		App->render->Blit(texture, image->data->position.x, image->data->position.y, &section);
+	}
+
 	p2List_item<MapLayer*>* item = data.layers.start;
 
 	for (; item != NULL; item = item->next)
@@ -554,5 +566,18 @@ bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* set)
 	set->height = image.attribute("height").as_int();
 	set->texture = App->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
 
+	pugi::xml_node property;
+	for (property = node.child("properties").child("property"); property; property = property.next_sibling("property"))
+	{
+		p2SString name = property.attribute("name").as_string();
+		if (name == "speed")
+		{
+			set->speed = property.attribute("value").as_float();
+		}
+		if (name == "constant_movement")
+		{
+			set->constant_movement = property.attribute("value").as_bool();
+		}
+	}
 	return ret;
 }

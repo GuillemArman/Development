@@ -45,8 +45,7 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	App->map->Load(levels.start->data->mapPath.GetString()); //test.tmx
-	background = App->tex->Load("textures/BG_.png"); // Should add it throught tiled (ERASE ONCE DONE)
-	
+
 	
 	//App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 
@@ -84,6 +83,7 @@ bool j1Scene::Update(float dt)
 		
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
+		App->audio->PlayFx(App->player->dead_sound);
 		App->player->state = DEAD;
 	}
 
@@ -114,7 +114,7 @@ bool j1Scene::Update(float dt)
 		
 	}
 
-	App->render->Blit(background, 0, 0);
+	
 	App->map->Draw();
 
 
