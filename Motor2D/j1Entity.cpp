@@ -5,11 +5,19 @@
 #include "j1Input.h"
 #include "j1Player.h"
 #include "j1Scene.h"
-#include "j1Transition.h"
 #include "p2Log.h"
 
 bool Entity::Entity_Update()
 {
+	if (App->player->GodMode == false)
+	{
+		gravity = -1.5f;
+	}
+	else if (App->player->GodMode == true)
+	{
+		gravity = 0.0f;
+	}
+
 	v.y += (gravity * ((colliding_bottom) ? 0 : 1));
 	if (v.y < -1)
 		v.y = -13;
@@ -82,19 +90,33 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 
 	if (c2->type == COLLIDER_PIT)
 	{
-		/*App->player->isDead = true;
-		state = DEAD;*/
-		state = IDLE;
-		virtualPosition.x = 340;
-		virtualPosition.y = 300;
-		App->render->camera.x = 0;
-		App->render->camera.y = 0;
-		App->render->virtualCamPos = App->render->camera.x;
-	}
 
-	if (c2->type == COLLIDER_END)
-	{
-		App->scene->LoadLvl(0);
+		if (App->player->GodMode == false)
+		{
+			/*App->player->isDead = true;
+			state = DEAD;*/
+			state = IDLE;
+
+			App->player->isDead = true;
+
+
+			App->player->virtualPosition.x = 340;
+			App->player->virtualPosition.y = 300;
+			App->render->camera.x = 0;
+			App->render->camera.y = 0;
+			App->render->virtualCamPos = App->render->camera.x;
+
+		}
+
+		/*else
+		{
+		gravity = 0.0f;
+		}*/
+
+		if (c2->type == COLLIDER_END)
+		{
+			App->scene->LoadLvl(0);
+		}
 	}
 }
 

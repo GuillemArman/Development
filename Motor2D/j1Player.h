@@ -28,7 +28,7 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 	void OnCollision(Collider* c1, Collider* c2);
-	/*iPoint GetPosition();*/ //FUNCTION TO MAKE PRIVATE POSITION, PUBLIC IS MESSY CODE
+	
 
 public:
 
@@ -40,6 +40,7 @@ public:
 	bool touchingFloor;
 	bool jump = false;
 	int jumps = 0;
+	bool GodMode;
 	bool won;
 
 	//FX

@@ -110,7 +110,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 bool j1Player::Start() {
 
 	if (graphics == nullptr)
-	graphics = App->tex->Load("textures/Sprites/SantaSprites/_Santa1.png");//placeholder for now
+	graphics = App->tex->Load("textures/Sprites/SantaSprites/_Santa1.png");
 
 	if (player_collider == nullptr)
 		player_collider = App->collision->AddCollider({ 0, 0, 75, 110	 }, COLLIDER_PLAYER, this);
@@ -128,6 +128,7 @@ bool j1Player::Start() {
 	virtualPosition.y = position.y;
 
 	isDead = false;
+	GodMode = false;
 
 	//LOADING PLAYER FX
 	jump_sound = App->audio->LoadFx("audio/fx/jump_fx.ogg");
@@ -204,10 +205,11 @@ bool j1Player::Update(float dt) {
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump == false)
 	{
 
-		App->audio->PlayFx(jump_sound);
-
-		v.y = jump_force;
-		jumps += 1;
+		if (GodMode == false)
+		{
+			App->audio->PlayFx(jump_sound);
+			v.y = jump_force;
+			jumps += 1;
 
 		if (jumps >= 2)
 			jump = true;
@@ -216,11 +218,16 @@ bool j1Player::Update(float dt) {
 
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-	{
-		state = DEAD;
-		isDead = true;
+		// ONLY DURING GODMODE 
 
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && GodMode == true)
+		{
+			v.y += 5;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_UP && GodMode == true)
+		{
+			v.y = 0;
+		}
 
 	}
 

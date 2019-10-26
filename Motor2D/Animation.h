@@ -2,7 +2,7 @@
 #define __ANIMATION_H__
 
 #include "SDL/include/SDL_rect.h"
-#define MAX_FRAMES 25
+#define MAX_FRAMES 60
 
 class Animation
 {
@@ -15,7 +15,7 @@ private:
 	float current_frame = 0.0f;
 	int last_frame = 0;
 	int loops = 0;
-	/*pugi::xml_document player_animations_file;*/
+	
 	pugi::xml_document	file;
 	
 
@@ -36,27 +36,6 @@ public:
 	}
 
 	
-
-	void Animation_XML(p2SString name)
-	{
-		pugi::xml_parse_result result = file.load_file("player_animations.xml");
-		if (result != NULL)
-		{
-			pugi::xml_node animation = file.child("test").child(name.GetString());
-			speed = animation.attribute("speed").as_float();
-
-			loop = animation.attribute("loop").as_bool();
-
-
-			for (pugi::xml_node frames = animation.child("frame"); frames; frames = frames.next_sibling("frame"))
-			{
-				PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("width").as_int(), frames.attribute("height").as_int() });
-			}
-
-		}
-
-	}
-
 	
 
 	
@@ -81,6 +60,26 @@ public:
 	{
 		loops = 0;
 		current_frame = 0.0f;
+	}
+
+	void Animation_XML(p2SString name)//To load animations from xml file
+	{
+		pugi::xml_parse_result result = file.load_file("player_animations.xml");
+		if (result != NULL)
+		{
+			pugi::xml_node animation = file.child("test").child(name.GetString());
+
+			speed = animation.attribute("speed").as_float();
+			loop = animation.attribute("loop").as_bool();
+
+
+			for (pugi::xml_node frames = animation.child("frame"); frames; frames = frames.next_sibling("frame"))
+			{
+				PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("width").as_int(), frames.attribute("height").as_int() });
+			}
+
+		}
+
 	}
 
 
