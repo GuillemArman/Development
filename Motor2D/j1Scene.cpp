@@ -17,8 +17,9 @@ j1Scene::j1Scene() : j1Module()
 	name.create("scene");
 
 	// Add all levels to the list
-	level* lvl1 = new level(1,"Level1.tmx");
-	level* lvl2 = new level(2,"Level2.tmx");
+	level* lvl2 = new level(1, "Level2.tmx");
+	level* lvl1 = new level(2,"Level1.tmx");
+	
 
 	levels.add(lvl1);
 	levels.add(lvl2);

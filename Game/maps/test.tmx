@@ -2392,6 +2392,6 @@
   <properties>
    <property name="map_length" type="int" value="2500"/>
   </properties>
-  <object id="12" name="player_start_pos" x="210.833" y="525.167" width="21" height="33"/>
+  <object id="12" name="player_start_pos" x="326.833" y="510.5" width="21" height="33"/>
  </objectgroup>
 </map>
