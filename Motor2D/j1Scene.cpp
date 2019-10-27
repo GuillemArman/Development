@@ -17,8 +17,8 @@ j1Scene::j1Scene() : j1Module()
 	name.create("scene");
 
 	// Add all levels to the list
-	level* lvl2 = new level(1, "Level2.tmx");
-	level* lvl1 = new level(2,"Level1.tmx");
+	level* lvl1 = new level(1, "Level2.tmx");
+	level* lvl2 = new level(2,"Level1.tmx");
 	
 
 	levels.add(lvl1);
@@ -46,9 +46,7 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	App->map->Load(levels.start->data->mapPath.GetString()); //test.tmx
-
-	
-	//App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
+	App->audio->PlayMusic("audio/music/ambient_music.wav");
 
 
 	return true;
@@ -68,27 +66,29 @@ bool j1Scene::Update(float dt)
 	//}
 
 
+
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 
-		
+
 		LoadLvl(1);
+
 	}
+
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
-		
-	
+
+		LoadLvl(2);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	{
 		if (current_lvl->data->lvl == 2)
 			LoadLvl(2);
 		else
 			LoadLvl(1);
 	}
-		
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-	{
-		App->audio->PlayFx(App->player->dead_sound);
-		App->player->state = DEAD;
-	}
+
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
