@@ -66,34 +66,42 @@
 		<frame x="924" y="2451" width="70" height="115"/>
 	</left>
 
-		<jumping_right speed="0.24f">
-		<frame x="7" y="31" width="124" height="132"/>
-		<frame x="907" y="54" width="129" height="113"/>
-		<frame x="1137" y="55" width="127" height="112"/>
-		<frame x="677" y="210" width="128" height="128"/>
-		<frame x="895" y="190" width="139" height="136"/>
-		<frame x="1124" y="190" width="139" height="134"/>
-		<frame x="665" y="349" width="139" height="132"/>
-		<frame x="894" y="349" width="139" height="133"/>
-		<frame x="1124" y="349" width="139" height="135"/>
-		<frame x="665" y="511" width="135" height="150"/>
-		<frame x="894" y="517" width="136" height="137"/>
-		<frame x="1121" y="519" width="135" height="127"/>
+	<jumping_right speed="0.24f" loop="true">
+		<frame x="114" y="569" width="73" height="113"/>
+		<frame x="313" y="572" width="72" height="110"/>
+		<frame x="506" y="575" width="72" height="107"/>
+		<frame x="697" y="575" width="71" height="107"/>
+		<frame x="882" y="572" width="72" height="115"/>
+		<frame x="1060" y="569" width="89" height="115"/>
+		<frame x="1241" y="567" width="98" height="111"/>
+		<frame x="1429" y="567" width="100" height="111"/>
+		<frame x="100" y="697" width="100" height="112"/>
+		<frame x="288" y="697" width="102" height="113"/>
+		<frame x="478" y="697" width="101" height="113"/>
+		<frame x="667" y="697" width="102" height="114"/>
+		<frame x="857" y="697" width="102" height="114"/>
+		<frame x="1060" y="699" width="88" height="118"/>
+		<frame x="1259" y="701" width="74" height="116"/>
+		<frame x="1452" y="702" width="71" height="113"/>
 	</jumping_right>
 
-		<jumping_left speed="0.24f">
-		<frame x="2233" y="34" width="124" height="132"/>
-		<frame x="1978" y="54" width="129" height="113"/>
-		<frame x="1749" y="55" width="127" height="112"/>
-		<frame x="2208" y="210" width="128" height="128"/>
-		<frame x="1980" y="190" width="139" height="136"/>
-		<frame x="1750" y="190" width="138" height="134"/>
-		<frame x="2210" y="349" width="139" height="132"/>
-		<frame x="1980" y="349" width="139" height="133"/>
-		<frame x="1751" y="349" width="139" height="135"/>
-		<frame x="2210" y="511" width="135" height="150"/>
-		<frame x="1984" y="517" width="136" height="137"/>
-		<frame x="1757" y="519" width="135" height="127"/>
+		<jumping_left speed="0.24f" loop="1">
+		<frame x="1496" y="2061" width="73" height="113"/>
+		<frame x="1298" y="2064" width="72" height="110"/>
+		<frame x="1105" y="2067" width="72" height="107"/>
+		<frame x="915" y="2067" width="71" height="107"/>
+		<frame x="729" y="2064" width="72" height="115"/>
+		<frame x="534" y="2061" width="89" height="115"/>
+		<frame x="344" y="2059" width="98" height="111"/>
+		<frame x="154" y="2059" width="100" height="111"/>
+		<frame x="1483" y="2189" width="100" height="112"/>
+		<frame x="1293" y="2189" width="102" height="113"/>
+		<frame x="1104" y="2189" width="101" height="113"/>
+		<frame x="914" y="2189" width="102" height="114"/>
+		<frame x="724" y="2189" width="102" height="114"/>
+		<frame x="535" y="2191" width="88" height="118"/>
+		<frame x="350" y="2193" width="74" height="116"/>
+		<frame x="160" y="2194" width="71" height="113"/>
 	</jumping_left>
 
 </test> 
