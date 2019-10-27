@@ -113,10 +113,11 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 		gravity = 0.0f;
 		}*/
 
-		if (c2->type == COLLIDER_END)
-		{
-			App->scene->LoadLvl(0);
-		}
+		
+	}
+	if (c2->type == COLLIDER_END)
+	{
+		App->scene->LoadLvl(0);
 	}
 }
 
