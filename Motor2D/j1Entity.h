@@ -43,10 +43,10 @@ public:
 	iPoint position;
 	fPoint virtualPosition;
 	fPoint v;
-	bool colliding_bottom;
-	bool colliding_right;
-	bool colliding_left;
-	bool colliding_top;
+	bool colliding_bottom = false;
+	bool colliding_right = false;
+	bool colliding_left = false;
+	bool colliding_top = false;
 	entity_state state;
 	SDL_Texture* graphics = nullptr;
 	Animation* animation = nullptr;

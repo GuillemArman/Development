@@ -31,9 +31,8 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 void j1Map::Draw()
 {
-	if(map_loaded == false)
+	if (map_loaded == false)
 		return;
-
 	p2List_item<ImageLayer*>* image = nullptr;
 	for (image = data.image_layers.start; image; image = image->next)
 	{
@@ -45,7 +44,6 @@ void j1Map::Draw()
 		}
 		App->render->Blit(texture, image->data->position.x, image->data->position.y, &section);
 	}
-
 	p2List_item<MapLayer*>* item = data.layers.start;
 
 	for (; item != NULL; item = item->next)
@@ -138,7 +136,7 @@ bool j1Map::CleanUp()
 	p2List_item<TileSet*>* item;
 	item = data.tilesets.start;
 
-	while(item != NULL)
+	while (item != NULL)
 	{
 		RELEASE(item->data);
 		item = item->next;
@@ -176,7 +174,6 @@ bool j1Map::CleanUp()
 bool j1Map::Load(const char* file_name)
 {
 	bool ret = true;
-
 	CleanUp();
 	App->collision->CleanUp();
 
@@ -184,30 +181,30 @@ bool j1Map::Load(const char* file_name)
 
 	pugi::xml_parse_result result = map_file.load_file(tmp.GetString());
 
-	if(result == NULL)
+	if (result == NULL)
 	{
 		LOG("Could not load map xml file %s. pugi error: %s", file_name, result.description());
 		ret = false;
 	}
 
 	// Load general info ----------------------------------------------
-	if(ret == true)
+	if (ret == true)
 	{
 		ret = LoadMap();
 	}
 
 	// Load all tilesets info ----------------------------------------------
 	pugi::xml_node tileset;
-	for(tileset = map_file.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
+	for (tileset = map_file.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
 	{
 		TileSet* set = new TileSet();
 
-		if(ret == true)
+		if (ret == true)
 		{
 			ret = LoadTilesetDetails(tileset, set);
 		}
 
-		if(ret == true)
+		if (ret == true)
 		{
 			ret = LoadTilesetImage(tileset, set);
 		}
@@ -227,7 +224,6 @@ bool j1Map::Load(const char* file_name)
 
 		data.image_layers.add(set);
 	}
-	
 	// Load layer info ----------------------------------------------
 	pugi::xml_node layer;
 	for (layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
@@ -248,28 +244,21 @@ bool j1Map::Load(const char* file_name)
 		if (object_name == "Collision")
 		{
 			LoadColliders(object);
-		}
 
-		else if (object_name == "Logic")
-		{
-			LoadLogic(object);
 		}
-		
-
 		else if (object_name == "Logic")
 		{
 			LoadLogic(object);
 		}
 	}
-
-	if(ret == true)
+	if (ret == true)
 	{
 		LOG("Successfully parsed map XML file: %s", file_name);
 		LOG("width: %d height: %d", data.width, data.height);
 		LOG("tile_width: %d tile_height: %d", data.tile_width, data.tile_height);
 
 		p2List_item<TileSet*>* item = data.tilesets.start;
-		while(item != NULL)
+		while (item != NULL)
 		{
 			TileSet* s = item->data;
 			LOG("Tileset ----");
@@ -279,10 +268,10 @@ bool j1Map::Load(const char* file_name)
 			item = item->next;
 		}
 
-		
-		
+
+
 		p2List_item<MapLayer*>* item_layer = data.layers.start;
-		while(item_layer != NULL)
+		while (item_layer != NULL)
 		{
 			MapLayer* l = item_layer->data;
 			LOG("Layer ----");

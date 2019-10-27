@@ -64,7 +64,7 @@ private:
 	uint win_width;
 	uint win_height;
 
-	SDL_Texture* background;
+	SDL_Texture* background = nullptr;
 	Collider* pit_collider = nullptr;
 
 	
