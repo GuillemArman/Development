@@ -220,6 +220,7 @@ bool j1Player::PostUpdate() {
 
 	int win_scale = App->win->GetScale();
 	pos_relCam = App->player->position.x + App->render->camera.x / win_scale;
+	
 
 	/*if (position.y > App->win->screen_surface->h / win_scale + 50 && !won)
 	{

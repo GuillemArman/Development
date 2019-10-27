@@ -124,6 +124,12 @@ bool j1Scene::Update(float dt)
 		
 	}
 
+	if (App->player->pos_relCam < (win_width / App->win->GetScale() / 6))
+	{
+		App->render->virtualCamPos += App->player->speed * 1;
+
+	}
+
 	
 	App->map->Draw();
 
