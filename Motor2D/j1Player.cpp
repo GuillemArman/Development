@@ -49,7 +49,8 @@ bool j1Player::Start() {
 
 	if (player_collider == nullptr)
 		player_collider = App->collision->AddCollider({ 0, 0, 75, 110}, COLLIDER_PLAYER, this);
-
+	else
+		collider->SetPos(0, 0);
 
 	collidingFloor = nullptr;
 	colliding_bottom = false;
