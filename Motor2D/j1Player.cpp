@@ -24,73 +24,72 @@ j1Player::j1Player()
 	dying_right.Animation_XML("dying_right");
 	dying_left.Animation_XML("dying_left");
 
-	idle_right.PushBack({ 304, 308, 73, 113 });
-	idle_right.PushBack({ 494, 308, 73, 113 });
-	idle_right.PushBack({ 684, 308, 73, 113 });
-	idle_right.PushBack({ 874, 308, 72, 113 });
-	idle_right.PushBack({ 1064, 308, 72, 113 });
-	idle_right.PushBack({ 1255, 309, 71, 112 });
-	idle_right.PushBack({ 1445, 309, 71, 112 });
-	idle_right.PushBack({ 116, 439, 71, 113 });
-	idle_right.PushBack({ 306, 439, 71, 113 });
-	idle_right.PushBack({ 496, 439, 71, 113 });
-	idle_right.PushBack({ 686, 439, 71, 113 });
-	idle_right.PushBack({ 875, 439, 71, 113 });
-	idle_right.PushBack({ 1065, 438, 71, 114 });
-	idle_right.PushBack({ 1254, 438, 72, 114 });
-	idle_right.PushBack({ 1444, 438, 72, 114 });
+//idle_right.PushBack({ 304, 308, 73, 113 });
+//idle_right.PushBack({ 494, 308, 73, 113 });
+//idle_right.PushBack({ 684, 308, 73, 113 });
+//idle_right.PushBack({ 874, 308, 72, 113 });
+//idle_right.PushBack({ 1064, 308, 72, 113 });
+//idle_right.PushBack({ 1255, 309, 71, 112 });
+//idle_right.PushBack({ 1445, 309, 71, 112 });
+//idle_right.PushBack({ 116, 439, 71, 113 });
+//idle_right.PushBack({ 306, 439, 71, 113 });
+//idle_right.PushBack({ 496, 439, 71, 113 });
+//idle_right.PushBack({ 686, 439, 71, 113 });
+//idle_right.PushBack({ 875, 439, 71, 113 });
+//idle_right.PushBack({ 1065, 438, 71, 114 });
+//idle_right.PushBack({ 1254, 438, 72, 114 });
+//idle_right.PushBack({ 1444, 438, 72, 114 });
+	//
+	//
+	//idle_right.speed = 0.05;
+
+	//right.PushBack({ 309, 829, 71, 114 });
+	//right.PushBack({ 497, 828, 73, 114 });
+	//right.PushBack({ 687, 828, 78, 114 });
+	//right.PushBack({ 877, 828, 73, 115 });
+	//right.PushBack({ 1068, 828, 70, 115 });
+	//right.PushBack({ 1259, 829, 69, 114 });
+	//right.PushBack({ 1444, 828, 84, 117 });
+	//right.PushBack({ 108, 958, 94, 116 });
+	//right.PushBack({ 306, 958, 82, 117 });
+	//right.PushBack({ 499, 959, 71, 115 });
+	//right.PushBack({ 689, 959, 70, 115 });
+
+	//right.speed = 0.25;
+
+	//jumping_right.PushBack({313, 572, 72, 110});
+	//jumping_right.PushBack({ 506, 575, 72, 107 });
+	//jumping_right.PushBack({ 697, 575, 71, 107 });
+	//jumping_right.PushBack({ 882, 572, 72, 115 });
+	//jumping_right.PushBack({ 1060, 569, 89, 115 });
+	//jumping_right.PushBack({ 1241, 567, 98, 111 });
+	//jumping_right.PushBack({ 1429, 567, 100, 111 });
+	//jumping_right.PushBack({ 100, 697, 100, 112 });
+	//jumping_right.PushBack({ 288, 697, 102, 113 });
+	//jumping_right.PushBack({ 478, 697, 101, 113 });
+	//jumping_right.PushBack({ 667, 697, 102, 114 });
+	//jumping_right.PushBack({ 857, 697, 102, 114 });
+	//jumping_right.PushBack({ 1060, 699, 88, 118 });
+	//jumping_right.PushBack({ 1259, 701, 74, 116 });
+	//jumping_right.PushBack({ 1452, 702, 71, 113 });
+	//jumping_right.PushBack({ 123, 833, 72, 110 });
+
+	//jumping_right.speed = 0.2;
+
+	///*idle_left.PushBack({ 7, 66, 369, 392 });
+
+	//jumping_right.PushBack({ 2643, 504, 409, 398 });
+	//jumping_left.PushBack({ 2643, 504, 409, 398 });
+
+	//right.PushBack({ 687, 34, 369, 392 });
+
+	//right.speed = 0.007f;
+
+	//left.PushBack({ -687, -34, 369, 392 });
+
+	//left.speed = 0.007f;*/
+
 	
-	
-	idle_right.speed = 0.05;
-
-	right.PushBack({ 309, 829, 71, 114 });
-	right.PushBack({ 497, 828, 73, 114 });
-	right.PushBack({ 687, 828, 78, 114 });
-	right.PushBack({ 877, 828, 73, 115 });
-	right.PushBack({ 1068, 828, 70, 115 });
-	right.PushBack({ 1259, 829, 69, 114 });
-	right.PushBack({ 1444, 828, 84, 117 });
-	right.PushBack({ 108, 958, 94, 116 });
-	right.PushBack({ 306, 958, 82, 117 });
-	right.PushBack({ 499, 959, 71, 115 });
-	right.PushBack({ 689, 959, 70, 115 });
-
-	right.speed = 0.25;
-
-	jumping_right.PushBack({313, 572, 72, 110});
-	jumping_right.PushBack({ 506, 575, 72, 107 });
-	jumping_right.PushBack({ 697, 575, 71, 107 });
-	jumping_right.PushBack({ 882, 572, 72, 115 });
-	jumping_right.PushBack({ 1060, 569, 89, 115 });
-	jumping_right.PushBack({ 1241, 567, 98, 111 });
-	jumping_right.PushBack({ 1429, 567, 100, 111 });
-	jumping_right.PushBack({ 100, 697, 100, 112 });
-	jumping_right.PushBack({ 288, 697, 102, 113 });
-	jumping_right.PushBack({ 478, 697, 101, 113 });
-	jumping_right.PushBack({ 667, 697, 102, 114 });
-	jumping_right.PushBack({ 857, 697, 102, 114 });
-	jumping_right.PushBack({ 1060, 699, 88, 118 });
-	jumping_right.PushBack({ 1259, 701, 74, 116 });
-	jumping_right.PushBack({ 1452, 702, 71, 113 });
-	jumping_right.PushBack({ 123, 833, 72, 110 });
-
-	jumping_right.speed = 0.2;
-
-	/*idle_left.PushBack({ 7, 66, 369, 392 });
-
-	jumping_right.PushBack({ 2643, 504, 409, 398 });
-	jumping_left.PushBack({ 2643, 504, 409, 398 });
-
-	right.PushBack({ 687, 34, 369, 392 });
-
-	right.speed = 0.007f;
-
-	left.PushBack({ -687, -34, 369, 392 });
-
-	left.speed = 0.007f;*/
-
-	position.x = 80;
-	position.y = 240;
 }
 
 j1Player::~j1Player()
@@ -110,10 +109,10 @@ bool j1Player::Awake(pugi::xml_node& config)
 bool j1Player::Start() {
 
 	if (graphics == nullptr)
-	graphics = App->tex->Load("textures/Sprites/SantaSprites/_Santa1.png");
+	graphics = App->tex->Load("textures/Sprites/SantaSprites/Santafinal.png");
 
 	if (player_collider == nullptr)
-		player_collider = App->collision->AddCollider({ 0, 0, 75, 110	 }, COLLIDER_PLAYER, this);
+		player_collider = App->collision->AddCollider({ 0, 0, 75, 110}, COLLIDER_PLAYER, this);
 
 
 	collidingFloor = nullptr;

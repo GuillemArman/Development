@@ -13,7 +13,7 @@
 		<frame x="7" y="509" width="124" height="133"/>
 	</idle_right>
 
-		<idle_left speed="0.2f">
+	<idle_left speed="0.2f">
 		<frame x="2882" y="31" width="124" height="133"/>
 		<frame x="2654" y="32" width="124" height="133"/>
 		<frame x="2424" y="33" width="124" height="133"/>
