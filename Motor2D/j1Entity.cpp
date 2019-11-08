@@ -7,6 +7,12 @@
 #include "j1Scene.h"
 #include "p2Log.h"
 
+Entity::Entity(const char* name)
+{
+	v.x = 0;
+	v.y = 0;
+}
+
 bool Entity::Entity_Update(float dt)
 {
 	if (App->player->GodMode == false)

@@ -37,6 +37,7 @@ bool j1Flying_Enemy::PostUpdate()
 }
 bool j1Flying_Enemy::CleanUp()
 {
+	App->tex->UnLoad(graphics);
 	return true;
 }
 void j1Flying_Enemy::OnCollision(Collider* c1, Collider* c2)

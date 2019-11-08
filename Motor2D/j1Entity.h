@@ -30,12 +30,7 @@ class Entity : public j1Module
 {
 public:
 
-	Entity(const char* name)
-	{
-		v.x = 0;
-		v.y = 0;
-	}
-
+	Entity(const char* name);
 	bool Entity_Update(float dt);
 
 	void Entity_OnCollision(Collider* c1, Collider* c2);

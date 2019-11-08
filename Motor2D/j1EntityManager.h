@@ -17,6 +17,8 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
+	Entity* createEntity(entity_type type, int x, int y);
+
 private:
 	p2List<Entity*> entities;
 	pugi::xml_node config;
