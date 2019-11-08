@@ -10,8 +10,11 @@
 #include "j1Scene.h"
 #include "j1Audio.h"
 
-j1Flying_Enemy::j1Flying_Enemy() : Entity()
+j1Flying_Enemy::j1Flying_Enemy() : Entity("Flying")
 {
+	graphics = App->tex->Load("FlyingSprite"); // Flying enemy sprite path
+	speed = 2;
+	jump_force = 6;
 }
 j1Flying_Enemy::~j1Flying_Enemy()
 {

@@ -11,7 +11,7 @@
 #include "j1Map.h"
 #include <stdio.h>
 
-j1Player::j1Player() 
+j1Player::j1Player() : Entity("player")
 {
 	name.create("player");
 
@@ -101,7 +101,7 @@ bool j1Player::Update(float dt) {
 	// Defining states
 
 
-	Entity_Update();
+	Entity_Update(dt);
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
 	{
