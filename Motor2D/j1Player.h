@@ -6,6 +6,7 @@
 #include "j1Entity.h"
 #include "Animation.h"
 #include "PugiXml\src\pugixml.hpp"
+#include "p2DynArray.h"
 
 #define diff 50;
 
@@ -42,6 +43,9 @@ public:
 	int jumps = 0;
 	bool GodMode = false;
 	bool won;
+
+	p2DynArray<iPoint> path;
+	SDL_Texture* path_marker;
 
 	//FX
 	uint jump_sound;

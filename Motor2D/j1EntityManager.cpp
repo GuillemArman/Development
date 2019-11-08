@@ -37,8 +37,7 @@ bool j1EntityManager::PostUpdate()
 {
 	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
 	{
-		entity->data->position.x = entity->data->virtualPosition.x;
-		entity->data->position.y = entity->data->virtualPosition.y;
+		entity->data->PostUpdate();
 		App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y);
 	}
 	return true;
@@ -64,6 +63,7 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 		break;
 	case FLYING_ENEMY:
 		ret = new j1Flying_Enemy();
+		ret->flying = true;
 		break;
 	}
 	ret->type = type;

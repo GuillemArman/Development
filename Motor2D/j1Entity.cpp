@@ -6,6 +6,7 @@
 #include "j1Player.h"
 #include "j1Scene.h"
 #include "p2Log.h"
+#include "j1Window.h"
 
 Entity::Entity(const char* name)
 {
@@ -24,7 +25,7 @@ bool Entity::Entity_Update(float dt)
 		gravity = 0.0f;
 	}
 
-	v.y += (gravity * ((colliding_bottom) ? 0 : 1));
+	v.y += (gravity * ((colliding_bottom || flying) ? 0 : 1));
 	if (v.y < -1)
 		v.y = -13;
 	virtualPosition.y -= v.y;
@@ -37,6 +38,11 @@ bool Entity::Entity_Update(float dt)
 
 	if (collider != nullptr)
 		collider->SetPos(virtualPosition.x + collider_offset.x, virtualPosition.y + collider_offset.y);
+
+	position.x = virtualPosition.x;
+	position.y = virtualPosition.y;
+	int win_scale = App->win->GetScale();
+	pos_relCam = position.x + App->render->camera.x / win_scale;
 
 	setAnimation();
 	return true;

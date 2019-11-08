@@ -16,6 +16,7 @@ enum entity_state
 	LEFT,
 	JUMPING,
 	DAMAGED,
+	FALLING,
 	DEAD
 
 };
@@ -44,15 +45,23 @@ public:
 
 	iPoint position;
 	fPoint virtualPosition;
+
 	fPoint v;
 	fPoint collider_offset;
+
 	bool colliding_bottom = false;
 	bool colliding_right = false;
 	bool colliding_left = false;
 	bool colliding_top = false;
+	bool going_right = false;
+	bool going_left = false;
+	bool jumping = false;
+	bool going_down = false;
+
 	entity_state state;
 	entity_type type;
 	SDL_Texture* graphics = nullptr;
+
 	Animation* animation = nullptr;
 	Animation idle_right;
 	Animation idle_left;
@@ -62,6 +71,7 @@ public:
 	Animation jumping_right;
 	Animation dying_right;
 	Animation dying_left;
+
 	int pos_relCam;
 
 	Collider* collider;
@@ -69,6 +79,9 @@ public:
 
 	float speed;
 	float jump_force;
+
+	uint max_jump_value = 0;
+	bool flying = false;
 	
 };
 

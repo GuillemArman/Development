@@ -4,6 +4,7 @@
 #include "j1Player.h"
 #include "j1Collision.h"
 #include "p2Log.h"
+#include "j1EntityManager.h"
 
 j1Collision::j1Collision()
 {
@@ -100,6 +101,18 @@ bool j1Collision::Update(float dt)
 			else if ((c1 == App->player->collidingFloor || c2 == App->player->collidingFloor) && ((c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR) || (c2->type == COLLIDER_PLAYER && c1->type == COLLIDER_FLOOR)))
 			{
 				App->player->colliding_bottom = false;
+			}
+			else
+			{
+				for (p2List_item<Entity*>* entity = App->entityManager->entities.start; entity; entity = entity->next)
+				{
+					if ((c1 == entity->data->collidingFloor || c2 == entity->data->collidingFloor) && ((c1->type == entity->data->collider->type && (c2->type == COLLIDER_FLOOR)) || (c2->type == entity->data->collider->type && (c1->type == COLLIDER_FLOOR)))) // When there is no longer collision between entity and the previous floor
+					{
+						entity->data->colliding_bottom = false;
+						if (entity->data->state != JUMPING)
+							entity->data->state = FALLING;
+					}
+				}
 			}
 		}
 	}
