@@ -35,6 +35,9 @@ bool Entity::Entity_Update(float dt)
 	colliding_right = false;
 	colliding_left = false;
 
+	if (collider != nullptr)
+		collider->SetPos(virtualPosition.x + collider_offset.x, virtualPosition.y + collider_offset.y);
+
 	setAnimation();
 	return true;
 }

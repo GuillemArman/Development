@@ -45,6 +45,7 @@ public:
 	iPoint position;
 	fPoint virtualPosition;
 	fPoint v;
+	fPoint collider_offset;
 	bool colliding_bottom = false;
 	bool colliding_right = false;
 	bool colliding_left = false;

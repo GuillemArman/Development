@@ -10,25 +10,35 @@ j1Collision::j1Collision()
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
-	matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_PIT] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_END] = false;
+	matrix[COLLIDER_FLOOR][COLLIDER_ENEMY] = false;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_FLOOR] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_PIT] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_END] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 
 	matrix[COLLIDER_PIT][COLLIDER_PIT] = false;
 	matrix[COLLIDER_PIT][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_PIT][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_PIT][COLLIDER_END] = false;
+	matrix[COLLIDER_PIT][COLLIDER_ENEMY] = false;
 
+	matrix[COLLIDER_END][COLLIDER_END] = false;
 	matrix[COLLIDER_END][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_END][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_END][COLLIDER_PIT] = false;
-	matrix[COLLIDER_END][COLLIDER_END] = false;
+	matrix[COLLIDER_END][COLLIDER_ENEMY] = false;
+
+	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_FLOOR] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_PIT] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_END] = false;
+
 	
 
 }
@@ -123,6 +133,9 @@ void j1Collision::DebugDraw()
 			break;
 		case COLLIDER_PLAYER: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			break;
+		case COLLIDER_ENEMY:
+			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
 		case COLLIDER_PIT://RED
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
