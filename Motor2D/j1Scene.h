@@ -17,6 +17,7 @@ struct level
 	iPoint player_start_pos;
 	iPoint end;
 	int lvl;
+	int length;
 };
 
 class j1Scene : public j1Module

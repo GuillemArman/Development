@@ -175,6 +175,7 @@ private:
 	bool LoadColliders(pugi::xml_node& node);
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 	bool LoadLogic(pugi::xml_node& node);
+	bool LoadWalkabilityMap(pugi::xml_node& node, int& width, int& height, uchar** buffer) const;
 
 	TileSet* GetTilesetFromTileId(int id) const;
 
