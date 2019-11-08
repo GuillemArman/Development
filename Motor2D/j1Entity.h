@@ -15,8 +15,15 @@ enum entity_state
 	RIGHT,
 	LEFT,
 	JUMPING,
+	DAMAGED,
 	DEAD
 
+};
+
+enum entity_type
+{
+	FLYING_ENEMY,
+	WALKING_ENEMY
 };
 
 class Entity : public j1Module
@@ -48,6 +55,7 @@ public:
 	bool colliding_left = false;
 	bool colliding_top = false;
 	entity_state state;
+	entity_type type;
 	SDL_Texture* graphics = nullptr;
 	Animation* animation = nullptr;
 	Animation idle_right;

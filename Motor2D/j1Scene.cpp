@@ -104,6 +104,11 @@ bool j1Scene::Update(float dt)
 		App->player->GodMode = !App->player->GodMode;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	{
+
+	}
+
 	//camera
 	/*if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y -= 6;

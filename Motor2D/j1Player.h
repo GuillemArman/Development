@@ -32,7 +32,7 @@ public:
 
 public:
 
-	bool isDead;
+	bool isDead = false;
 	SDL_Texture* santa;
 	Collider* player_collider = nullptr;;
 	Collider* pit_collider = nullptr;
@@ -40,7 +40,7 @@ public:
 	bool touchingFloor;
 	bool jump = false;
 	int jumps = 0;
-	bool GodMode;
+	bool GodMode = false;
 	bool won;
 
 	//FX
