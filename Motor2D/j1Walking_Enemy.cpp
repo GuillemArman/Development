@@ -28,12 +28,7 @@ bool j1Walking_Enemy::Awake(pugi::xml_node&)
 }
 bool j1Walking_Enemy::Start()
 {
-	if (graphics == nullptr)
-		graphics = App->tex->Load("textures/Sprites/FlyingSprites/Enemies.png");
-
-
-	virtualPosition.x = position.x;
-	virtualPosition.y = position.y;
+	
 
 
 	return true;

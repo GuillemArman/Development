@@ -19,7 +19,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 bool j1EntityManager::Start()
 {
-	createEntity(entity_type::WALKING_ENEMY, 600, 50);
+	
 	return true;
 }
 

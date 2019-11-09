@@ -8,7 +8,7 @@
 #include "j1Player.h"
 #include "j1Window.h"
 #include "j1Pathfinding.h"
-#include <math.h>
+#include "j1EntityManager.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -175,6 +175,17 @@ bool j1Map::CleanUp()
 		item2 = item2->next;
 	}
 	data.layers.clear();
+
+	//Clean colliders
+	p2List_item<Collider*>* item_collider;
+	item_collider = data.colliders.start;
+	while (item_collider != NULL)
+	{
+		item_collider->data->to_delete = true;
+		item_collider = item_collider->next;
+	}
+	data.colliders.clear();
+	App->entityManager->CleanUp(); //Clean entities;
 
 	// Clean up the pugui tree
 	map_file.reset();
@@ -471,7 +482,7 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 		shape.w = object.attribute("width").as_int();
 		shape.h = object.attribute("height").as_int();
 
-		App->collision->AddCollider(shape, collider_type);
+		data.colliders.add(App->collision->AddCollider(shape, collider_type));
 	}
 
 	return ret;
@@ -535,9 +546,11 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 bool j1Map::LoadLogic(pugi::xml_node& node)
 {
 	bool ret = true;
-
 	pugi::xml_node object;
+
 	p2SString name;
+	p2SString type;
+
 	for (object = node.child("object"); object; object = object.next_sibling("object"))
 	{
 		name = object.attribute("name").as_string();
@@ -550,6 +563,21 @@ bool j1Map::LoadLogic(pugi::xml_node& node)
 			if (App->render->virtualCamPos > 0)
 			{
 				App->render->virtualCamPos = 0;
+			}
+		}
+
+		if (type == "enemy")
+		{
+			int x, y;
+			x = object.attribute("x").as_int();
+			y = object.attribute("y").as_int();
+			if (name == "walking")
+			{
+				App->entityManager->createEntity(WALKING_ENEMY, x, y);
+			}
+			else if (name == "fly")
+			{
+				App->entityManager->createEntity(FLYING_ENEMY, x, y);
 			}
 		}
 	}

@@ -12,9 +12,22 @@
 
 j1Flying_Enemy::j1Flying_Enemy() : Entity("Flying")
 {
-	graphics = App->tex->Load("FlyingSprite"); // Flying enemy sprite path
+	name.create("flying_enemy");
+
 	speed = 2;
 	jump_force = 6;
+
+	if (graphics == nullptr)
+		graphics = App->tex->Load("textures/Sprites/FlyingSprites/Enemies.png");
+
+	if (collider == nullptr)
+		collider = App->collision->AddCollider({ 0, 0, 97, 72 }, COLLIDER_ENEMY, this);
+
+
+	//idle_right.Animation_XML("idle_right", "flying_enemy");
+	//idle_left.Animation_XML("idle_left", "flying_enemy");
+	//
+	//animation = &idle_left;
 }
 j1Flying_Enemy::~j1Flying_Enemy()
 {
