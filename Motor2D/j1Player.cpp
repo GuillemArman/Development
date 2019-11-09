@@ -49,8 +49,9 @@ bool j1Player::Start() {
 
 	if (player_collider == nullptr)
 		player_collider = App->collision->AddCollider({ 0, 0, 75, 110}, COLLIDER_PLAYER, this);
-	else
-		collider->SetPos(0, 0);
+
+	collider_offset.x = 3;
+	collider_offset.y = 2;
 
 	collidingFloor = nullptr;
 	colliding_bottom = false;
@@ -231,6 +232,14 @@ bool j1Player::PostUpdate() {
 
 	App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame());
 
+	int i = 0;
+	while (i < path.Count())
+	{
+		iPoint coords = App->map->MapToWorld(path.At(i)->x, path.At(i)->y);
+		App->render->Blit(path_marker, coords.x, coords.y);
+		i++;
+	}
+
 	LOG("%d", position.x);
 	LOG("%f", App->render->virtualCamPos);
 
@@ -259,6 +268,14 @@ bool j1Player::Save(pugi::xml_node& data) const
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
+	if (c2->type == COLLIDER_FLOOR)
+	{
+
+	}
+	if (c2->type == COLLIDER_ENEMY)
+	{
+
+	}
 	Entity_OnCollision(c1, c2);
 }
 
