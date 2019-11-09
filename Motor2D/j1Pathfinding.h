@@ -18,7 +18,7 @@ struct PathNode
 
 	iPoint coords;
 	int g, h, F;
-	int jump_value;
+	
 
 	uint FindWalkableAdjacents(p2List<PathNode>& list_to_fill) const;
 	bool touchingGround() const;
