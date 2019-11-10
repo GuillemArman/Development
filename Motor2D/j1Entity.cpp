@@ -116,7 +116,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 			state = IDLE;
 
 
-			App->player->isDead = true;
+			App->player->IsDead = true;
 
 
 			App->player->virtualPosition.x = 340;
@@ -148,6 +148,14 @@ void Entity::Do_Path()
 
 void Entity::setAnimation()
 {
+	if (specificAnimation())
+	{
+	}
+	else if (IsDead && dying != nullptr)
+	{
+		animation = dying;
+	}
+
 	if (v.x > 0)
 	{
 		if (state == JUMPING)

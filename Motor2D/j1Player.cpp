@@ -64,7 +64,7 @@ bool j1Player::Start() {
 	virtualPosition.x = position.x;
 	virtualPosition.y = position.y;
 
-	isDead = false;
+	IsDead = false;
 	GodMode = false;
 
 	//LOADING PLAYER FX
@@ -253,13 +253,23 @@ bool j1Player::Save(pugi::xml_node& data) const
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c2->type == COLLIDER_FLOOR)
-	{
-
-	}
+	
 	if (c2->type == COLLIDER_ENEMY)
 	{
-
+		p2SString c2_name = c2->callback->name.GetString();
+		if (c2_name == "walking")
+		{
+			App->audio->PlayFx(App->player->dead_sound);
+			v.x = 0;
+			state = DEAD;
+			IsDead = true;
+			if (sound_one_time == false && killed_finished == 0)
+			{
+				killed_finished = SDL_GetTicks();
+				App->audio->PlayFx(dead_sound, 0);
+				sound_one_time = true;
+			}
+		}
 	}
 	Entity_OnCollision(c1, c2);
 }

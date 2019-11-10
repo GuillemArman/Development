@@ -43,6 +43,11 @@ public:
 
 	void Entity_OnCollision(Collider* c1, Collider* c2);
 
+	virtual bool specificAnimation()
+	{
+		return false;
+	}
+
 private:
 
 	void setAnimation();
@@ -74,12 +79,16 @@ public:
 	Animation jumping_right;
 	Animation dying_right;
 	Animation dying_left;
+	Animation* dying;
 	int pos_relCam = 0;
 
 	Collider* collider = nullptr;
 	Collider* collidingFloor = nullptr;
 
 	p2DynArray<iPoint> path_to_player;
+
+	bool sound_one_time = false;
+	float killed_finished = 0;
 
 	float speed = 0;
 	float jump_force = 0;
@@ -89,6 +98,7 @@ public:
 	float scale = 1;
 	iPoint sprite_pos, collider_pos, collider_size;
 
+	bool IsDead = false;
 
 };
 

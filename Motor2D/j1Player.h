@@ -33,7 +33,7 @@ public:
 
 public:
 
-	bool isDead = false;
+	
 	SDL_Texture* santa = nullptr;
 	Collider* pit_collider = nullptr;
 	fPoint collider_move;

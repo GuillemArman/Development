@@ -12,9 +12,9 @@
 #include "j1Pathfinding.h"
 #include "j1Player.h"
 
-j1Walking_Enemy::j1Walking_Enemy() : Entity("walking_enemy")
+j1Walking_Enemy::j1Walking_Enemy() : Entity("walking")
 {
-	name.create("walking_enemy");
+	
 
 	speed = 2;
 	jump_force = 6;
