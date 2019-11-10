@@ -2,6 +2,7 @@
 #include "j1Map.h"
 #include "j1App.h"
 #include "p2Defs.h"
+#include "j1Collision.h"
 
 void j1PathFinding::SetMap(uint width, uint height, uchar* data)
 {
@@ -33,7 +34,7 @@ void j1PathFinding::ResetPath()
 	memset(cost_so_far, 0, sizeof(uint) * 65 * 13);
 }
 
-void j1PathFinding::getPath(Entity* entity, const iPoint& destination)
+void j1PathFinding::getPath(Entity* entity, Entity* objective)
 {
 	//p2DynArray<iPoint> path;
 	ResetPath();
@@ -42,7 +43,8 @@ void j1PathFinding::getPath(Entity* entity, const iPoint& destination)
 	frontier.Push(origin_coords, 0);
 	visited.add(origin_coords);
 	breadcrumbs.add(origin_coords);
-	iPoint destination_coords = App->map->WorldToMap(destination.x, destination.y);
+	iPoint destination_coords = App->map->WorldToMap(objective->position.x + objective->collider_offset.x + objective->collider->rect.w / 2, objective->position.y + objective->collider_offset.y + objective->collider->rect.h / 2);
+
 
 	if (isWalkable(destination_coords) && isWalkable(origin_coords))
 	{

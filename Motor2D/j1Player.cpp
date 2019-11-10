@@ -26,7 +26,6 @@ j1Player::j1Player() : Entity("player")
 	dying_left.Animation_XML("dying_left");
 
 
-	
 }
 
 j1Player::~j1Player()
@@ -48,8 +47,8 @@ bool j1Player::Start() {
 	if (graphics == nullptr)
 	graphics = App->tex->Load("textures/Sprites/SantaSprites/Santafinal.png");
 
-	if (player_collider == nullptr)
-		player_collider = App->collision->AddCollider({ 0, 0, 75, 110}, COLLIDER_PLAYER, this);
+	if (collider == nullptr)
+		collider = App->collision->AddCollider({ 0, 0, 110, 130 }, COLLIDER_PLAYER, this);
 
 	collider_offset.x = 3;
 	collider_offset.y = 2;
@@ -84,10 +83,10 @@ bool j1Player::CleanUp()
 	LOG("Unloading player");
 
 	App->tex->UnLoad(graphics);
-	if (player_collider != nullptr)
+	if (collider != nullptr)
 	{
-		player_collider->to_delete = true;
-		player_collider = nullptr;
+		collider->to_delete = true;
+		collider = nullptr;
 	}
 
 	return true;
@@ -179,7 +178,7 @@ bool j1Player::Update(float dt) {
 	}
 
 
-	player_collider->SetPos(virtualPosition.x + collider_move.x, virtualPosition.y + collider_move.y);
+	collider->SetPos(virtualPosition.x + collider_move.x, virtualPosition.y + collider_move.y);
 	App->player->colliding_left = false;
 	App->player->colliding_right = false;
 

@@ -199,7 +199,7 @@ void j1Scene::LoadLvl(int num)
 	{
 		App->map->Load(current_lvl->data->mapPath.GetString());
 		// Restart player data
-		App->player->player_collider = nullptr; //Has to be null in order to be created
+		App->player->collider = nullptr; //Has to be null in order to be created
 		App->player->Start();
 
 

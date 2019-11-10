@@ -35,7 +35,6 @@ public:
 
 	bool isDead = false;
 	SDL_Texture* santa;
-	Collider* player_collider = nullptr;;
 	Collider* pit_collider = nullptr;
 	fPoint collider_move;
 	bool touchingFloor;

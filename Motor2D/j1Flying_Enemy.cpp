@@ -44,7 +44,10 @@ bool j1Flying_Enemy::Start()
 }
 bool j1Flying_Enemy::Update(float dt)
 {
-	App->pathfinding->getPath(this, App->player->position);
+	App->pathfinding->getPath(this, App->player);
+
+
+
 	return true;
 }
 bool j1Flying_Enemy::PostUpdate()
