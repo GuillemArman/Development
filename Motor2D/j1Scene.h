@@ -58,6 +58,8 @@ public:
 	float gravity_speed = 0;
 	float jump_speed = 0;
 	fPoint player_initial_position;
+	bool cleaning_NPC = false;
+
 
 private:
 	uint win_width = 0;

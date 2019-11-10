@@ -18,6 +18,7 @@ public:
 	bool CleanUp();
 
 	Entity* createEntity(entity_type type, int x, int y);
+	void destroyEntity(Entity* to_detroy);
 
 public:
 	p2List<Entity*> entities;

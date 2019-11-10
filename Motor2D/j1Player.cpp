@@ -186,15 +186,33 @@ bool j1Player::Update(float dt) {
 
 bool j1Player::PostUpdate(float dt) {
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !colliding_right && v.x == 0)
+	if (!IsDead)
 	{
-		v.x = speed;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !colliding_right && v.x == 0)
+		{
+			v.x = speed;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !colliding_left && v.x == 0)
+		{
+			v.x = -speed;
+		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !colliding_left && v.x == 0)
+	if (IsDead && SDL_GetTicks() > killed_finished + 1500)
 	{
-		v.x = -speed;
-	}
+		killed_finished = 0;
 
+		sound_one_time = false;
+		if (App->scene->current_lvl->data->lvl == 1)
+		{
+			App->scene->LoadLvl(1);
+		}
+		if (App->scene->current_lvl->data->lvl == 2)
+		{
+			App->scene->LoadLvl(2);
+		}
+		IsDead = false;
+		state = IDLE;
+	}
 	p2List_item<ImageLayer*>* image = nullptr;
 	for (image = App->map->data.image_layers.start; image; image = image->next)
 	{
@@ -257,9 +275,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	if (c2->type == COLLIDER_ENEMY)
 	{
 		p2SString c2_name = c2->callback->name.GetString();
-		if (c2_name == "walking")
+		if (c2_name == "walking_enemy")
 		{
-			App->audio->PlayFx(App->player->dead_sound);
+			//App->audio->PlayFx(App->player->dead_sound);
 			v.x = 0;
 			state = DEAD;
 			IsDead = true;

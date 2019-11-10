@@ -5,6 +5,8 @@
 #include "j1Flying_Enemy.h"
 #include "j1Collision.h"
 #include "j1Map.h"
+#include "p2Defs.h"
+#include "j1Scene.h"
 
 j1EntityManager::j1EntityManager()
 {}
@@ -39,6 +41,13 @@ bool j1EntityManager::PostUpdate(float dt)
 	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
 	{
 		entity->data->PostUpdate(dt);
+
+		if (App->scene->cleaning_NPC == true)
+		{
+			destroyEntity(entity->data);
+			continue;
+		}
+
 		int i = 0;
 		while (i < entity->data->path_to_player.Count())
 		{
@@ -79,4 +88,21 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 	ret->virtualPosition.y = ret->position.y = y;
 	entities.add(ret);
 	return ret;
+}
+
+void j1EntityManager::destroyEntity(Entity* to_destroy)
+{
+	p2List_item<Entity*>* entity_to_destroy = entities.start;
+
+	while (entity_to_destroy != NULL)
+	{
+		if (entity_to_destroy->data == to_destroy)
+		{
+			entities.del(entity_to_destroy);
+			RELEASE(entity_to_destroy->data);
+			break;
+		}
+
+		entity_to_destroy = entity_to_destroy->next;
+	}
 }
