@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="93" height="24" tilewidth="32" tileheight="32" nextobjectid="19">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="93" height="24" tilewidth="32" tileheight="32" nextobjectid="21">
  <tileset firstgid="1" name="Desert" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="40" columns="8">
   <image source="tmw_desert_spacing.png" width="265" height="199"/>
   <terraintypes>
@@ -107,23 +107,23 @@
  <tileset firstgid="290" name="18" tilewidth="32" tileheight="32" tilecount="16" columns="4">
   <image source="../textures/Sprites/png/Tiles/18.png" width="128" height="128"/>
  </tileset>
- <tileset firstgid="306" name="BG" tilewidth="32" tileheight="32" tilecount="0" columns="31">
-  <image source="../textures/BG.png" width="1000" height="750"/>
+ <tileset firstgid="306" name="BG" tilewidth="32" tileheight="32" tilecount="2139" columns="93">
+  <image source="../textures/BG.png" width="3000" height="750"/>
  </tileset>
- <tileset firstgid="306" name="Sign_2" tilewidth="32" tileheight="32" tilecount="4" columns="2">
+ <tileset firstgid="2445" name="Sign_2" tilewidth="32" tileheight="32" tilecount="4" columns="2">
   <image source="../textures/Sprites/png/Object/Sign_2.png" width="87" height="93"/>
  </tileset>
- <tileset firstgid="310" name="SnowMan" tilewidth="32" tileheight="32" tilecount="36" columns="6">
+ <tileset firstgid="2449" name="SnowMan" tilewidth="32" tileheight="32" tilecount="36" columns="6">
   <image source="../textures/Sprites/png/Object/SnowMan.png" width="193" height="210"/>
  </tileset>
- <tileset firstgid="346" name="Stone" tilewidth="32" tileheight="32" tilecount="6" columns="3">
+ <tileset firstgid="2485" name="Stone" tilewidth="32" tileheight="32" tilecount="6" columns="3">
   <image source="../textures/Sprites/png/Object/Stone.png" width="124" height="78"/>
  </tileset>
  <imagelayer name="Water">
   <image source="../textures/Sprites/png/Object/water.png" width="8599" height="384"/>
   <properties>
-   <property name="constant_movement" type="bool" value="false"/>
-   <property name="speed" type="int" value="28"/>
+   <property name="constant_movement" type="bool" value="true"/>
+   <property name="speed" type="int" value="2"/>
   </properties>
  </imagelayer>
  <imagelayer name="Sky">
@@ -325,10 +325,10 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="311"/>
-   <tile gid="312"/>
-   <tile gid="313"/>
-   <tile gid="314"/>
+   <tile gid="2450"/>
+   <tile gid="2451"/>
+   <tile gid="2452"/>
+   <tile gid="2453"/>
    <tile gid="84"/>
    <tile gid="85"/>
    <tile gid="0"/>
@@ -418,10 +418,10 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="317"/>
-   <tile gid="318"/>
-   <tile gid="319"/>
-   <tile gid="320"/>
+   <tile gid="2456"/>
+   <tile gid="2457"/>
+   <tile gid="2458"/>
+   <tile gid="2459"/>
    <tile gid="88"/>
    <tile gid="89"/>
    <tile gid="0"/>
@@ -511,10 +511,10 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="323"/>
-   <tile gid="324"/>
-   <tile gid="325"/>
-   <tile gid="326"/>
+   <tile gid="2462"/>
+   <tile gid="2463"/>
+   <tile gid="2464"/>
+   <tile gid="2465"/>
    <tile gid="92"/>
    <tile gid="93"/>
    <tile gid="0"/>
@@ -604,10 +604,10 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="329"/>
-   <tile gid="330"/>
-   <tile gid="331"/>
-   <tile gid="332"/>
+   <tile gid="2468"/>
+   <tile gid="2469"/>
+   <tile gid="2470"/>
+   <tile gid="2471"/>
    <tile gid="88"/>
    <tile gid="89"/>
    <tile gid="0"/>
@@ -697,10 +697,10 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="335"/>
-   <tile gid="336"/>
-   <tile gid="337"/>
-   <tile gid="338"/>
+   <tile gid="2474"/>
+   <tile gid="2475"/>
+   <tile gid="2476"/>
+   <tile gid="2477"/>
    <tile gid="92"/>
    <tile gid="93"/>
    <tile gid="0"/>
@@ -790,10 +790,10 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="341"/>
-   <tile gid="342"/>
-   <tile gid="343"/>
-   <tile gid="344"/>
+   <tile gid="2480"/>
+   <tile gid="2481"/>
+   <tile gid="2482"/>
+   <tile gid="2483"/>
    <tile gid="88"/>
    <tile gid="89"/>
    <tile gid="0"/>
@@ -1671,9 +1671,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="346"/>
-   <tile gid="347"/>
-   <tile gid="348"/>
+   <tile gid="2485"/>
+   <tile gid="2486"/>
+   <tile gid="2487"/>
    <tile gid="54"/>
    <tile gid="55"/>
    <tile gid="56"/>
@@ -1764,9 +1764,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="349"/>
-   <tile gid="350"/>
-   <tile gid="351"/>
+   <tile gid="2488"/>
+   <tile gid="2489"/>
+   <tile gid="2490"/>
    <tile gid="58"/>
    <tile gid="59"/>
    <tile gid="60"/>
@@ -1913,8 +1913,8 @@
    <tile gid="88"/>
    <tile gid="89"/>
    <tile gid="0"/>
-   <tile gid="306"/>
-   <tile gid="307"/>
+   <tile gid="2445"/>
+   <tile gid="2446"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2006,8 +2006,8 @@
    <tile gid="92"/>
    <tile gid="93"/>
    <tile gid="0"/>
-   <tile gid="308"/>
-   <tile gid="309"/>
+   <tile gid="2447"/>
+   <tile gid="2448"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2393,5 +2393,7 @@
    <property name="map_length" type="int" value="2500"/>
   </properties>
   <object id="12" name="player_start_pos" x="210.833" y="525.167" width="21" height="33"/>
+  <object id="19" name="fly" type="enemy" x="466" y="230" width="56" height="64"/>
+  <object id="20" name="walking" type="enemy" x="746" y="393" width="56" height="62"/>
  </objectgroup>
 </map>

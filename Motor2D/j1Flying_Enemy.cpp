@@ -12,12 +12,15 @@
 #include "j1PathFinding.h"
 #include "j1Player.h"
 
-j1Flying_Enemy::j1Flying_Enemy() : Entity("Flying")
+j1Flying_Enemy::j1Flying_Enemy() : Entity("flying_enemy")
 {
+
 	name.create("flying_enemy");
 
 	speed = 2;
 	jump_force = 6;
+
+
 
 	if (graphics == nullptr)
 		graphics = App->tex->Load("textures/Sprites/FlyingSprites/Enemies.png");
@@ -26,14 +29,16 @@ j1Flying_Enemy::j1Flying_Enemy() : Entity("Flying")
 		collider = App->collision->AddCollider({ 0, 0, 97, 72 }, COLLIDER_ENEMY, this);
 
 
-	//idle_right.Animation_XML("idle_right", "flying_enemy");
-	//idle_left.Animation_XML("idle_left", "flying_enemy");
-	//
-	//animation = &idle_left;
+
+	idle_right.Animation_XML("idle_right", "flying_enemy");
+	idle_left.Animation_XML("idle_left", "flying_enemy");
+
+	animation = &idle_left;
 }
 j1Flying_Enemy::~j1Flying_Enemy()
 {
 }
+
 bool j1Flying_Enemy::Awake(pugi::xml_node&)
 {
 	return true;
@@ -44,23 +49,20 @@ bool j1Flying_Enemy::Start()
 }
 bool j1Flying_Enemy::Update(float dt)
 {
-	App->pathfinding->getPath(this, App->player);
-
-
-
+	Do_Path();
 	return true;
 }
-bool j1Flying_Enemy::PostUpdate()
+bool j1Flying_Enemy::PostUpdate(float dt)
 {
 	return true;
 }
 bool j1Flying_Enemy::CleanUp()
 {
-	App->tex->UnLoad(graphics);
 	return true;
 }
 void j1Flying_Enemy::OnCollision(Collider* c1, Collider* c2)
 {
+	Entity_OnCollision(c1, c2);
 }
 bool j1Flying_Enemy::Load(pugi::xml_node&)
 {

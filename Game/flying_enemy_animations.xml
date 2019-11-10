@@ -1,0 +1,26 @@
+﻿
+<test>
+
+	<idle_right speed="0.1f" loop="true">
+
+		<frame x="0" y="0" width="110" height="84"/>
+		<frame x="117" y="16" width="110" height="68"/>
+		<frame x="243" y="15" width="110" height="86"/>
+		<frame x="367" y="15" width="110" height="69"/>	
+		
+	</idle_right>
+	<idle_left speed="0.1f" loop="true">
+
+		<frame x="19" y="129" width="110" height="69"/>
+		<frame x="143" y="129" width="110" height="86"/>
+		<frame x="269" y="130" width="110" height="68"/>
+		<frame x="386" y="114" width="110" height="84"/>
+
+	</idle_left>
+
+	
+</test>
+      
+        
+   
+      

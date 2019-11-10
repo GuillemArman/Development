@@ -58,7 +58,6 @@ struct MapLayer
 	}
 };
 
-
 struct ImageLayer
 {
 	p2SString name;
@@ -88,15 +87,19 @@ struct ImageLayer
 
 	~ImageLayer()
 	{
-		App->tex->UnLoad(texture);
-		texture = nullptr;
+		if (texture != nullptr)
+		{
+			App->tex->UnLoad(texture);
+			texture = nullptr;
+		}
 	}
 
 };
+
 // ----------------------------------------------------
 struct TileSet
 {
-	
+
 	SDL_Rect GetTileRect(int id) const;
 
 	p2SString			name;
@@ -115,9 +118,14 @@ struct TileSet
 
 	~TileSet()
 	{
-		App->tex->UnLoad(texture);
-		texture = nullptr;
+		if (texture != nullptr)
+		{
+			App->tex->UnLoad(texture);
+			texture = nullptr;
+		}
 	}
+
+
 };
 
 enum MapTypes
@@ -130,12 +138,12 @@ enum MapTypes
 // ----------------------------------------------------
 struct MapData
 {
-	int					width;
-	int					height;
-	int					tile_width;
-	int					tile_height;
+	int					width = 0;
+	int					height = 0;
+	int					tile_width = 0;
+	int					tile_height = 0;
 	SDL_Color			background_color;
-	MapTypes			type;
+	MapTypes			type = MAPTYPE_UNKNOWN;
 	p2List<TileSet*>	tilesets;
 	p2List<MapLayer*>	layers;
 	p2List<ImageLayer*> image_layers;
@@ -189,8 +197,8 @@ public:
 private:
 
 	pugi::xml_document	map_file;
-	p2SString			folder;
-	bool				map_loaded;
+	p2SString			folder = nullptr;
+	bool				map_loaded = false;
 };
 
 #endif // __j1MAP_H__

@@ -10,6 +10,8 @@
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 
+
+
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
 	name.create("map");
@@ -187,7 +189,7 @@ bool j1Map::CleanUp()
 	data.colliders.clear();
 	App->entityManager->CleanUp(); //Clean entities;
 
-	// Clean up the pugui tree
+								   // Clean up the pugui tree
 	map_file.reset();
 
 	return true;
@@ -327,7 +329,7 @@ bool j1Map::LoadMap()
 	bool ret = true;
 	pugi::xml_node map = map_file.child("map");
 
-	if(map == NULL)
+	if (map == NULL)
 	{
 		LOG("Error parsing map xml file: Cannot find 'map' tag.");
 		ret = false;
@@ -345,7 +347,7 @@ bool j1Map::LoadMap()
 		data.background_color.b = 0;
 		data.background_color.a = 0;
 
-		if(bg_color.Length() > 0)
+		if (bg_color.Length() > 0)
 		{
 			p2SString red, green, blue;
 			bg_color.SubString(1, 2, red);
@@ -355,26 +357,26 @@ bool j1Map::LoadMap()
 			int v = 0;
 
 			sscanf_s(red.GetString(), "%x", &v);
-			if(v >= 0 && v <= 255) data.background_color.r = v;
+			if (v >= 0 && v <= 255) data.background_color.r = v;
 
 			sscanf_s(green.GetString(), "%x", &v);
-			if(v >= 0 && v <= 255) data.background_color.g = v;
+			if (v >= 0 && v <= 255) data.background_color.g = v;
 
 			sscanf_s(blue.GetString(), "%x", &v);
-			if(v >= 0 && v <= 255) data.background_color.b = v;
+			if (v >= 0 && v <= 255) data.background_color.b = v;
 		}
 
 		p2SString orientation(map.attribute("orientation").as_string());
 
-		if(orientation == "orthogonal")
+		if (orientation == "orthogonal")
 		{
 			data.type = MAPTYPE_ORTHOGONAL;
 		}
-		else if(orientation == "isometric")
+		else if (orientation == "isometric")
 		{
 			data.type = MAPTYPE_ISOMETRIC;
 		}
-		else if(orientation == "staggered")
+		else if (orientation == "staggered")
 		{
 			data.type = MAPTYPE_STAGGERED;
 		}
@@ -398,7 +400,7 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 	set->spacing = tileset_node.attribute("spacing").as_int();
 	pugi::xml_node offset = tileset_node.child("tileoffset");
 
-	if(offset != NULL)
+	if (offset != NULL)
 	{
 		set->offset_x = offset.attribute("x").as_int();
 		set->offset_y = offset.attribute("y").as_int();
@@ -417,7 +419,7 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	bool ret = true;
 	pugi::xml_node image = tileset_node.child("image");
 
-	if(image == NULL)
+	if (image == NULL)
 	{
 		LOG("Error parsing tileset xml file: Cannot find 'image' tag.");
 		ret = false;
@@ -429,14 +431,14 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 		SDL_QueryTexture(set->texture, NULL, NULL, &w, &h);
 		set->tex_width = image.attribute("width").as_int();
 
-		if(set->tex_width <= 0)
+		if (set->tex_width <= 0)
 		{
 			set->tex_width = w;
 		}
 
 		set->tex_height = image.attribute("height").as_int();
 
-		if(set->tex_height <= 0)
+		if (set->tex_height <= 0)
 		{
 			set->tex_height = h;
 		}
@@ -447,7 +449,6 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 
 	return ret;
 }
-
 bool j1Map::LoadColliders(pugi::xml_node& node)
 {
 	bool ret = true;
@@ -488,6 +489,34 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 	return ret;
 }
 
+bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* set)
+{
+	bool ret = true;
+
+	set->name = node.attribute("name").as_string();
+	set->offset_x = node.attribute("offsetx").as_int();
+	set->offset_y = node.attribute("offsety").as_int();
+
+	pugi::xml_node image = node.child("image");
+	set->width = image.attribute("width").as_int();
+	set->height = image.attribute("height").as_int();
+	set->texture = App->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
+
+	pugi::xml_node property;
+	for (property = node.child("properties").child("property"); property; property = property.next_sibling("property"))
+	{
+		p2SString name = property.attribute("name").as_string();
+		if (name == "speed")
+		{
+			set->speed = property.attribute("value").as_float();
+		}
+		if (name == "constant_movement")
+		{
+			set->constant_movement = property.attribute("value").as_bool();
+		}
+	}
+	return ret;
+}
 bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 {
 	bool ret = true;
@@ -519,6 +548,8 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	return ret;
 }
 
+
+
 bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 {
 	bool ret = false;
@@ -542,18 +573,16 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 
 	return ret;
 }
-
 bool j1Map::LoadLogic(pugi::xml_node& node)
 {
 	bool ret = true;
 	pugi::xml_node object;
-
 	p2SString name;
 	p2SString type;
-
 	for (object = node.child("object"); object; object = object.next_sibling("object"))
 	{
 		name = object.attribute("name").as_string();
+		type = object.attribute("type").as_string();
 		if (name == "player_start_pos")
 		{
 			App->player->position.x = object.attribute("x").as_int();
@@ -565,7 +594,6 @@ bool j1Map::LoadLogic(pugi::xml_node& node)
 				App->render->virtualCamPos = 0;
 			}
 		}
-
 		if (type == "enemy")
 		{
 			int x, y;
@@ -582,44 +610,7 @@ bool j1Map::LoadLogic(pugi::xml_node& node)
 		}
 	}
 
-	pugi::xml_node property;
-	for (property = node.child("properties").child("property"); property; property = property.next_sibling("property"))
-	{
-		p2SString name = property.attribute("name").as_string();
-		if (name == "map_length")
-		{
-			//map_length = property.attribute("value").as_int();
-		}
-	}
-	return ret;
-}
 
-bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* set)
-{
-	bool ret = true;
-
-	set->name = node.attribute("name").as_string();
-	set->offset_x = node.attribute("offsetx").as_int();
-	set->offset_y = node.attribute("offsety").as_int();
-
-	pugi::xml_node image = node.child("image");
-	set->width = image.attribute("width").as_int();
-	set->height = image.attribute("height").as_int();
-	set->texture = App->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
-
-	pugi::xml_node property;
-	for (property = node.child("properties").child("property"); property; property = property.next_sibling("property"))
-	{
-		p2SString name = property.attribute("name").as_string();
-		if (name == "speed")
-		{
-			set->speed = property.attribute("value").as_float();
-		}
-		if (name == "constant_movement")
-		{
-			set->constant_movement = property.attribute("value").as_bool();
-		}
-	}
 	return ret;
 }
 

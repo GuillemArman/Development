@@ -46,17 +46,23 @@
     <ClCompile Include="j1Transition.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="j1Flying_Enemy.cpp">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Walking_Enemy.cpp">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="j1EntityManager.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
     <ClCompile Include="j1Pathfinding.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Flying_Enemy.cpp">
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Walking_Enemy.cpp">
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="j1PerfTimer.cpp">
+      <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Timer.cpp">
+      <Filter>Desenvolupament  ========\Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -129,12 +135,6 @@
     <ClInclude Include="Brofiler.h">
       <Filter>Desenvolupament  ========\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="j1Flying_Enemy.h">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Walking_Enemy.h">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="j1EntityManager.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
@@ -143,6 +143,18 @@
     </ClInclude>
     <ClInclude Include="p2Queue.h">
       <Filter>Programacio 2 ===========</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Flying_Enemy.h">
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Walking_Enemy.h">
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="j1PerfTimer.h">
+      <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Timer.h">
+      <Filter>Desenvolupament  ========\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +178,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Player">
       <UniqueIdentifier>{0179708e-7273-4665-bbf4-c66acd889f60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\Enemies">
+      <UniqueIdentifier>{69f040c5-9417-4618-a970-47f4e0290360}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

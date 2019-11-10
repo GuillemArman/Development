@@ -14,7 +14,7 @@ public:
 	bool Awake(pugi::xml_node&);
 	bool Start();
 	bool Update(float dt);
-	bool PostUpdate();
+	bool PostUpdate(float dt);
 	bool CleanUp();
 
 	Entity* createEntity(entity_type type, int x, int y);
@@ -22,5 +22,6 @@ public:
 public:
 	p2List<Entity*> entities;
 	pugi::xml_node config;
+	SDL_Texture* path_marker;
 };
-#endif // !__ENTITY_MANAGER_H__ 
+#endif // !__ENTITY_MANAGER_H__

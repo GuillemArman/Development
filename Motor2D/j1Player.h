@@ -24,7 +24,7 @@ public:
 	bool Start();
 	bool PreUpdate();
 	bool Update(float dt);
-	bool PostUpdate();
+	bool PostUpdate(float dt);
 	bool CleanUp();
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
@@ -34,22 +34,21 @@ public:
 public:
 
 	bool isDead = false;
-	SDL_Texture* santa;
+	SDL_Texture* santa = nullptr;
 	Collider* pit_collider = nullptr;
 	fPoint collider_move;
 	bool touchingFloor;
 	bool jump = false;
 	int jumps = 0;
 	bool GodMode = false;
-	bool won;
-
+	
 	p2DynArray<iPoint> path;
-	SDL_Texture* path_marker;
+	SDL_Texture* path_marker = nullptr;
 
 	//FX
-	uint jump_sound;
-	uint walking_sound;
-	uint dead_sound;
+	uint jump_sound = 0;
+	uint walking_sound = 0;
+	uint dead_sound = 0;
 };
 
 #endif

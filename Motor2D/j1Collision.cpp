@@ -9,8 +9,10 @@
 j1Collision::j1Collision()
 {
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+
 		colliders[i] = nullptr;
 
+	matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_PIT] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_END] = false;
@@ -40,7 +42,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_ENEMY][COLLIDER_PIT] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_END] = false;
 
-	
+
 
 }
 
@@ -106,11 +108,14 @@ bool j1Collision::Update(float dt)
 			{
 				for (p2List_item<Entity*>* entity = App->entityManager->entities.start; entity; entity = entity->next)
 				{
-					if ((c1 == entity->data->collidingFloor || c2 == entity->data->collidingFloor) && ((c1->type == entity->data->collider->type && (c2->type == COLLIDER_FLOOR)) || (c2->type == entity->data->collider->type && (c1->type == COLLIDER_FLOOR)))) // When there is no longer collision between entity and the previous floor
+					if (entity->data->collider == c1 || entity->data->collider == c2)
 					{
-						entity->data->colliding_bottom = false;
-						if (entity->data->state != JUMPING)
-							entity->data->state = FALLING;
+						if ((c1 == entity->data->collidingFloor || c2 == entity->data->collidingFloor) && ((c1->type == entity->data->collider->type && (c2->type == COLLIDER_FLOOR)) || (c2->type == entity->data->collider->type && (c1->type == COLLIDER_FLOOR))))
+						{
+							entity->data->colliding_bottom = false;
+							if (entity->data->state != JUMPING)
+								entity->data->state = FALLING;
+						}
 					}
 				}
 			}
@@ -150,14 +155,17 @@ void j1Collision::DebugDraw()
 		case COLLIDER_ENEMY:
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
+
 		case COLLIDER_PIT://RED
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
+
 		case COLLIDER_END:
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
-		
+
 		}
+
 	}
 }
 

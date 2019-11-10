@@ -7,6 +7,8 @@
 #include "j1Scene.h"
 #include "p2Log.h"
 #include "j1Window.h"
+#include "j1PathFinding.h"
+#include "j1Player.h"
 
 Entity::Entity(const char* name)
 {
@@ -26,8 +28,8 @@ bool Entity::Entity_Update(float dt)
 	}
 
 	v.y += (gravity * ((colliding_bottom || flying) ? 0 : 1));
-	if (v.y < -1)
-		v.y = -13;
+	if (v.y <-jump_force)
+		v.y = -jump_force;
 	virtualPosition.y -= v.y;
 
 	if (pos_relCam > 0 || v.x > 0)
@@ -47,6 +49,7 @@ bool Entity::Entity_Update(float dt)
 	setAnimation();
 	return true;
 }
+
 
 void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 {
@@ -100,17 +103,18 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 				v.y = 0;
 			}
 		}
+
 		App->player->jump = false;
 	}
 
 	if (c2->type == COLLIDER_PIT)
 	{
-
 		if (App->player->GodMode == false)
 		{
 			/*App->player->isDead = true;
 			state = DEAD;*/
 			state = IDLE;
+
 
 			App->player->isDead = true;
 
@@ -127,13 +131,19 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 		{
 		gravity = 0.0f;
 		}*/
-
-		
 	}
+
 	if (c2->type == COLLIDER_END)
 	{
 		App->scene->LoadLvl(0);
 	}
+
+
+}
+
+void Entity::Do_Path()
+{
+	App->pathfinding->getPath(this, App->player, path_to_player);
 }
 
 void Entity::setAnimation()
@@ -142,6 +152,7 @@ void Entity::setAnimation()
 	{
 		if (state == JUMPING)
 		{
+
 			animation = &jumping_right;
 		}
 		else
@@ -195,6 +206,7 @@ void Entity::setAnimation()
 				animation = &dying_left;
 			}
 
-		} 
+		}
 	}
 }
+

@@ -4,8 +4,9 @@
 #include "j1Module.h"
 #include "Animation.h"
 #include "p2Point.h"
+#include "p2DynArray.h"
 
-//#define gravity -1.3
+//#define gravity -1.5
 
 struct SDL_Texture;
 
@@ -15,40 +16,44 @@ enum entity_state
 	RIGHT,
 	LEFT,
 	JUMPING,
-	DAMAGED,
 	FALLING,
-	DEAD
+	DAMAGED,
+	DEAD,
+	NONE
 
 };
 
 enum entity_type
 {
 	FLYING_ENEMY,
-	WALKING_ENEMY
+	WALKING_ENEMY,
+	NO_ENEMY
 };
 
 class Entity : public j1Module
 {
 public:
 
+
+
 	Entity(const char* name);
 	bool Entity_Update(float dt);
+
+	void Do_Path();
 
 	void Entity_OnCollision(Collider* c1, Collider* c2);
 
 private:
 
 	void setAnimation();
-	float gravity;
+	float gravity = 0;
 
 public:
 
 	iPoint position;
 	fPoint virtualPosition;
-
 	fPoint v;
 	fPoint collider_offset;
-
 	bool colliding_bottom = false;
 	bool colliding_right = false;
 	bool colliding_left = false;
@@ -57,11 +62,9 @@ public:
 	bool going_left = false;
 	bool jumping = false;
 	bool going_down = false;
-
-	entity_state state;
-	entity_type type;
+	entity_state state = NONE;
+	entity_type type = NO_ENEMY;
 	SDL_Texture* graphics = nullptr;
-
 	Animation* animation = nullptr;
 	Animation idle_right;
 	Animation idle_left;
@@ -71,18 +74,22 @@ public:
 	Animation jumping_right;
 	Animation dying_right;
 	Animation dying_left;
+	int pos_relCam = 0;
 
-	int pos_relCam;
+	Collider* collider = nullptr;
+	Collider* collidingFloor = nullptr;
 
-	Collider* collider;
-	Collider* collidingFloor;
+	p2DynArray<iPoint> path_to_player;
 
-	float speed;
-	float jump_force;
-
+	float speed = 0;
+	float jump_force = 0;
 	uint max_jump_value = 0;
 	bool flying = false;
-	
+
+	float scale = 1;
+	iPoint sprite_pos, collider_pos, collider_size;
+
+
 };
 
 #endif // !__MODULE_ENTITY_H__

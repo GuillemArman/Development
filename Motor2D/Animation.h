@@ -15,9 +15,7 @@ private:
 	float current_frame = 0.0f;
 	int last_frame = 0;
 	int loops = 0;
-	
-	pugi::xml_document	file;
-	
+	pugi::xml_document file;
 
 public:
 
@@ -32,14 +30,9 @@ public:
 	void PushBack(const SDL_Rect& rect)
 	{
 		frames[last_frame++] = rect;
-		pugi::xml_document	animations_file;
 	}
 
-	
-	
-
-	
-	SDL_Rect& GetCurrentFrame()
+	SDL_Rect& GetCurrentFrame(float dt)
 	{
 		current_frame += speed;
 		if (current_frame >= last_frame)
@@ -62,26 +55,67 @@ public:
 		current_frame = 0.0f;
 	}
 
-	void Animation_XML(p2SString name)//To load animations from xml file
+	void Animation_XML(p2SString name, p2SString npc)//To load animations from xml file
 	{
-		pugi::xml_parse_result result = file.load_file("player_animations.xml");
-		if (result != NULL)
+
+		if (npc == "player")
 		{
-			pugi::xml_node animation = file.child("test").child(name.GetString());
-
-			speed = animation.attribute("speed").as_float();
-			loop = animation.attribute("loop").as_bool();
-
-
-			for (pugi::xml_node frames = animation.child("frame"); frames; frames = frames.next_sibling("frame"))
+			pugi::xml_parse_result result = file.load_file("player_animations.xml");
+			if (result != NULL)
 			{
-				PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("width").as_int(), frames.attribute("height").as_int() });
-			}
+				pugi::xml_node animation = file.child("test").child(name.GetString());
 
+				speed = animation.attribute("speed").as_float();
+				loop = animation.attribute("loop").as_bool();
+
+
+				for (pugi::xml_node frames = animation.child("frame"); frames; frames = frames.next_sibling("frame"))
+				{
+					PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("width").as_int(), frames.attribute("height").as_int() });
+				}
+
+			}
+		}
+
+		if (npc == "walking_enemy")
+		{
+			pugi::xml_parse_result result = file.load_file("walking_enemy_animations.xml");
+			if (result != NULL)
+			{
+				pugi::xml_node animation = file.child("test").child(name.GetString());
+
+				speed = animation.attribute("speed").as_float();
+				loop = animation.attribute("loop").as_bool();
+
+
+				for (pugi::xml_node frames = animation.child("frame"); frames; frames = frames.next_sibling("frame"))
+				{
+					PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("width").as_int(), frames.attribute("height").as_int() });
+				}
+
+			}
+		}
+
+		if (npc == "flying_enemy")
+		{
+			pugi::xml_parse_result result = file.load_file("flying_enemy_animations.xml");
+			if (result != NULL)
+			{
+				pugi::xml_node animation = file.child("test").child(name.GetString());
+
+				speed = animation.attribute("speed").as_float();
+				loop = animation.attribute("loop").as_bool();
+
+
+				for (pugi::xml_node frames = animation.child("frame"); frames; frames = frames.next_sibling("frame"))
+				{
+					PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("width").as_int(), frames.attribute("height").as_int() });
+				}
+
+			}
 		}
 
 	}
-
 
 };
 

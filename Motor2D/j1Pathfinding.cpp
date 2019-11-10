@@ -25,19 +25,19 @@ bool j1PathFinding::isWalkable(const iPoint& coords) const
 	return ret;
 }
 
-void j1PathFinding::ResetPath()
+void j1PathFinding::ResetPath(p2DynArray<iPoint>& path_to_reset)
 {
-	path.Clear();
+	path_to_reset.Clear();
 	frontier.Clear();
 	visited.clear();
 	breadcrumbs.clear();
 	memset(cost_so_far, 0, sizeof(uint) * 65 * 13);
 }
 
-void j1PathFinding::getPath(Entity* entity, Entity* objective)
+void j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint>& path_to_fill)
 {
 	//p2DynArray<iPoint> path;
-	ResetPath();
+	ResetPath(path_to_fill);
 
 	iPoint origin_coords = App->map->WorldToMap(entity->position.x, entity->position.y);
 	frontier.Push(origin_coords, 0);
@@ -92,15 +92,15 @@ void j1PathFinding::getPath(Entity* entity, Entity* objective)
 
 		if (visited.find(destination_coords) != -1)
 		{
-			path.PushBack(destination_coords);
+			path_to_fill.PushBack(destination_coords);
 			iPoint cameFrom = breadcrumbs.At(visited.find(destination_coords))->data;
-			path.PushBack(cameFrom);
+			path_to_fill.PushBack(cameFrom);
 			while (cameFrom != visited.start->data)
 			{
 				cameFrom = breadcrumbs.At(visited.find(cameFrom))->data;
-				path.PushBack(cameFrom);
+				path_to_fill.PushBack(cameFrom);
 			}
 		}
-		path.Flip();
+		path_to_fill.Flip();
 	}
 }

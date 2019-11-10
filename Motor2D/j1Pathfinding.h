@@ -1,14 +1,12 @@
 #ifndef __PATH_FINDING_H__
 #define __PATH_FINDING_H__
 
-
 #include "j1Module.h"
 #include "p2Point.h"
 #include "p2List.h"
 #include "j1Entity.h"
 #include "p2DynArray.h"
 #include "p2Queue.h"
-
 
 class j1PathFinding : public j1Module
 {
@@ -19,11 +17,11 @@ public:
 	~j1PathFinding()
 	{}
 
-	void getPath(Entity* entity, Entity* objective);
+	void getPath(Entity* entity, Entity* objective, p2DynArray<iPoint>& path_to_fill);
 	void SetMap(uint width, uint height, uchar* data);
 	bool isWalkable(const iPoint& coords) const;
-	void ResetPath();
-	p2DynArray<iPoint>	path;
+	void ResetPath(p2DynArray<iPoint>& path_to_reset);
+
 
 private:
 
@@ -34,6 +32,7 @@ private:
 	p2List<iPoint>		visited;
 	p2List<iPoint>		breadcrumbs;
 	uint				cost_so_far[65][13];
+
 };
 
 #endif // !__PATH_FINDING_H__

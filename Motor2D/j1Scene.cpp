@@ -19,8 +19,6 @@ j1Scene::j1Scene() : j1Module()
 	// Add all levels to the list
 	level* lvl1 = new level(1, "Level2.tmx");
 	level* lvl2 = new level(2,"Level1.tmx");
-	
-
 	levels.add(lvl1);
 	levels.add(lvl2);
 
@@ -153,7 +151,7 @@ bool j1Scene::Update(float dt)
 }
 
 // Called each loop iteration
-bool j1Scene::PostUpdate()
+bool j1Scene::PostUpdate(float dt)
 {
 	bool ret = true;
 

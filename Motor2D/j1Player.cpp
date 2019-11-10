@@ -16,14 +16,14 @@ j1Player::j1Player() : Entity("player")
 {
 	name.create("player");
 
-	idle_right.Animation_XML("idle_right");
-	idle_left.Animation_XML("idle_left");
-	right.Animation_XML("right");
-	left.Animation_XML("left");
-	jumping_right.Animation_XML("jumping_right");
-	jumping_left.Animation_XML("jumping_left");
-	dying_right.Animation_XML("dying_right");
-	dying_left.Animation_XML("dying_left");
+	idle_right.Animation_XML("idle_right", "player");
+	idle_left.Animation_XML("idle_left", "player");
+	right.Animation_XML("right", "player");
+	left.Animation_XML("left", "player");
+	jumping_right.Animation_XML("jumping_right", "player");
+	jumping_left.Animation_XML("jumping_left", "player");
+	dying_right.Animation_XML("dying_right", "player");
+	dying_left.Animation_XML("dying_left", "player");
 
 
 }
@@ -179,13 +179,12 @@ bool j1Player::Update(float dt) {
 
 
 	collider->SetPos(virtualPosition.x + collider_move.x, virtualPosition.y + collider_move.y);
-	App->player->colliding_left = false;
-	App->player->colliding_right = false;
+	
 
 	return true;
 }
 
-bool j1Player::PostUpdate() {
+bool j1Player::PostUpdate(float dt) {
 
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !colliding_right && v.x == 0)
 	{
@@ -217,28 +216,14 @@ bool j1Player::PostUpdate() {
 		}
 	}
 
-	position.x = virtualPosition.x;
-	position.y = virtualPosition.y;
-
+	
 	int win_scale = App->win->GetScale();
 	pos_relCam = App->player->position.x + App->render->camera.x / win_scale;
 	
 
-	/*if (position.y > App->win->screen_surface->h / win_scale + 50 && !won)
-	{
-	App->scene->LoadLvl(App->scene->current_lvl->data->lvl);
-	}*/
+	App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame(dt));
 
-
-	App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame());
-
-	int i = 0;
-	while (i < App->pathfinding->path.Count())
-	{
-		iPoint coords = App->map->MapToWorld(App->pathfinding->path.At(i)->x, App->pathfinding->path.At(i)->y);
-		App->render->Blit(path_marker, coords.x, coords.y);
-		i++;
-	}
+	
 
 	LOG("%d", position.x);
 	LOG("%f", App->render->virtualCamPos);

@@ -12,33 +12,46 @@
 #include "j1Pathfinding.h"
 #include "j1Player.h"
 
-j1Walking_Enemy::j1Walking_Enemy() : Entity("walking")
+j1Walking_Enemy::j1Walking_Enemy() : Entity("walking_enemy")
 {
-	//graphics = App->tex->Load("textures/Sprites/FlyingSprites/Enemies.png");
+	name.create("walking_enemy");
 
 	speed = 2;
 	jump_force = 6;
 
+
+
+	graphics = App->tex->Load("textures/Sprites/FlyingSprites/Enemies.png");
 	collider = App->collision->AddCollider({ 0, 0, 97, 72 }, COLLIDER_ENEMY, this);
+
+
+	idle_right.Animation_XML("idle_right", "walking_enemy");
+	jumping_right.Animation_XML("jumping_right", "walking_enemy");
+	dying_right.Animation_XML("dying_right", "walking_enemy");
+	idle_left.Animation_XML("idle_left", "walking_enemy");
+	jumping_left.Animation_XML("jumping_left", "walking_enemy");
+	dying_left.Animation_XML("dying_left", "walking_enemy");
+
+	animation = &idle_left;
 }
 j1Walking_Enemy::~j1Walking_Enemy()
 {
 }
-bool j1Walking_Enemy::Awake(pugi::xml_node&)
+bool j1Walking_Enemy::Awake(pugi::xml_node& config)
 {
 	return true;
 }
 bool j1Walking_Enemy::Start()
 {
-	
+
 	return true;
 }
 bool j1Walking_Enemy::Update(float dt)
 {
-	App->pathfinding->getPath(this, App->player);
+	Do_Path();
 	return true;
 }
-bool j1Walking_Enemy::PostUpdate()
+bool j1Walking_Enemy::PostUpdate(float dt)
 {
 	return true;
 }
