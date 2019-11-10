@@ -35,7 +35,7 @@ bool j1Walking_Enemy::Start()
 }
 bool j1Walking_Enemy::Update(float dt)
 {
-	//App->pathfinding->getPath(this, App->player->position);
+	App->pathfinding->getPath(this, App->player->position);
 	return true;
 }
 bool j1Walking_Enemy::PostUpdate()

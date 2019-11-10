@@ -9,6 +9,8 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Audio.h"
+#include "j1PathFinding.h"
+#include "j1Player.h"
 
 j1Flying_Enemy::j1Flying_Enemy() : Entity("Flying")
 {
@@ -42,6 +44,7 @@ bool j1Flying_Enemy::Start()
 }
 bool j1Flying_Enemy::Update(float dt)
 {
+	App->pathfinding->getPath(this, App->player->position);
 	return true;
 }
 bool j1Flying_Enemy::PostUpdate()
