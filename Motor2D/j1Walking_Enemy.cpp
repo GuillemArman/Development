@@ -9,6 +9,8 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Audio.h"
+#include "j1Pathfinding.h"
+#include "j1Player.h"
 
 j1Walking_Enemy::j1Walking_Enemy() : Entity("walking")
 {
@@ -29,12 +31,11 @@ bool j1Walking_Enemy::Awake(pugi::xml_node&)
 bool j1Walking_Enemy::Start()
 {
 	
-
-
 	return true;
 }
 bool j1Walking_Enemy::Update(float dt)
 {
+	//App->pathfinding->getPath(this, App->player->position);
 	return true;
 }
 bool j1Walking_Enemy::PostUpdate()

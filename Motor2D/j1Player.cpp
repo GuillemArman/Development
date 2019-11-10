@@ -9,6 +9,7 @@
 #include "j1Scene.h"
 #include "j1Audio.h"
 #include "j1Map.h"
+#include "j1Pathfinding.h"
 #include <stdio.h>
 
 j1Player::j1Player() : Entity("player")
@@ -233,9 +234,9 @@ bool j1Player::PostUpdate() {
 	App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame());
 
 	int i = 0;
-	while (i < path.Count())
+	while (i < App->pathfinding->path.Count())
 	{
-		iPoint coords = App->map->MapToWorld(path.At(i)->x, path.At(i)->y);
+		iPoint coords = App->map->MapToWorld(App->pathfinding->path.At(i)->x, App->pathfinding->path.At(i)->y);
 		App->render->Blit(path_marker, coords.x, coords.y);
 		i++;
 	}
