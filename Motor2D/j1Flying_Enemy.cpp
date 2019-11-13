@@ -11,6 +11,7 @@
 #include "j1Audio.h"
 #include "j1PathFinding.h"
 #include "j1Player.h"
+#include "j1EntityManager.h"
 
 j1Flying_Enemy::j1Flying_Enemy() : Entity("flying_enemy")
 {
@@ -49,6 +50,11 @@ bool j1Flying_Enemy::Start()
 }
 bool j1Flying_Enemy::Update(float dt)
 {
+	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+	{
+		App->entityManager->destroyEntity(this);
+	}
+
 	Do_Path();
 	return true;
 }

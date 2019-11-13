@@ -11,6 +11,7 @@
 #include "j1Audio.h"
 #include "j1Pathfinding.h"
 #include "j1Player.h"
+#include "j1EntityManager.h"
 
 j1Walking_Enemy::j1Walking_Enemy() : Entity("walking_enemy")
 {
@@ -49,6 +50,8 @@ bool j1Walking_Enemy::Start()
 bool j1Walking_Enemy::Update(float dt)
 {
 	Do_Path();
+
+
 	return true;
 }
 bool j1Walking_Enemy::PostUpdate(float dt)

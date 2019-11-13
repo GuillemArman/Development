@@ -70,7 +70,7 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 
-		cleaning_NPC = true;
+		
 		LoadLvl(1);
 
 	}

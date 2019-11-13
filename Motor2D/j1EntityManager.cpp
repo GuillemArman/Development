@@ -17,12 +17,17 @@ j1EntityManager::~j1EntityManager()
 bool j1EntityManager::Awake(pugi::xml_node& config)
 {
 	this->config = config;
+	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
+	{
+		entity->data->Awake(config.child(entity->data->name.GetString()));
+	}
+
 	return true;
 }
 
 bool j1EntityManager::Start()
 {
-
+	path_marker = App->tex->Load("textures/non_walkable_tile.png");
 	return true;
 }
 
@@ -42,11 +47,7 @@ bool j1EntityManager::PostUpdate(float dt)
 	{
 		entity->data->PostUpdate(dt);
 
-		if (App->scene->cleaning_NPC == true)
-		{
-			destroyEntity(entity->data);
-			continue;
-		}
+		
 
 		int i = 0;
 		while (i < entity->data->path_to_player.Count())
