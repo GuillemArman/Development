@@ -6,8 +6,6 @@
 #include "p2Point.h"
 #include "p2DynArray.h"
 
-//#define gravity -1.5
-
 struct SDL_Texture;
 
 enum entity_state
@@ -51,7 +49,7 @@ public:
 private:
 
 	void setAnimation();
-	float gravity = 0;
+	float gravity = 5;
 
 public:
 
@@ -99,6 +97,7 @@ public:
 	iPoint sprite_pos, collider_pos, collider_size;
 
 	bool IsDead = false;
+	float prev_dt = 0;
 
 };
 

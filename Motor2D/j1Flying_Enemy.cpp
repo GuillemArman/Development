@@ -18,10 +18,6 @@ j1Flying_Enemy::j1Flying_Enemy() : Entity("flying_enemy")
 
 	name.create("flying_enemy");
 
-	speed = 2;
-	jump_force = 6;
-
-
 
 	if (graphics == nullptr)
 		graphics = App->tex->Load("textures/Sprites/FlyingSprites/Enemies.png");
@@ -50,12 +46,14 @@ bool j1Flying_Enemy::Start()
 }
 bool j1Flying_Enemy::Update(float dt)
 {
+	/*Do_Path();
+
 	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
 	{
 		App->entityManager->destroyEntity(this);
-	}
+	}*/
 
-	Do_Path();
+	
 	return true;
 }
 bool j1Flying_Enemy::PostUpdate(float dt)
