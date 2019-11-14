@@ -20,5 +20,13 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+	void followPath();
+	void standardPath();
+
+public:
+
+	bool moving_right = false;
+	bool moving_left = false;
+
 };
 #endif // !__WALKING_ENEMY_H_
