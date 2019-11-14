@@ -14,6 +14,11 @@ void j1PathFinding::SetMap(uint width, uint height, uchar* data)
 	memcpy(map, data, width*height);
 }
 
+bool j1PathFinding::isTouchingGround(iPoint coords) const
+{
+	return !isWalkable({ coords.x, coords.y + 1 });
+}
+
 bool j1PathFinding::isWalkable(const iPoint& coords) const
 {
 	bool ret = false;
@@ -34,8 +39,10 @@ void j1PathFinding::ResetPath(p2DynArray<iPoint>& path_to_reset)
 	memset(cost_so_far, 0, sizeof(uint) * 65 * 13);
 }
 
-void j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint>& path_to_fill)
+bool j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint>& path_to_fill)
 {
+	bool ret = true;
+
 	//p2DynArray<iPoint> path;
 	ResetPath(path_to_fill);
 
@@ -92,6 +99,7 @@ void j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint
 
 		if (visited.find(destination_coords) != -1)
 		{
+			ret = true;
 			path_to_fill.PushBack(destination_coords);
 			iPoint cameFrom = breadcrumbs.At(visited.find(destination_coords))->data;
 			path_to_fill.PushBack(cameFrom);
@@ -103,4 +111,5 @@ void j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint
 		}
 		path_to_fill.Flip();
 	}
+	return ret;
 }

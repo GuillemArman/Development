@@ -20,6 +20,7 @@ public:
 	bool CleanUp();
 
 	Entity* createEntity(entity_type type, int x, int y);
+	Entity* getPlayer() const;
 	void destroyEntity(Entity* to_detroy);
 
 public:

@@ -21,5 +21,8 @@ public:
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
+
+	void followPath();
+	void standardPath();
 };
 #endif // !__FLYING_ENEMY_H_

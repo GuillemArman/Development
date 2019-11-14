@@ -17,10 +17,11 @@ public:
 	~j1PathFinding()
 	{}
 
-	void getPath(Entity* entity, Entity* objective, p2DynArray<iPoint>& path_to_fill);
+	bool getPath(Entity* entity, Entity* objective, p2DynArray<iPoint>& path_to_fill);
 	void SetMap(uint width, uint height, uchar* data);
 	bool isWalkable(const iPoint& coords) const;
 	void ResetPath(p2DynArray<iPoint>& path_to_reset);
+	bool isTouchingGround(iPoint coords) const;
 
 
 private:

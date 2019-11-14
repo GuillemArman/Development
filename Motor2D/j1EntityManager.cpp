@@ -16,7 +16,7 @@ j1EntityManager::~j1EntityManager()
 
 bool j1EntityManager::Awake(pugi::xml_node& config)
 {
-	this->config = config;
+	this->config = config;	
 	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
 	{
 		entity->data->Awake(config.child(entity->data->name.GetString()));
@@ -91,6 +91,22 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 	return ret;
 }
 
+Entity* j1EntityManager::getPlayer() const
+{
+	Entity* ret = nullptr;
+
+	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
+	{
+		if (entity->data->type == PLAYER)
+		{
+			ret = entity->data;
+			break;
+		}
+	}
+
+	return ret;
+}
+
 void j1EntityManager::destroyEntity(Entity* to_destroy)
 {
 	p2List_item<Entity*>* entity_to_destroy = entities.start;
@@ -99,6 +115,8 @@ void j1EntityManager::destroyEntity(Entity* to_destroy)
 	{
 		if (entity_to_destroy->data == to_destroy)
 		{
+			if (entity_to_destroy->data == getPlayer())
+				getPlayer()->CleanUp();
 			entities.del(entity_to_destroy);
 			RELEASE(entity_to_destroy->data);
 			break;

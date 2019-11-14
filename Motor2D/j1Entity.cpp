@@ -7,7 +7,7 @@
 #include "j1Scene.h"
 #include "p2Log.h"
 #include "j1Window.h"
-#include "j1PathFinding.h"
+#include "j1Pathfinding.h"
 #include "j1Player.h"
 
 Entity::Entity(const char* name)
@@ -141,13 +141,21 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 
 }
 
-void Entity::Do_Path()
+bool Entity::Calculate_Path()
 {
-	App->pathfinding->getPath(this, App->player, path_to_player);
+	if (position.DistanceTo(App->player->position) < 300)
+		return App->pathfinding->getPath(this, App->player, path_to_player);
+	else
+	{
+		App->pathfinding->ResetPath(path_to_player);
+		v = { 0, 0 };
+		return false;
+	}
 }
 
 void Entity::setAnimation()
 {
+
 	if (specificAnimation())
 	{
 	}
@@ -218,3 +226,22 @@ void Entity::setAnimation()
 	}
 }
 
+bool Entity::Collision_from_right(Collider* c1, Collider* c2) const
+{
+	return ((c2->rect.x + (v.x*prev_dt) + 4) > (c1->rect.x + (c1->rect.w)));
+}
+
+bool Entity::Collision_from_bottom(Collider* c1, Collider* c2, int margin) const
+{
+	return ((c2->rect.y - (v.y*prev_dt) + margin) >= (c1->rect.y + (c1->rect.h)));
+}
+
+bool Entity::Collision_from_left(Collider* c1, Collider* c2) const
+{
+	return ((c2->rect.x + (c2->rect.w)) < (c1->rect.x - (v.x*prev_dt) + 5));
+}
+
+bool Entity::Collision_from_top(Collider* c1, Collider* c2) const
+{
+	return ((c2->rect.y + (c2->rect.h)) < (c1->rect.y + (v.y*prev_dt) + 10));
+}

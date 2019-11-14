@@ -49,7 +49,7 @@ bool j1Walking_Enemy::Start()
 }
 bool j1Walking_Enemy::Update(float dt)
 {
-	Do_Path();
+	//Do_Path();
 
 
 	return true;
