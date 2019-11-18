@@ -59,8 +59,9 @@ bool j1EntityManager::Update(float dt)
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		draw_path = !draw_path;
+		
 
 	return true;
 }

@@ -98,8 +98,7 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !App->entityManager->getPlayer()->dead)
 		App->LoadGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
-		LoadLvl(0);
+
 	
 
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
