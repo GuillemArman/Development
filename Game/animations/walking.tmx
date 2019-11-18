@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="768" height="644" tilewidth="1" tileheight="1" nextobjectid="39">
+ <imagelayer name="spritesheet">
+  <image source="../textures/enemies/Enemies.png" width="1000" height="1000"/>
+ </imagelayer>
+ <objectgroup name="idle_left" visible="0">
+  <properties>
+   <property name="speed" type="float" value="3"/>
+  </properties>
+  <object id="9" x="8.66667" y="400" width="94" height="100"/>
+ </objectgroup>
+ <objectgroup name="idle_right" visible="0">
+  <properties>
+   <property name="speed" type="float" value="3"/>
+  </properties>
+  <object id="29" x="355.333" y="260" width="91.3333" height="100"/>
+ </objectgroup>
+ <objectgroup name="right" visible="0">
+  <properties>
+   <property name="speed" type="float" value="7"/>
+  </properties>
+  <object id="23" x="352" y="254" width="96" height="100"/>
+ </objectgroup>
+ <objectgroup name="jumping_left" visible="0">
+  <object id="32" x="338.667" y="399.333" width="109.333" height="100"/>
+ </objectgroup>
+ <objectgroup name="falling_right" visible="0">
+  <object id="38" x="217.333" y="260.667" width="121.333" height="100"/>
+ </objectgroup>
+ <objectgroup name="falling_left" visible="0">
+  <object id="36" x="230.667" y="404.667" width="107.333" height="100"/>
+ </objectgroup>
+ <objectgroup name="jumping_right" visible="0">
+  <object id="35" x="108" y="254.667" width="108" height="100"/>
+ </objectgroup>
+ <objectgroup name="left">
+  <properties>
+   <property name="speed" type="float" value="7"/>
+  </properties>
+  <object id="22" x="-2.66667" y="404" width="108.667" height="100"/>
+ </objectgroup>
+ <objectgroup color="#ff0000" name="Logic" visible="0">
+  <properties>
+   <property name="jump_force" type="float" value="300"/>
+   <property name="speed" type="float" value="115"/>
+  </properties>
+  <object id="30" name="sprite" x="4" y="260" width="102" height="100"/>
+  <object id="31" name="collider" x="6.4167" y="274.667" width="90.5" height="75.5"/>
+ </objectgroup>
+</map>

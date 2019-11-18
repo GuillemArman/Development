@@ -1,9 +1,10 @@
-#ifndef __j1COLLISION_H__
-#define __j1COLLISION_H__
+#ifndef __j1Collision_H__
+#define __j1Collision_H__
 
 #define MAX_COLLIDERS 300
 
 #include "j1Module.h"
+#include "j1Entity.h"
 #include "SDL/include/SDL_rect.h"
 
 enum COLLIDER_TYPE
@@ -12,8 +13,7 @@ enum COLLIDER_TYPE
 	COLLIDER_FLOOR,
 	COLLIDER_PLAYER,
 	COLLIDER_ENEMY,
-	COLLIDER_PIT,
-	COLLIDER_END,
+	COLLIDER_JUMPABLE,
 
 	COLLIDER_MAX
 };
@@ -24,11 +24,13 @@ struct Collider
 	bool to_delete = false;
 	COLLIDER_TYPE type;
 	j1Module* callback = nullptr;
+	Entity* entity = nullptr;
 
-	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, j1Module* callback = nullptr) :
+	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, j1Module* callback = nullptr, Entity* entity = nullptr) :
 		rect(rectangle),
 		type(type),
-		callback(callback)
+		callback(callback),
+		entity(entity)
 	{}
 
 	bool Update();
@@ -54,15 +56,15 @@ public:
 	//update_status PostUpdate();
 	bool CleanUp();
 
-	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
+	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr, Entity* entity = nullptr);
 	bool EraseCollider(Collider* collider);
 	void DebugDraw();
 
 private:
 
-	Collider * colliders[MAX_COLLIDERS];
+	Collider* colliders[MAX_COLLIDERS];
 	bool matrix[COLLIDER_MAX][COLLIDER_MAX];
 	bool debug = false;
 };
 
-#endif // __j1COLLISION_H__
+#endif // __j1Collision_H__

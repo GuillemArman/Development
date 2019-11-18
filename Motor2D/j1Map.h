@@ -8,60 +8,33 @@
 #include "j1App.h"
 #include "j1Textures.h"
 
-struct Properties
-{
-	struct Property
-	{
-		p2SString name;
-		int value;
-	};
-
-	~Properties()
-	{
-		p2List_item<Property*>* item;
-		item = list.start;
-
-		while (item != NULL)
-		{
-			RELEASE(item->data);
-			item = item->next;
-		}
-
-		list.clear();
-	}
-
-	int Get(const char* name, int default_value = 0) const;
-
-	p2List<Property*>	list;
-};
-
-// ----------------------------------------------------
 struct MapLayer
 {
-	p2SString	name;
-	int			width;
-	int			height;
-	uint*		data;
-	Properties	properties;
-
-	MapLayer() : data(NULL)
-	{}
+	p2SString name;
+	int width;
+	int height;
+	uint* tiles = nullptr;
+	int size;
+	inline uint Get(int x, int y) const
+	{
+		return (x + y * width);
+	}
 
 	~MapLayer()
 	{
-		RELEASE(data);
+		if (tiles != NULL)
+		{
+			delete[] tiles;
+			tiles = NULL;
+		}
 	}
 
-	inline uint Get(int x, int y) const
-	{
-		return data[(y*width) + x];
-	}
 };
 
 struct ImageLayer
 {
 	p2SString name;
-	SDL_Texture* texture;
+	SDL_Texture* texture = nullptr;
 	int offset_x;
 	int offset_y;
 	int width;
@@ -72,17 +45,18 @@ struct ImageLayer
 
 	ImageLayer()
 	{}
-	ImageLayer(ImageLayer* copy)
+
+	ImageLayer(const ImageLayer& copy)
 	{
-		name = copy->name;
-		texture = copy->texture;
-		offset_x = copy->offset_x;
-		offset_y = copy->offset_y;
-		width = copy->width;
-		height = copy->height;
-		position = copy->position;
-		speed = copy->speed;
-		constant_movement = copy->constant_movement;
+		name = copy.name;
+		texture = copy.texture;
+		offset_x = copy.offset_x;
+		offset_y = copy.offset_y;
+		width = copy.width;
+		height = copy.height;
+		position = copy.position;
+		speed = copy.speed;
+		constant_movement = copy.constant_movement;
 	}
 
 	~ImageLayer()
@@ -96,10 +70,8 @@ struct ImageLayer
 
 };
 
-// ----------------------------------------------------
 struct TileSet
 {
-
 	SDL_Rect GetTileRect(int id) const;
 
 	p2SString			name;
@@ -108,7 +80,7 @@ struct TileSet
 	int					spacing;
 	int					tile_width;
 	int					tile_height;
-	SDL_Texture*		texture;
+	SDL_Texture*		texture = nullptr;
 	int					tex_width;
 	int					tex_height;
 	int					num_tiles_width;
@@ -125,7 +97,6 @@ struct TileSet
 		}
 	}
 
-
 };
 
 enum MapTypes
@@ -138,19 +109,18 @@ enum MapTypes
 // ----------------------------------------------------
 struct MapData
 {
-	int					width = 0;
-	int					height = 0;
-	int					tile_width = 0;
-	int					tile_height = 0;
+	int					width;
+	int					height;
+	int					tile_width;
+	int					tile_height;
 	SDL_Color			background_color;
-	MapTypes			type = MAPTYPE_UNKNOWN;
+	MapTypes			type;
 	p2List<TileSet*>	tilesets;
-	p2List<MapLayer*>	layers;
 	p2List<ImageLayer*> image_layers;
+	p2List<MapLayer*>	layers;
 	p2List<Collider*>	colliders;
 };
 
-// ----------------------------------------------------
 class j1Map : public j1Module
 {
 public:
@@ -170,8 +140,7 @@ public:
 	bool CleanUp();
 
 	// Load new map
-	bool Load(const char* path);
-
+	bool Load(const char* path, int& map_length, SDL_Rect& end, bool fromSaveData = false);
 
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
@@ -184,11 +153,8 @@ private:
 	bool LoadImageLayer(pugi::xml_node& node, ImageLayer* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadColliders(pugi::xml_node& node);
-	bool LoadProperties(pugi::xml_node& node, Properties& properties);
-	bool LoadLogic(pugi::xml_node& node);
+	bool LoadLogic(pugi::xml_node& node, int& map_length, SDL_Rect& end, bool fromSaveData = false);
 	bool LoadWalkabilityMap(pugi::xml_node& node, int& width, int& height, uchar** buffer) const;
-
-	TileSet* GetTilesetFromTileId(int id) const;
 
 public:
 
@@ -197,7 +163,7 @@ public:
 private:
 
 	pugi::xml_document	map_file;
-	p2SString			folder = nullptr;
+	p2SString			folder;
 	bool				map_loaded = false;
 };
 

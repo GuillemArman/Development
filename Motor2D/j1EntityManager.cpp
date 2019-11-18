@@ -1,22 +1,29 @@
 #include "j1EntityManager.h"
-#include "j1App.h"
+#include "j1WalkingEnemy.h"
+#include "j1FlyingEnemy.h"
+#include "p2Log.h"
 #include "j1Render.h"
-#include "j1Walking_Enemy.h"
-#include "j1Flying_Enemy.h"
-#include "j1Collision.h"
 #include "j1Map.h"
-#include "p2Defs.h"
-#include "j1Scene.h"
-
+#include "j1App.h"
+#include "j1Collision.h"
+#include "Brofiler\Brofiler.h"
+#include "j1Input.h"
+#include "j1Player.h"
+#include "j1Window.h"
 j1EntityManager::j1EntityManager()
-{}
+{
+	name.create("entityManager");
+
+	Entity* player = new j1Player();
+	entities.add(player);
+}
 
 j1EntityManager::~j1EntityManager()
 {}
 
 bool j1EntityManager::Awake(pugi::xml_node& config)
 {
-	this->config = config;	
+	this->config = config;
 	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
 	{
 		entity->data->Awake(config.child(entity->data->name.GetString()));
@@ -27,67 +34,131 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 bool j1EntityManager::Start()
 {
-	path_marker = App->tex->Load("textures/non_walkable_tile.png");
+	path_marker = App->tex->Load("maps/non_walkable_tile.png");
+	getPlayer()->Start();
+
 	return true;
 }
 
 bool j1EntityManager::Update(float dt)
 {
+	BROFILER_CATEGORY("EntityManager Update", Profiler::Color::Yellow);
+
+	int win_scale = App->win->GetScale();
+	int win_width = App->win->screen_surface->w / win_scale;
 	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
-	{
-		entity->data->Entity_Update(dt);
-		entity->data->Update(dt);
+	{	
+		if (entity->data->pos_relCam >= (0 - SCREEN_MARGIN) && entity->data->pos_relCam <= (win_width + SCREEN_MARGIN))
+		{
+			entity->data->Entity_Update(dt);
+			entity->data->Update(dt);
+		}
+		else
+		{
+			entity->data->pos_relCam = entity->data->position.x + App->render->camera.x / win_scale;
+		}
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		draw_path = !draw_path;
+
 	return true;
 }
 
 bool j1EntityManager::PostUpdate(float dt)
 {
+	BROFILER_CATEGORY("EntityManager PostUpdate", Profiler::Color::Yellow);
+
+	int win_scale = App->win->GetScale();
+	int win_width = App->win->screen_surface->w / win_scale;
 	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
 	{
-		entity->data->PostUpdate(dt);
-
-		
-
-		int i = 0;
-		while (i < entity->data->path_to_player.Count())
+		if (entity->data->pos_relCam >= (0 - 50) && entity->data->pos_relCam <= (win_width))
 		{
-			iPoint coords = App->map->MapToWorld(entity->data->path_to_player.At(i)->x, entity->data->path_to_player.At(i)->y);
-			App->render->Blit(path_marker, coords.x, coords.y);
-			i++;
+			entity->data->PostUpdate(dt);
+			if (entity->data->type != PLAYER)
+			{
+				if (entity->data->position.y > App->map->data.height*App->map->data.tile_height)
+				{
+					DeleteEntity(entity->data);
+					continue;
+				}
+				int i = 0;
+				if (draw_path)
+				{
+					while (i < entity->data->entityPath.Count())
+					{
+						iPoint coords = App->map->MapToWorld(entity->data->entityPath.At(i)->x, entity->data->entityPath.At(i)->y);
+						App->render->Blit(path_marker, coords.x, coords.y);
+						i++;
+					}
+				}
+				App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y, &entity->data->animation->GetCurrentFrame(dt), entity->data->scale);
+			}
 		}
-		App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y, &entity->data->animation->GetCurrentFrame(dt), entity->data->scale);
 	}
+
 	return true;
 }
 
 bool j1EntityManager::CleanUp()
 {
-	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
+	Entity* player = getPlayer();
+	if (player)
+		getPlayer()->CleanUp();
+	
+	p2List_item<Entity*>* item;
+	item = entities.start->next; //Skip first entity, player
+
+	while (item != NULL)
 	{
-		entity->data->CleanUp();
+		RELEASE(item->data);
+		item = item->next;
 	}
+	entities.clear();
+	entities.add(player);
+
 	return true;
+}
+
+void j1EntityManager::DeleteEntity(Entity* entity_to_delete)
+{
+	p2List_item<Entity*>* entity_finder = entities.start; 
+	while (entity_finder != NULL)
+	{
+		if (entity_finder->data == entity_to_delete)
+		{
+			if (entity_finder->data == getPlayer())
+				getPlayer()->CleanUp();
+			entities.del(entity_finder);
+			RELEASE(entity_finder->data);
+			break;
+		}
+		entity_finder = entity_finder->next;
+	}
 }
 
 Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 {
 	Entity* ret = nullptr;
-
+	
 	switch (type)
 	{
 	case WALKING_ENEMY:
-		ret = new j1Walking_Enemy();
+		ret = new Walking_Enemy();
 		break;
 	case FLYING_ENEMY:
-		ret = new j1Flying_Enemy();
+		ret = new Flying_Enemy();
 		ret->flying = true;
 		break;
 	}
 	ret->type = type;
 	ret->virtualPosition.x = ret->position.x = x;
 	ret->virtualPosition.y = ret->position.y = y;
+	ret->animation = ret->idle_left;
+
 	entities.add(ret);
+
 	return ret;
 }
 
@@ -107,21 +178,32 @@ Entity* j1EntityManager::getPlayer() const
 	return ret;
 }
 
-void j1EntityManager::destroyEntity(Entity* to_destroy)
+bool j1EntityManager::Load(pugi::xml_node& data)
 {
-	p2List_item<Entity*>* entity_to_destroy = entities.start;
-
-	while (entity_to_destroy != NULL)
+	CleanUp();
+	getPlayer()->Load(data.child("player"));
+	for (pugi::xml_node walking = data.child("walking"); walking; walking = walking.next_sibling("walking"))
 	{
-		if (entity_to_destroy->data == to_destroy)
-		{
-			if (entity_to_destroy->data == getPlayer())
-				getPlayer()->CleanUp();
-			entities.del(entity_to_destroy);
-			RELEASE(entity_to_destroy->data);
-			break;
-		}
-
-		entity_to_destroy = entity_to_destroy->next;
+		createEntity(WALKING_ENEMY, walking.attribute("position_x").as_int(), walking.attribute("position_y").as_int());
 	}
+
+	for (pugi::xml_node flying = data.child("flying"); flying; flying = flying.next_sibling("flying"))
+	{
+		createEntity(FLYING_ENEMY, flying.attribute("position_x").as_int(), flying.attribute("position_y").as_int());
+	}
+	
+	return true;
+}
+
+bool j1EntityManager::Save(pugi::xml_node& data) const
+{
+	getPlayer()->Save(data.append_child("player"));
+	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
+	{
+		pugi::xml_node child = data.append_child(entity->data->name.GetString());
+		child.append_attribute("position_x") = entity->data->position.x;
+		child.append_attribute("position_y") = entity->data->position.y;
+	}
+
+	return true;
 }

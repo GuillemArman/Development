@@ -1,14 +1,11 @@
-#ifndef __j1PLAYER_H__
-#define __j1PLAYER_H__
+#ifndef __ModulePlayer_H__
+#define __ModulePlayer_H__
 
 #include "j1Module.h"
-#include "p2Point.h"
 #include "j1Entity.h"
 #include "Animation.h"
-#include "PugiXml\src\pugixml.hpp"
+#include "p2Point.h"
 #include "p2DynArray.h"
-
-#define diff 50;
 
 struct SDL_Texture;
 struct Collider;
@@ -16,39 +13,35 @@ struct Collider;
 class j1Player : public Entity
 {
 public:
-
 	j1Player();
-	virtual ~j1Player();
+	~j1Player();
 
-	bool Awake(pugi::xml_node&);
 	bool Start();
-	bool PreUpdate();
 	bool Update(float dt);
 	bool PostUpdate(float dt);
 	bool CleanUp();
+	void OnCollision(Collider* c1, Collider* c2);
+
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
-	void OnCollision(Collider* c1, Collider* c2);
-	
 
 public:
 
-	
-	SDL_Texture* santa = nullptr;
-	Collider* pit_collider = nullptr;
-	fPoint collider_move;
-	bool touchingFloor;
-	bool jump = false;
-	int jumps = 0;
-	bool GodMode = false;
-	
-	p2DynArray<iPoint> path;
-	SDL_Texture* path_marker = nullptr;
+	uint double_jump_fx = 0, jump_fx = 0, step_fx = 0, die_fx = 0, SSJ_transformation = 0, SSJ_off = 0, killed_fx = 0;
+	float step_time = 0;
+	float killed_finished = 0;
 
-	//FX
-	uint jump_sound = 0;
-	uint walking_sound = 0;
-	uint dead_sound = 0;
+	Animation* jump = nullptr;
+	iPoint jump_offset;
+	iPoint jump_pos;
+
+	SDL_Texture* graphics_god = nullptr;
+	Animation* godMode = nullptr;
+	iPoint godmode_offset;
+
+	bool double_jump = false;
+	bool won = false;
+	float end_reached = 0;	
 };
 
 #endif

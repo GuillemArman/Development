@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<game_state>
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<:anonymous />
+	<entityManager>
+		<player position_x="26" position_y="244" level="1" />
+		<player position_x="26" position_y="249" />
+		<walking position_x="406" position_y="136" />
+		<flying position_x="389" position_y="83" />
+		<flying position_x="765" position_y="32" />
+		<walking position_x="1705" position_y="272" />
+		<flying position_x="1169" position_y="283" />
+	</entityManager>
+	<map />
+	<scene />
+	<:anonymous />
+	<renderer>
+		<camera x="0" y="0" />
+	</renderer>
+</game_state>

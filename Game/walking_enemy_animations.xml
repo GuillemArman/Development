@@ -1,0 +1,34 @@
+﻿<test>
+
+	<idle_right speed="0.1f" loop="true">
+		<frame x="450" y="270" width="90" height="81"/>
+		<frame x="356" y="272" width="90" height="79"/>	
+	</idle_right>
+
+	<idle_left speed="0.1f" loop="true">
+		<frame x="13" y="414" width="90" height="81"/>
+		<frame x="107" y="416" width="90" height="79"/>
+	</idle_left>
+
+	<jumping_right speed="0.1f" loop="false">
+		<frame x="222" y="271" width="91" height="82"/>
+		<frame x="117" y="271" width="88" height="84"/>
+	</jumping_right>
+
+	<jumping_left speed="0.1f" loop="false">
+		<frame x="240" y="415" width="91" height="82"/>
+		<frame x="348" y="415" width="88" height="84"/>
+	</jumping_left>
+
+	<dying_right speed="0.1f" loop="false">
+		<frame x="0" y="271" width="90" height="83"/>
+	</dying_right>
+
+	<dying_left speed="0.1f" loop="false">
+		<frame x="463" y="415" width="90" height="83"/>
+	</dying_left>	
+</test>
+      
+      
+          
+         

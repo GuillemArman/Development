@@ -76,42 +76,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="j1FlyingEnemy.cpp" />
+    <ClCompile Include="j1WalkingEnemy.cpp" />
     <ClCompile Include="j1Collision.cpp" />
     <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
-    <ClCompile Include="j1Flying_Enemy.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Audio.cpp" />
     <ClCompile Include="j1Input.cpp" />
     <ClCompile Include="j1Map.cpp" />
-    <ClCompile Include="j1Pathfinding.cpp" />
+    <ClCompile Include="j1PathFinding.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
+    <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="j1Scene.cpp" />
     <ClCompile Include="j1Timer.cpp" />
-    <ClCompile Include="j1Transition.cpp" />
-    <ClCompile Include="j1Walking_Enemy.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="j1Render.cpp" />
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
-    <ClCompile Include="j1Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
-    <ClInclude Include="Brofiler.h" />
+    <ClInclude Include="j1FlyingEnemy.h" />
+    <ClInclude Include="j1WalkingEnemy.h" />
     <ClInclude Include="j1Collision.h" />
     <ClInclude Include="j1Entity.h" />
     <ClInclude Include="j1EntityManager.h" />
-    <ClInclude Include="j1Flying_Enemy.h" />
     <ClInclude Include="j1Map.h" />
-    <ClInclude Include="j1Pathfinding.h" />
+    <ClInclude Include="j1PathFinding.h" />
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="j1Player.h" />
     <ClInclude Include="j1Scene.h" />
     <ClInclude Include="j1Timer.h" />
-    <ClInclude Include="j1Walking_Enemy.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="j1Audio.h" />
     <ClInclude Include="j1Input.h" />
@@ -124,11 +122,10 @@
     <ClInclude Include="j1Render.h" />
     <ClInclude Include="j1Textures.h" />
     <ClInclude Include="j1Window.h" />
-    <ClInclude Include="p2Queue.h" />
+    <ClInclude Include="p2PQueue.h" />
     <ClInclude Include="p2SString.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
-    <ClInclude Include="j1Transition.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

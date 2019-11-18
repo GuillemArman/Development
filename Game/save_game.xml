@@ -4,11 +4,17 @@
 	<window />
 	<textures />
 	<audio />
+	<:anonymous />
+	<entityManager>
+		<player position_x="26" position_y="248" level="1" />
+		<player position_x="26" position_y="253" />
+		<walking position_x="408" position_y="181" />
+		<flying position_x="351" position_y="75" />
+	</entityManager>
 	<map />
 	<scene />
-	<player position_x="1170" position_y="475" level="2" />
 	<:anonymous />
 	<renderer>
-		<camera x="-654" y="0" />
+		<camera x="124" y="0" />
 	</renderer>
 </game_state>

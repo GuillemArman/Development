@@ -44,6 +44,8 @@ public:
 	// Called each loop iteration
 	bool PreUpdate();
 
+	bool Update(float dt);
+
 	// Called before quitting
 	bool CleanUp();
 
@@ -70,7 +72,7 @@ public:
 
 private:
 	bool		windowEvents[WE_COUNT];
-	j1KeyState*	keyboard;
+	j1KeyState*	keyboard = nullptr;
 	j1KeyState	mouse_buttons[NUM_MOUSE_BUTTONS];
 	int			mouse_motion_x;
 	int			mouse_motion_y;

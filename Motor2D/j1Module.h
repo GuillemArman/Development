@@ -10,7 +10,7 @@
 #include "PugiXml\src\pugixml.hpp"
 
 class j1App;
-struct Collider;
+class Collider;
 
 class j1Module
 {
@@ -78,7 +78,7 @@ public:
 public:
 
 	p2SString	name;
-	bool		active;
+	bool		active = false;
 
 };
 

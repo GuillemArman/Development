@@ -16,10 +16,8 @@ class j1Audio;
 class j1Scene;
 class j1Map;
 class j1Collision;
-class j1Player;
 class j1EntityManager;
 class j1PathFinding;
-
 
 class j1App
 {
@@ -52,8 +50,8 @@ public:
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
 
-	void LoadGame();
-	void SaveGame() const;
+	void LoadGame(bool specialGod = false);
+	void SaveGame(bool specialGod = false) const;
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
 private:
@@ -83,22 +81,18 @@ private:
 public:
 
 	// Modules
-	j1Window * win;
+	j1Window*			win;
 	j1Input*			input;
 	j1Render*			render;
 	j1Textures*			tex;
 	j1Audio*			audio;
 	j1Scene*			scene;
 	j1Map*				map;
-	j1Collision*		collision;;
-	j1Player*			player;
+	j1Collision*		collision;
 	j1EntityManager*	entityManager;
 	j1PathFinding*		pathfinding;
 
-public:
-
-	bool cap_frames = false;
-
+	bool				cap_frames = true;
 
 private:
 
@@ -115,6 +109,9 @@ private:
 	bool				want_to_load;
 	p2SString			load_game;
 	mutable p2SString	save_game;
+	p2SString			load_Godgame;
+	mutable p2SString	save_Godgame;
+	mutable bool				specialGod_LoadSave;
 
 	j1PerfTimer			ptimer;
 	uint64				frame_count = 0;

@@ -19,7 +19,7 @@ j1Walking_Enemy::j1Walking_Enemy() : Entity("walking_enemy")
 
 	speed = 2;
 	jump_force = 6;
-
+	
 
 
 	graphics = App->tex->Load("textures/Sprites/FlyingSprites/Enemies.png");
@@ -49,6 +49,7 @@ bool j1Walking_Enemy::Start()
 }
 bool j1Walking_Enemy::Update(float dt)
 {
+	
 	if (!dead)
 	{
 		if (!Calculate_Path())
@@ -74,7 +75,7 @@ bool j1Walking_Enemy::Update(float dt)
 			followPath();
 	}
 
-
+	
 	return true;
 }
 bool j1Walking_Enemy::PostUpdate(float dt)
@@ -93,7 +94,7 @@ bool j1Walking_Enemy::Load(pugi::xml_node&)
 {
 	return true;
 }
-bool j1Walking_Enemy::Save(pugi::xml_node&) const
+bool j1Walking_Enemy  ::Save(pugi::xml_node&) const
 {
 	return true;
 }

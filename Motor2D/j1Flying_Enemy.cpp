@@ -15,7 +15,7 @@
 #include "Brofiler\Brofiler.h"
 #include <time.h>
 
-j1Flying_Enemy::j1Flying_Enemy() : Entity("flying_enemy")
+j1Flying_Enemy::j1Flying_Enemy() : Entity ("flying_enemy")
 {
 
 	name.create("flying_enemy");
@@ -23,7 +23,7 @@ j1Flying_Enemy::j1Flying_Enemy() : Entity("flying_enemy")
 	if (graphics == nullptr)
 		graphics = App->tex->Load("textures/Sprites/FlyingSprites/Enemies.png");
 
-	if (collider == nullptr)
+	if (collider == nullptr) 
 		collider = App->collision->AddCollider({ 0, 0, 97, 72 }, COLLIDER_ENEMY, this);
 
 
@@ -33,7 +33,7 @@ j1Flying_Enemy::j1Flying_Enemy() : Entity("flying_enemy")
 
 	animation = &idle_left;
 
-
+ 
 }
 j1Flying_Enemy::~j1Flying_Enemy()
 {
@@ -76,7 +76,7 @@ bool j1Flying_Enemy::Update(float dt)
 	}
 
 	//if (dying->Finished())
-	//	App->entityManager->destroyEntity(this);
+	// 	App->entityManager->destroyEntity(this);
 
 	return true;
 }

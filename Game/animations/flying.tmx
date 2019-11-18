@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="920" height="720" tilewidth="1" tileheight="1" nextobjectid="26">
+ <imagelayer name="spritesheet">
+  <image source="../maps/Sprites/FlyingSprites/Flying_Enemy.png" width="1000" height="1000"/>
+ </imagelayer>
+ <objectgroup name="death" visible="0" offsetx="0" offsety="-1.33333">
+  <properties>
+   <property name="loop" type="bool" value="false"/>
+   <property name="speed" type="float" value="9"/>
+  </properties>
+  <object id="25" x="607.667" y="259.333" width="184" height="240"/>
+ </objectgroup>
+ <objectgroup name="idle_left" visible="0">
+  <properties>
+   <property name="speed" type="float" value="9"/>
+  </properties>
+  <object id="3" x="380" y="110.667" width="124.667" height="97.3333"/>
+ </objectgroup>
+ <objectgroup name="left" visible="0">
+  <properties>
+   <property name="speed" type="float" value="9"/>
+  </properties>
+  <object id="12" x="378.667" y="108.667" width="126" height="93.3333"/>
+ </objectgroup>
+ <objectgroup name="idle_right" visible="0">
+  <properties>
+   <property name="speed" type="float" value="9"/>
+  </properties>
+  <object id="6" x="0.666667" y="-5.68434e-14" width="113.333" height="95.3333"/>
+ </objectgroup>
+ <objectgroup name="right" visible="0">
+  <properties>
+   <property name="speed" type="float" value="9"/>
+  </properties>
+  <object id="13" x="0" y="0.666667" width="113.333" height="105.333"/>
+ </objectgroup>
+ <objectgroup color="#ff0000" name="Logic">
+  <properties>
+   <property name="jump_force" type="float" value="300"/>
+   <property name="speed" type="float" value="75"/>
+  </properties>
+  <object id="17" name="sprite" x="0" y="0" width="114.667" height="110.667"/>
+  <object id="18" name="collider" x="3.66667" y="-0.666667" width="113" height="110"/>
+ </objectgroup>
+</map>

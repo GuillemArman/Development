@@ -13,11 +13,12 @@ struct level
 		this->mapPath.create(mapPath);
 		lvl = num;
 	}
-	p2SString mapPath = nullptr;
+
+	p2SString mapPath;
+	int lvl;
+	int length;
 	iPoint player_start_pos;
-	iPoint end;
-	int lvl = 0;
-	int length = 0;
+	SDL_Rect end;
 };
 
 class j1Scene : public j1Module
@@ -48,24 +49,17 @@ public:
 	bool CleanUp();
 
 	// If num is 0 it will load the next level or the first one if there is no next level
-	void LoadLvl(int num = 0);
+	void LoadLvl(int num = 0, bool fromSaveData = false);
 
 public:
 
 	p2List<level*> levels;
-	p2List_item<level*>* current_lvl;
+	p2List_item<level*>* current_lvl = nullptr;
+	uint complete_level_fx = 0, win_fx = 0;
+	int max_camera_pos = 0;
 
-	float gravity_speed = 0;
-	float jump_speed = 0;
-	fPoint player_initial_position;
-	bool cleaning_NPC = false;
-
-
-private:
-	uint win_width = 0;
-	uint win_height = 0;
-	SDL_Texture* background = nullptr;
-	Collider* pit_collider = nullptr;
+	bool load_lvl = false;
+	int newLvl = 0;
 
 };
 
