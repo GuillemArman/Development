@@ -41,16 +41,16 @@
   <image source="Sprites/png/Object/Sign_2.png" width="62" height="64"/>
  </tileset>
  <imagelayer name="Sky">
-  <image source="sky.png" width="6115" height="750"/>
+  <image source="sky.png"/>
  </imagelayer>
  <imagelayer name="Mountains">
-  <image source="Mountains.png" width="4301" height="327"/>
+  <image source="Mountains.png"/>
   <properties>
    <property name="speed" type="int" value="14"/>
   </properties>
  </imagelayer>
  <imagelayer name="Background">
-  <image source="BG.png" width="3076" height="384"/>
+  <image source="BG.png" width="1536" height="384"/>
  </imagelayer>
  <imagelayer name="Water">
   <image source="water.png" width="8599" height="384"/>
@@ -2626,7 +2626,7 @@
   <object id="67" name="walking" type="enemy" x="1705.33" y="272.167" width="64" height="42.3333"/>
   <object id="68" name="flying" type="enemy" x="1169.6" y="283.867" width="36.8" height="29.6"/>
  </objectgroup>
- <layer name="Walkability" width="97" height="13" visible="0">
+ <layer name="Walkability" width="97" height="13">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3648,7 +3648,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="5"/>
+   <tile gid="0"/>
    <tile gid="5"/>
    <tile gid="5"/>
    <tile gid="5"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="768" height="644" tilewidth="1" tileheight="1" nextobjectid="39">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="768" height="644" tilewidth="1" tileheight="1" nextobjectid="46">
  <imagelayer name="spritesheet">
   <image source="../textures/enemies/Enemies.png" width="1000" height="1000"/>
  </imagelayer>
@@ -7,37 +7,43 @@
   <properties>
    <property name="speed" type="float" value="3"/>
   </properties>
-  <object id="9" x="8.66667" y="400" width="94" height="100"/>
+  <object id="9" x="7.66667" y="405" width="94" height="100"/>
  </objectgroup>
  <objectgroup name="idle_right" visible="0">
   <properties>
    <property name="speed" type="float" value="3"/>
   </properties>
   <object id="29" x="355.333" y="260" width="91.3333" height="100"/>
+  <object id="42" x="451.333" y="259" width="91.3333" height="100"/>
+  <object id="43" x="109.333" y="400" width="91.3333" height="100"/>
+  <object id="44" x="72" y="421" width="94" height="100"/>
+  <object id="45" x="116" y="401" width="94" height="100"/>
  </objectgroup>
- <objectgroup name="right" visible="0">
+ <objectgroup name="right">
   <properties>
    <property name="speed" type="float" value="7"/>
   </properties>
-  <object id="23" x="352" y="254" width="96" height="100"/>
+  <object id="23" x="113" y="264" width="92" height="90"/>
+  <object id="41" x="224" y="264" width="96" height="90"/>
  </objectgroup>
  <objectgroup name="jumping_left" visible="0">
   <object id="32" x="338.667" y="399.333" width="109.333" height="100"/>
  </objectgroup>
  <objectgroup name="falling_right" visible="0">
-  <object id="38" x="217.333" y="260.667" width="121.333" height="100"/>
+  <object id="38" x="0.333" y="267.667" width="102.333" height="93"/>
  </objectgroup>
  <objectgroup name="falling_left" visible="0">
-  <object id="36" x="230.667" y="404.667" width="107.333" height="100"/>
+  <object id="36" x="450.667" y="407.667" width="107.333" height="100"/>
  </objectgroup>
  <objectgroup name="jumping_right" visible="0">
   <object id="35" x="108" y="254.667" width="108" height="100"/>
  </objectgroup>
- <objectgroup name="left">
+ <objectgroup name="left" visible="0">
   <properties>
    <property name="speed" type="float" value="7"/>
   </properties>
-  <object id="22" x="-2.66667" y="404" width="108.667" height="100"/>
+  <object id="39" x="342.666" y="412" width="91.667" height="89"/>
+  <object id="40" x="236.166" y="409.5" width="91.667" height="89"/>
  </objectgroup>
  <objectgroup color="#ff0000" name="Logic" visible="0">
   <properties>

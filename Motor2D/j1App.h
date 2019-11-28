@@ -53,6 +53,7 @@ public:
 	void LoadGame(bool specialGod = false);
 	void SaveGame(bool specialGod = false) const;
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
+	
 
 private:
 
@@ -77,6 +78,7 @@ private:
 	// Load / Save
 	bool LoadGameNow();
 	bool SavegameNow() const;
+
 
 public:
 

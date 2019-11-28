@@ -42,7 +42,7 @@ Entity::~Entity()
 bool Entity::Entity_Update(float dt)
 {
 	float oldVy = v.y;
-	v.y += (gravity * ((colliding_bottom || flying) ? 0 : 1)) * dt; //*dt
+	v.y += (gravity * ((colliding_bottom || flying || App->entityManager->player_god_mode) ? 0 : 1)) * dt; //*dt
 	if (oldVy > 0 && v.y <= 0)
 	{
 		state = FALLING;
@@ -159,13 +159,13 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 			}
 			colliding_left = true;
 		}
-		if (Collision_from_top(c1, c2))
+		/*if (Collision_from_top(c1, c2))
 		{
 			if (v.y > 0)
 			{
 				v.y = 0;
 			}
-		}
+		}*/
 	}
 	else if (c2->type == COLLIDER_JUMPABLE)
 	{

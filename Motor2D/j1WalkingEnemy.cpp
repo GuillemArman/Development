@@ -10,6 +10,8 @@
 #include "j1Scene.h"
 #include "j1Audio.h"
 #include "j1PathFinding.h"
+#include "j1Player.h"
+#include "j1entityManager.h"
 #include "Brofiler\Brofiler.h"
 
 Walking_Enemy::Walking_Enemy() : Entity("walking")
@@ -60,7 +62,12 @@ bool Walking_Enemy::Update(float dt)
 
 		if (entityPath.Count() > 1)
 			followPath();
+
+		
+
 	}
+	else
+		App->entityManager->DeleteEntity(this);
 
 	return true;
 }
@@ -77,6 +84,12 @@ bool Walking_Enemy::CleanUp()
 void Walking_Enemy::OnCollision(Collider* c1, Collider* c2)
 {
 	Entity_OnCollision(c1, c2);
+
+	if (c2->type == COLLIDER_PLAYER && dead && !App->entityManager->getPlayer()->dead && Collision_from_top(c1, c2))
+	{
+		App->audio->PlayFx(die_fx, 0);
+		v = { 0,0 };
+	}
 }
 
 bool Walking_Enemy::Load(pugi::xml_node&)

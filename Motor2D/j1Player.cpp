@@ -25,10 +25,7 @@ j1Player::j1Player() : Entity("player")
 	jump_offset.x = -16;
 	jump_offset.y = 17;
 
-	godMode = LoadAnimation("animations/player.tmx", "santagod");
-	godmode_offset.x = -7;
-	godmode_offset.y = -12;
-
+	
 
 
 
@@ -54,7 +51,7 @@ bool j1Player::Start()
 		graphics_god = App->tex->Load("textures/character/Santafinal.png");
 
 	if (collider == nullptr)
-		collider = App->collision->AddCollider({ 0, 0, 50, 70  }, COLLIDER_PLAYER, this);
+		collider = App->collision->AddCollider({ 0, 0, 40, 70  }, COLLIDER_PLAYER, this);
 
 	collider_offset.x = 3;
 	collider_offset.y = 2;
@@ -137,6 +134,7 @@ bool j1Player::Update(float dt)
 			}
 			else
 			{
+				
 				App->entityManager->player_god_mode = true;
 				App->audio->PlayFx(SSJ_transformation, 0);
 			}
@@ -218,6 +216,29 @@ bool j1Player::Update(float dt)
 		step_time = SDL_GetTicks() + (1 / right->speed) + 450;
 	}
 
+	//GODMODE MOVEMENT
+
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && App->entityManager->player_god_mode)
+	{
+		v.y += 5;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP && App->entityManager->player_god_mode)
+	{
+		v.y = 0;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && App->entityManager->player_god_mode)
+	{
+		v.y -= 5;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_UP && App->entityManager->player_god_mode )
+	{
+		v.y = 0;
+	}
+
+
 	return true;
 }
 
@@ -289,9 +310,9 @@ bool j1Player::PostUpdate(float dt)
 	//When f10 is clicked he converts into god mode
 	if (App->entityManager->player_god_mode)
 	{
-		App->render->Blit(graphics_god, position.x + godmode_offset.x, position.y + godmode_offset.y, &godMode->GetCurrentFrame(dt));
-		App->render->Blit(graphics_god, position.x, position.y, &animation->GetCurrentFrame(dt));
-		App->render->Blit(graphics_god, position.x + godmode_offset.x, position.y + godmode_offset.y, &godMode->GetCurrentFrame(dt));
+		//App->render->Blit(graphics_god, position.x + godmode_offset.x, position.y + godmode_offset.y, &godMode->GetCurrentFrame(dt));
+		//App->render->Blit(graphics_god, position.x, position.y, &animation->GetCurrentFrame(dt));
+		//App->render->Blit(graphics_god, position.x + godmode_offset.x, position.y + godmode_offset.y, &godMode->GetCurrentFrame(dt));
 	}
 	else if (App->entityManager->player_god_mode == false)
 	{
@@ -321,13 +342,13 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	if (!dead && c2->type == COLLIDER_ENEMY)
 	{
 		p2SString c2_name = c2->callback->name.GetString();
-		if (c2_name == "flying" && Collision_from_bottom(c1, c2, 3) && v.y < 0)
+		if ((c2_name == "flying" || c2_name =="walking") && Collision_from_bottom(c1, c2, 3) && v.y < 0)
 		{
 			v.y = (jump_force * 2 / 3);
 			c2->entity->dead = true;
 			c2->to_delete = true;
 		}
-		else if (!App->entityManager->player_god_mode && (c2_name == "walking" || (c2_name == "flying" && !c2->entity->dead && !Collision_from_bottom(c1, c2, 3))))
+		else if (!App->entityManager->player_god_mode && (c2_name == "walking" || c2_name == "flying") && (!c2->entity->dead && !Collision_from_bottom(c1, c2, 3)))
 		{
 			v.x = 0;
 			dead = true;

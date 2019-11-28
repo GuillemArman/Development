@@ -49,7 +49,7 @@
   <object id="127" x="804.169" y="1551.81" width="51.435" height="72.3857"/>
   <object id="128" x="572.305" y="1550.88" width="44.81" height="74.1357"/>
  </objectgroup>
- <objectgroup name="idle_right">
+ <objectgroup name="idle_right" visible="0">
   <object id="42" x="185.833" y="213.621" width="45.2424" height="71.2125"/>
   <object id="43" x="303.5" y="213.599" width="46.1515" height="71.9398"/>
   <object id="44" x="659" y="213.697" width="47.0606" height="71.5761"/>
@@ -83,7 +83,7 @@
   <object id="116" x="216.042" y="1225.58" width="47.25" height="72.167"/>
   <object id="117" x="97.0417" y="1225.58" width="47.25" height="72.167"/>
  </objectgroup>
- <objectgroup name="death" visible="0">
+ <objectgroup name="death">
   <object id="32" x="71.083" y="52.292" width="43.8333" height="70.9583"/>
   <object id="87" x="193.417" y="52.5208" width="43.8333" height="70.9583"/>
   <object id="88" x="314.75" y="53.8542" width="46.1969" height="69.8674"/>
@@ -96,7 +96,7 @@
   <object id="96" x="199.515" y="144.413" width="60.2424" height="60.0833"/>
   <object id="97" x="319.045" y="145.958" width="67.2424" height="58.2083"/>
   <object id="98" x="437.462" y="150.021" width="71.4924" height="55.0833"/>
-  <object id="99" x="556.504" y="154.958" width="74.2424" height="53.3333"/>
+  <object id="99" x="556.504" y="154.958" width="74.2424" height="51.0833"/>
   <object id="100" x="676.254" y="160.833" width="75.4924" height="48.4583"/>
   <object id="101" x="794.799" y="161.771" width="74.6742" height="48.4583"/>
   <object id="102" x="912.686" y="164.112" width="75.7651" height="45.8219"/>
@@ -144,12 +144,12 @@
  <objectgroup name="falling_left" visible="0">
   <object id="41" x="564.501" y="1387.79" width="66.333" height="73.7482"/>
  </objectgroup>
- <objectgroup color="#ff0000" name="Logic" visible="0">
+ <objectgroup color="#ff0000" name="Logic">
   <properties>
-   <property name="jump_force" type="float" value="300"/>
-   <property name="speed" type="float" value="115"/>
+   <property name="jump_force" type="float" value="400"/>
+   <property name="speed" type="float" value="150"/>
   </properties>
   <object id="26" type="entity" x="177.909" y="207.167" width="60.3333" height="83.6513"/>
-  <object id="27" type="collider" x="185.879" y="213.455" width="45.3178" height="71.0762"/>
+  <object id="27" type="collider" x="192.97" y="218.364" width="33.3178" height="66.1671"/>
  </objectgroup>
 </map>

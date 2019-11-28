@@ -29,6 +29,8 @@ public:
 
 	bool moving_right = false;
 	bool moving_left = false;
+
+	uint die_fx = 0;
 };
 
 #endif // !Walking_Enemy

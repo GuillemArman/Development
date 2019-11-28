@@ -8,7 +8,7 @@
 #include "j1Timer.h"
 #include "PugiXml/src/pugixml.hpp"
 
-#define gravity -625
+#define gravity -1225
 #define DETECTION_MARGIN 350
 
 struct SDL_Texture;

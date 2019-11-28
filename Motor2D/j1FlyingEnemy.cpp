@@ -118,6 +118,10 @@ void Flying_Enemy::followPath()
 	iPoint next_pos = App->map->MapToWorld(next_cell.x, next_cell.y);
 	next_pos = { next_pos.x + App->map->data.tile_width / 2, next_pos.y + App->map->data.tile_height / 2 };
 
+	if (next_pos.x = curr_pos.x)
+	{
+
+	}
 	float usingSpeed = (slowerPath) ? (speed / 2) : speed;
 
 	if (curr_pos.x > map_pos.x)
