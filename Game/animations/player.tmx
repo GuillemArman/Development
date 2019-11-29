@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="2017" height="2409" tilewidth="1" tileheight="1" nextobjectid="139">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="2017" height="2409" tilewidth="1" tileheight="1" nextobjectid="157">
  <imagelayer name="spritesheet">
   <image source="../textures/character/Santafinal.png" width="1037" height="1919"/>
  </imagelayer>
@@ -10,7 +10,7 @@
   </properties>
   <object id="36" x="1000" y="487.5" width="99.5" height="123.5"/>
  </objectgroup>
- <objectgroup name="santagod">
+ <objectgroup name="santagod" visible="0">
   <properties>
    <property name="speed" type="float" value="4"/>
   </properties>
@@ -49,22 +49,22 @@
   <object id="127" x="804.169" y="1551.81" width="51.435" height="72.3857"/>
   <object id="128" x="572.305" y="1550.88" width="44.81" height="74.1357"/>
  </objectgroup>
- <objectgroup name="idle_right" visible="0">
-  <object id="42" x="185.833" y="213.621" width="45.2424" height="71.2125"/>
-  <object id="43" x="303.5" y="213.599" width="46.1515" height="71.9398"/>
-  <object id="44" x="659" y="213.697" width="47.0606" height="71.5761"/>
-  <object id="45" x="423.167" y="213.575" width="45.7878" height="71.7579"/>
-  <object id="46" x="540.788" y="213.439" width="46.3333" height="71.9397"/>
-  <object id="47" x="777.955" y="214.333" width="45.9697" height="70.667"/>
-  <object id="48" x="895.833" y="214.211" width="46.8788" height="70.8488"/>
-  <object id="49" x="67.1667" y="295.06" width="45.7878" height="71.3261"/>
-  <object id="50" x="184.833" y="295.428" width="47.0606" height="70.9397"/>
-  <object id="51" x="304.5" y="295.424" width="45.0606" height="71.1784"/>
-  <object id="52" x="423.106" y="295.545" width="45.9697" height="70.8375"/>
-  <object id="53" x="541.076" y="295.091" width="46.5151" height="71.3829"/>
-  <object id="54" x="659.667" y="295.038" width="45.7878" height="71.7011"/>
-  <object id="55" x="896.31" y="294.541" width="46.3333" height="71.8829"/>
-  <object id="56" x="777.561" y="294.826" width="46.6969" height="71.5079"/>
+ <objectgroup name="idle_right">
+  <object id="42" x="184.64" y="211.076" width="58.981" height="75.5761"/>
+  <object id="143" x="304.01" y="211.212" width="58.981" height="75.5761"/>
+  <object id="144" x="422.385" y="210.087" width="58.981" height="75.5761"/>
+  <object id="145" x="540.385" y="209.962" width="58.981" height="75.5761"/>
+  <object id="146" x="659.76" y="209.712" width="58.981" height="75.5761"/>
+  <object id="147" x="778.51" y="209.587" width="58.981" height="75.5761"/>
+  <object id="148" x="897.26" y="209.212" width="58.981" height="75.5761"/>
+  <object id="149" x="67.8731" y="290.576" width="58.981" height="75.5761"/>
+  <object id="150" x="186.328" y="291.394" width="58.981" height="75.5761"/>
+  <object id="151" x="304.635" y="290.837" width="58.981" height="75.5761"/>
+  <object id="152" x="423.135" y="291.462" width="58.981" height="75.5761"/>
+  <object id="153" x="541.76" y="292.212" width="58.981" height="75.5761"/>
+  <object id="154" x="659.885" y="292.087" width="58.981" height="75.5761"/>
+  <object id="155" x="778.76" y="291.587" width="58.981" height="75.5761"/>
+  <object id="156" x="896.885" y="291.587" width="58.981" height="75.5761"/>
  </objectgroup>
  <objectgroup name="idle_left" visible="0">
   <object id="25" x="809.788" y="1144.58" width="47.25" height="72.167"/>
@@ -77,7 +77,7 @@
   <object id="110" x="926.625" y="1226.67" width="47.25" height="72.167"/>
   <object id="111" x="808.625" y="1226.67" width="47.25" height="72.167"/>
   <object id="112" x="571.125" y="1225.67" width="47.25" height="72.167"/>
-  <object id="113" x="678.375" y="1224.92" width="47.25" height="72.167"/>
+  <object id="113" x="688.375" y="1224.92" width="47.25" height="72.167"/>
   <object id="114" x="453.875" y="1226.67" width="47.25" height="72.167"/>
   <object id="115" x="334.375" y="1225.92" width="47.25" height="72.167"/>
   <object id="116" x="216.042" y="1225.58" width="47.25" height="72.167"/>
@@ -124,6 +124,9 @@
   <object id="29" x="528.83" y="453.666" width="69" height="74.3333"/>
  </objectgroup>
  <objectgroup name="jumping_left" visible="0">
+  <properties>
+   <property name="speed" type="int" value="9"/>
+  </properties>
   <object id="30" x="929.087" y="1308.24" width="45.9012" height="71.1118"/>
   <object id="57" x="805.231" y="1310.54" width="46.4467" height="68.8391"/>
   <object id="58" x="685.368" y="1311.63" width="45.6285" height="68.6573"/>
@@ -142,6 +145,9 @@
   <object id="71" x="94.1687" y="1390.97" width="46.4808" height="71.146"/>
  </objectgroup>
  <objectgroup name="falling_left" visible="0">
+  <properties>
+   <property name="speed" type="int" value="9"/>
+  </properties>
   <object id="41" x="564.501" y="1387.79" width="66.333" height="73.7482"/>
  </objectgroup>
  <objectgroup color="#ff0000" name="Logic" visible="0">
