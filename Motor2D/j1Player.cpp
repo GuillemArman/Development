@@ -365,7 +365,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
-	//If player touches the Walking_enemy he must die, if the player hits the Flying_Enemy from the top the flying enemy must die
+	//, if the player hits the Enemy from the top the  enemy must die
 	if (!dead && c2->type == COLLIDER_ENEMY)
 	{
 		p2SString c2_name = c2->callback->name.GetString();

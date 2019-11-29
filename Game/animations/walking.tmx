@@ -19,7 +19,7 @@
   <object id="44" x="72" y="421" width="94" height="100"/>
   <object id="45" x="116" y="401" width="94" height="100"/>
  </objectgroup>
- <objectgroup name="right">
+ <objectgroup name="right" visible="0">
   <properties>
    <property name="speed" type="float" value="7"/>
   </properties>
