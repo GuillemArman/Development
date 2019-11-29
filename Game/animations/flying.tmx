@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="920" height="720" tilewidth="1" tileheight="1" nextobjectid="41">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="920" height="720" tilewidth="1" tileheight="1" nextobjectid="50">
  <imagelayer name="spritesheet">
   <image source="../maps/Sprites/FlyingSprites/Flying_Enemy.png" width="1000" height="1000"/>
  </imagelayer>
@@ -10,13 +10,16 @@
   </properties>
   <object id="25" x="607.667" y="259.333" width="184" height="240"/>
  </objectgroup>
- <objectgroup name="idle_left" visible="0">
+ <objectgroup name="idle_left">
   <properties>
    <property name="speed" type="float" value="9"/>
   </properties>
-  <object id="3" x="380" y="110.667" width="124.667" height="97.3333"/>
+  <object id="46" x="143" y="115.333" width="108" height="97.3333"/>
+  <object id="47" x="18" y="115.333" width="108" height="97.3333"/>
+  <object id="48" x="266" y="115.333" width="108" height="97.3333"/>
+  <object id="49" x="384" y="114" width="108" height="97.3333"/>
  </objectgroup>
- <objectgroup name="left">
+ <objectgroup name="left" visible="0">
   <properties>
    <property name="speed" type="float" value="9"/>
   </properties>
@@ -30,8 +33,11 @@
    <property name="speed" type="float" value="9"/>
   </properties>
   <object id="6" x="0.666667" y="-5.68434e-14" width="113.333" height="95.3333"/>
+  <object id="41" x="120" y="-0.333317" width="113.333" height="95.3333"/>
+  <object id="42" x="243.333" y="4.33335" width="113.333" height="95.3333"/>
+  <object id="43" x="366" y="0.33335" width="113.333" height="95.3333"/>
  </objectgroup>
- <objectgroup name="right">
+ <objectgroup name="right" visible="0">
   <properties>
    <property name="speed" type="float" value="9"/>
   </properties>

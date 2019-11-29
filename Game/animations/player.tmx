@@ -10,11 +10,11 @@
   </properties>
   <object id="36" x="1000" y="487.5" width="99.5" height="123.5"/>
  </objectgroup>
- <objectgroup name="santagod" visible="0">
+ <objectgroup name="santagod">
   <properties>
    <property name="speed" type="float" value="4"/>
   </properties>
-  <object id="37" x="170.5" y="455.5" width="72" height="71"/>
+  <object id="37" x="173.167" y="214.833" width="72" height="71"/>
  </objectgroup>
  <objectgroup name="right" visible="0">
   <properties>
@@ -83,7 +83,7 @@
   <object id="116" x="216.042" y="1225.58" width="47.25" height="72.167"/>
   <object id="117" x="97.0417" y="1225.58" width="47.25" height="72.167"/>
  </objectgroup>
- <objectgroup name="death">
+ <objectgroup name="death" visible="0">
   <object id="32" x="71.083" y="52.292" width="43.8333" height="70.9583"/>
   <object id="87" x="193.417" y="52.5208" width="43.8333" height="70.9583"/>
   <object id="88" x="314.75" y="53.8542" width="46.1969" height="69.8674"/>
@@ -144,7 +144,7 @@
  <objectgroup name="falling_left" visible="0">
   <object id="41" x="564.501" y="1387.79" width="66.333" height="73.7482"/>
  </objectgroup>
- <objectgroup color="#ff0000" name="Logic">
+ <objectgroup color="#ff0000" name="Logic" visible="0">
   <properties>
    <property name="jump_force" type="float" value="400"/>
    <property name="speed" type="float" value="150"/>

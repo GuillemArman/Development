@@ -25,7 +25,9 @@ j1Player::j1Player() : Entity("player")
 	jump_offset.x = -16;
 	jump_offset.y = 17;
 
-	
+	godMode = LoadAnimation("animations/player.tmx", "santagod");
+	godmode_offset.x = -7;
+	godmode_offset.y = -12;
 
 
 
@@ -129,6 +131,7 @@ bool j1Player::Update(float dt)
 		{
 			if (App->entityManager->player_god_mode)
 			{
+				
 				App->entityManager->player_god_mode = false;
 				App->audio->PlayFx(SSJ_off, 0);
 			}
@@ -137,6 +140,7 @@ bool j1Player::Update(float dt)
 				
 				App->entityManager->player_god_mode = true;
 				App->audio->PlayFx(SSJ_transformation, 0);
+				
 			}
 		}
 
@@ -176,6 +180,7 @@ bool j1Player::Update(float dt)
 				state = IDLE;
 			}
 		}
+		
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
 			jumping = true;
@@ -216,28 +221,7 @@ bool j1Player::Update(float dt)
 		step_time = SDL_GetTicks() + (1 / right->speed) + 450;
 	}
 
-	//GODMODE MOVEMENT
-
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && App->entityManager->player_god_mode)
-	{
-		v.y += 5;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP && App->entityManager->player_god_mode)
-	{
-		v.y = 0;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && App->entityManager->player_god_mode)
-	{
-		v.y -= 5;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_UP && App->entityManager->player_god_mode )
-	{
-		v.y = 0;
-	}
-
+	
 
 	return true;
 }
@@ -310,9 +294,52 @@ bool j1Player::PostUpdate(float dt)
 	//When f10 is clicked he converts into god mode
 	if (App->entityManager->player_god_mode)
 	{
-		//App->render->Blit(graphics_god, position.x + godmode_offset.x, position.y + godmode_offset.y, &godMode->GetCurrentFrame(dt));
-		//App->render->Blit(graphics_god, position.x, position.y, &animation->GetCurrentFrame(dt));
-		//App->render->Blit(graphics_god, position.x + godmode_offset.x, position.y + godmode_offset.y, &godMode->GetCurrentFrame(dt));
+		App->render->Blit(graphics_god, position.x + godmode_offset.x, position.y + godmode_offset.y, &godMode->GetCurrentFrame(dt));
+		App->render->Blit(graphics_god, position.x, position.y, &animation->GetCurrentFrame(dt));
+		App->render->Blit(graphics_god, position.x + godmode_offset.x, position.y + godmode_offset.y, &godMode->GetCurrentFrame(dt));
+		
+		//GODMODE MOVEMENT
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && App->entityManager->player_god_mode)
+		{
+			v.y += 150;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP && App->entityManager->player_god_mode)
+		{
+			v.y = 0;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && App->entityManager->player_god_mode)
+		{
+			v.y -= 150;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_UP && App->entityManager->player_god_mode)
+		{
+			v.y = 0;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN && App->entityManager->player_god_mode)
+		{
+			v.x += 5;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP && App->entityManager->player_god_mode)
+		{
+			v.x = 0;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN && App->entityManager->player_god_mode)
+		{
+			v.x -= 5;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP && App->entityManager->player_god_mode)
+		{
+			v.x = 0;
+		}
+
 	}
 	else if (App->entityManager->player_god_mode == false)
 	{
