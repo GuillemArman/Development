@@ -46,12 +46,12 @@
   <object id="35" x="0.666667" y="-0.333183" width="112" height="97.9997"/>
   <object id="36" x="367.333" y="1.00015" width="112" height="97.9997"/>
  </objectgroup>
- <objectgroup color="#ff0000" name="Logic" visible="0">
+ <objectgroup color="#ff0000" name="Logic">
   <properties>
    <property name="jump_force" type="float" value="300"/>
    <property name="speed" type="float" value="75"/>
   </properties>
-  <object id="17" name="sprite" x="2.71555" y="-7.62346" width="108.67" height="104.879"/>
-  <object id="18" name="collider" x="6.19046" y="-8.25526" width="107.09" height="104.247"/>
+  <object id="17" name="sprite" x="2.71555" y="-0.714369" width="108.67" height="91.7881"/>
+  <object id="18" name="collider" x="6.19046" y="15.5629" width="107.09" height="64.6106"/>
  </objectgroup>
 </map>
