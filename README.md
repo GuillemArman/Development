@@ -1,6 +1,9 @@
 # Santa
 We are two students from UPC CITM Barcelona developing a 2D platformer game in C++, using SDL and XML libraries, aswell as Tiled for the maps.
 
+## Installation
+Decompress the .zip file in any directory and execute the executable inside the decompressed folder.
+
 
 ## Controls:
 
@@ -29,7 +32,7 @@ We are two students from UPC CITM Barcelona developing a 2D platformer game in C
 
 - When an enemy does not found a path to the player, after 1.5 seconds it will start flying/walking around.
 
-Their position on the map is also defined in tiled.
+
 
 ## Authors:
 

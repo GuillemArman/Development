@@ -2608,7 +2608,7 @@
   <properties>
    <property name="map_length" type="int" value="2100"/>
   </properties>
-  <object id="40" name="player_start_pos" x="26" y="249" width="21" height="33"/>
+  <object id="40" name="player_start_pos" x="28" y="180" width="21" height="33"/>
   <object id="49" name="end" x="1946.92" y="148.667" width="150.25" height="101.833"/>
   <object id="53" name="walking" type="enemy" x="406.5" y="136.833" width="64" height="42.3333"/>
   <object id="55" name="flying" type="enemy" x="389.6" y="83.2" width="36.8" height="29.6"/>
