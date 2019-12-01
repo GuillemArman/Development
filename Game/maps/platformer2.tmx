@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="66" height="13" tilewidth="32" tileheight="32" nextobjectid="76">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="66" height="13" tilewidth="32" tileheight="32" nextobjectid="78">
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" tilecount="26" columns="29">
   <image source="tileset.png" width="950" height="256"/>
   <terraintypes>
@@ -401,6 +401,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="240"/>
    <tile gid="241"/>
    <tile gid="244"/>
@@ -526,58 +527,6 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="240"/>
-   <tile gid="241"/>
-   <tile gid="244"/>
-   <tile gid="245"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="240"/>
-   <tile gid="241"/>
-   <tile gid="244"/>
-   <tile gid="245"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="240"/>
-   <tile gid="241"/>
-   <tile gid="244"/>
-   <tile gid="245"/>
-   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="240"/>
@@ -624,6 +573,17 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="240"/>
+   <tile gid="241"/>
+   <tile gid="244"/>
+   <tile gid="245"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="240"/>
+   <tile gid="241"/>
+   <tile gid="244"/>
+   <tile gid="245"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -660,6 +620,46 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="240"/>
+   <tile gid="241"/>
+   <tile gid="244"/>
+   <tile gid="245"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1815,11 +1815,11 @@
   <object id="61" type="jumpable" x="903.333" y="226" width="122.667" height="29.3333"/>
   <object id="64" type="jumpable" x="1343.33" y="325.333" width="54.6667" height="52.6667"/>
   <object id="65" type="jumpable" x="1120" y="225.333" width="122.667" height="29.3333"/>
-  <object id="66" type="jumpable" x="1502.67" y="190.667" width="122.667" height="29.3333"/>
-  <object id="67" type="jumpable" x="1730.67" y="130.667" width="122.667" height="29.3333"/>
+  <object id="66" type="jumpable" x="1604.67" y="195.667" width="122.667" height="29.3333"/>
+  <object id="67" type="jumpable" x="1759.67" y="129.667" width="122.667" height="29.3333"/>
   <object id="68" type="jumpable" x="1921.33" y="65.3334" width="122.667" height="29.3333"/>
   <object id="72" type="floor" x="1505.83" y="324.917" width="604.333" height="56.8333"/>
-  <object id="73" type="jumpable" x="1918" y="191.333" width="122.667" height="29.3333"/>
+  <object id="77" type="jumpable" x="1443.67" y="256.333" width="122.667" height="29.3333"/>
  </objectgroup>
  <objectgroup color="#0000ff" name="Logic">
   <properties>
@@ -1831,18 +1831,8 @@
   <object id="51" name="flying" type="enemy" x="766.933" y="169.533" width="36.8" height="29.6"/>
   <object id="69" name="walking" type="enemy" x="1994.67" y="270.833" width="64" height="42.3333"/>
   <object id="70" name="flying" type="enemy" x="1582.93" y="71.8667" width="36.8" height="29.6"/>
-  <object id="74" name="collectible" type="collectible" x="204" y="322">
-   <properties>
-    <property name="id" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="75" name="collectible" type="collectible" x="1784" y="287">
-   <properties>
-    <property name="id" type="int" value="4"/>
-   </properties>
-  </object>
  </objectgroup>
- <layer name="Walkability" width="66" height="13" visible="0">
+ <layer name="Walkability" width="66" height="13">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2311,11 +2301,11 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="215"/>
-   <tile gid="215"/>
-   <tile gid="215"/>
-   <tile gid="215"/>
-   <tile gid="215"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>

@@ -32,7 +32,11 @@ Decompress the .zip file in any directory and execute the executable inside the 
 
 - When an enemy does not found a path to the player, after 1.5 seconds it will start flying/walking around.
 
+## Bugs:
 
+At the end of level 1 you might need to jump to detect the collider to get to level 2. 
+
+Sometimes animations don't loop corectly so with cap frames activated look weird. (Press F11 to have a better experience) 
 
 ## Authors:
 

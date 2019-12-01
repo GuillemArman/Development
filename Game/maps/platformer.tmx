@@ -2597,7 +2597,7 @@
   <object id="20" type="jumpable" x="763" y="320.667" width="131" height="31.3333"/>
   <object id="22" type="jumpable" x="903.417" y="230" width="82.5833" height="22.3333"/>
   <object id="26" type="jumpable" x="798.67" y="128.667" width="97.3333" height="24.3333"/>
-  <object id="29" type="floor" x="963.67" y="68.3333" width="151.667" height="22.667"/>
+  <object id="29" type="floor" x="965.67" y="70.8333" width="151.667" height="22.667"/>
   <object id="62" type="floor" x="1284.33" y="97.8333" width="150.666" height="246.667"/>
   <object id="63" type="floor" x="992.333" y="68.8333" width="121.333" height="293.667"/>
   <object id="71" type="jumpable" x="1954.71" y="259.5" width="118.583" height="22.3333"/>
@@ -2612,21 +2612,11 @@
   <object id="49" name="end" x="1946.92" y="148.667" width="150.25" height="101.833"/>
   <object id="53" name="walking" type="enemy" x="406.5" y="136.833" width="64" height="42.3333"/>
   <object id="55" name="flying" type="enemy" x="389.6" y="83.2" width="36.8" height="29.6"/>
-  <object id="59" name="collectible" type="collectible" x="360.5" y="227.833">
-   <properties>
-    <property name="id" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="60" name="collectible" type="collectible" x="1196.17" y="142.5">
-   <properties>
-    <property name="id" type="int" value="2"/>
-   </properties>
-  </object>
   <object id="61" name="flying" type="enemy" x="765.933" y="32.2" width="36.8" height="29.6"/>
   <object id="67" name="walking" type="enemy" x="1705.33" y="272.167" width="64" height="42.3333"/>
   <object id="68" name="flying" type="enemy" x="1169.6" y="283.867" width="36.8" height="29.6"/>
  </objectgroup>
- <layer name="Walkability" width="97" height="13" visible="0">
+ <layer name="Walkability" width="97" height="13">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3648,7 +3638,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="5"/>
+   <tile gid="0"/>
    <tile gid="5"/>
    <tile gid="5"/>
    <tile gid="5"/>

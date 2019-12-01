@@ -6,17 +6,18 @@
 	<audio />
 	<:anonymous />
 	<entityManager>
-		<player position_x="25" position_y="121" level="2" />
-		<player position_x="25" position_y="126" />
-		<walking position_x="275" position_y="300" />
-		<flying position_x="766" position_y="169" />
-		<walking position_x="1994" position_y="270" />
-		<flying position_x="1582" position_y="71" />
+		<player position_x="26" position_y="244" level="1" />
+		<player position_x="26" position_y="249" />
+		<walking position_x="406" position_y="136" />
+		<flying position_x="389" position_y="83" />
+		<flying position_x="765" position_y="32" />
+		<walking position_x="1705" position_y="272" />
+		<flying position_x="1169" position_y="283" />
 	</entityManager>
 	<map />
 	<scene />
 	<:anonymous />
 	<renderer>
-		<camera x="-3124" y="0" />
+		<camera x="-1328" y="0" />
 	</renderer>
 </game_state>

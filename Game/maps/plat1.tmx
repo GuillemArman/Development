@@ -2597,7 +2597,7 @@
   <object id="20" type="jumpable" x="763" y="320.667" width="131" height="31.3333"/>
   <object id="22" type="jumpable" x="903.417" y="230" width="82.5833" height="22.3333"/>
   <object id="26" type="jumpable" x="798.67" y="128.667" width="97.3333" height="24.3333"/>
-  <object id="29" type="floor" x="963.67" y="68.3333" width="151.667" height="22.667"/>
+  <object id="29" type="floor" x="965.003" y="68.6666" width="151.667" height="22.667"/>
   <object id="62" type="floor" x="1284.33" y="97.8333" width="150.666" height="246.667"/>
   <object id="63" type="floor" x="992.333" y="68.8333" width="121.333" height="293.667"/>
   <object id="71" type="jumpable" x="1954.71" y="259.5" width="118.583" height="22.3333"/>
