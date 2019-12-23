@@ -144,7 +144,7 @@ bool j1App::Update()
 		paused = !paused;
 
 
-	if (ret == true && !paused)
+	if (ret == true)
 		ret = DoUpdate();
 
 	if(ret == true)
@@ -253,12 +253,15 @@ bool j1App::DoUpdate()
 	for(item = modules.start; item != NULL && ret == true; item = item->next)
 	{
 		pModule = item->data;
-
-		if(pModule->active == false) {
-			continue;
+		if (!paused || !pModule->pausable)
+		{
+			if (pModule->active == false) {
+				continue;
+			}
+			ret = item->data->Update(dt);
 		}
 
-		ret = item->data->Update(dt);
+		
 	}
 
 	return ret;

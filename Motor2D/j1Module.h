@@ -79,7 +79,7 @@ public:
 
 	p2SString	name;
 	bool		active = false;
-
+	bool		pausable = true;
 };
 
 #endif // __j1MODULE_H__

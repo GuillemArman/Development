@@ -175,7 +175,7 @@ bool j1Scene::CleanUp()
 	return true;
 }
 
-void j1Scene::LoadLvl(int num, bool fromSaveData)
+void j1Scene::LoadLvl(int num)
 {	
 	if (num == 0)
 	{
@@ -202,6 +202,7 @@ void j1Scene::LoadLvl(int num, bool fromSaveData)
 
 	if (current_lvl != nullptr)
 	{
-		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end, fromSaveData);
+		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end, !respawn_enemies);
+		respawn_enemies = true;
 	}
 }
