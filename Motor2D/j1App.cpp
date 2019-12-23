@@ -41,9 +41,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(pathfinding);
+	AddModule(scene);
 	AddModule(entityManager);
 	AddModule(map);
-	AddModule(scene);
 	AddModule(collision);
 
 	// render last to swap buffer
@@ -140,7 +140,11 @@ bool j1App::Update()
 	if(ret == true)
 		ret = PreUpdate();
 
-	if(ret == true)
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+		paused = !paused;
+
+
+	if (ret == true && !paused)
 		ret = DoUpdate();
 
 	if(ret == true)

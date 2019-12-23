@@ -141,7 +141,7 @@ bool j1Scene::Update(float dt)
 		}
 	}
 
-	App->map->Draw();
+	
 
 	return true;
 }
@@ -151,6 +151,8 @@ bool j1Scene::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("Scene PostUpdate", Profiler::Color::White);
 	bool ret = true;
+
+	App->map->Draw();
 
 	if (load_lvl)
 	{

@@ -95,6 +95,7 @@ public:
 	j1PathFinding*		pathfinding;
 
 	bool				cap_frames = true;
+	bool				paused = false;
 
 private:
 
