@@ -1,6 +1,7 @@
 #include "j1EntityManager.h"
 #include "j1WalkingEnemy.h"
 #include "j1FlyingEnemy.h"
+#include "j1Collectible.h"
 #include "p2Log.h"
 #include "j1Render.h"
 #include "j1Map.h"
@@ -147,6 +148,9 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 	{
 	case WALKING_ENEMY:
 		ret = new Walking_Enemy();
+		break;
+	case COLLECTIBLE:
+		//ret = new Collectible();
 		break;
 	case FLYING_ENEMY:
 		ret = new Flying_Enemy();

@@ -28,7 +28,8 @@ enum entity_type
 {
 	PLAYER = 0,
 	WALKING_ENEMY,
-	FLYING_ENEMY
+	FLYING_ENEMY,
+	COLLECTIBLE
 };
 
 class Entity : public j1Module
