@@ -4,7 +4,7 @@
 #include "j1Entity.h"
 #include "Animation.h"
 #include "p2Point.h"
-class Collectible : Entity
+class Collectible : public Entity
 {
 public:
 	Collectible();

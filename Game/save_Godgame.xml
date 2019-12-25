@@ -7,11 +7,13 @@
 	<:anonymous />
 	<scene />
 	<entityManager>
-		<player position_x="25" position_y="121" level="2" lives="1" />
-		<player position_x="25" position_y="126" />
-		<flying position_x="708" position_y="255" />
-		<walking position_x="1994" position_y="273" />
-		<flying position_x="1582" position_y="71" />
+		<player position_x="26" position_y="244" level="1" lives="3" />
+		<player position_x="26" position_y="249" />
+		<walking position_x="406" position_y="136" />
+		<flying position_x="389" position_y="83" />
+		<flying position_x="765" position_y="32" />
+		<walking position_x="1705" position_y="272" />
+		<flying position_x="1169" position_y="283" />
 	</entityManager>
 	<map />
 	<:anonymous />
@@ -19,6 +21,6 @@
 	<gui />
 	<:anonymous />
 	<renderer>
-		<camera x="-441" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>

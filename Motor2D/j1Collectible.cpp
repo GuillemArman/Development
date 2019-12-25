@@ -11,6 +11,8 @@
 #include "j1UIScene.h"
 #include "j1Audio.h"
 #include "Brofiler\Brofiler.h"
+#include "j1EntityManager.h"
+
 Collectible::Collectible() : Entity("collectible")
 {
 	graphics = App->tex->Load("textures/Sprites/png/coin.png");
@@ -44,7 +46,11 @@ bool Collectible::CleanUp()
 }
 void Collectible::OnCollision(Collider* c1, Collider* c2)
 {
-	Entity_OnCollision(c1, c2);
+	if (c2->type == COLLIDER_PLAYER && !App->entityManager->getPlayer()->dead)
+	{
+		App->audio->PlayFx(earn_coin_fx, 0);
+		App->entityManager->DeleteEntity(this);
+	}
 }
 bool Collectible::Load(pugi::xml_node&)
 {

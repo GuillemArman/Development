@@ -91,6 +91,9 @@
     <ClCompile Include="j1Collectible.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="UI_Clock.cpp">
+      <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -209,6 +212,9 @@
     </ClInclude>
     <ClInclude Include="j1Collectible.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Clock.h">
+      <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

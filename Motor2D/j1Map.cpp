@@ -555,7 +555,7 @@ bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length, SDL_Rect& end, bool
 			int x, y;
 			x = object.attribute("x").as_int();
 			y = object.attribute("y").as_int();
-			if (name == "coin")
+			if (name == "collectible")
 			{
 				App->entityManager->createEntity(COLLECTIBLE, x, y);
 			}

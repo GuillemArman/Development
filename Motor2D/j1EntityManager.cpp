@@ -150,7 +150,8 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 		ret = new Walking_Enemy();
 		break;
 	case COLLECTIBLE:
-		//ret = new Collectible();
+		ret = new Collectible();
+		ret->flying = true;
 		break;
 	case FLYING_ENEMY:
 		ret = new Flying_Enemy();
