@@ -30,7 +30,10 @@ enum element_function
 	CREDITS,
 	EXIT,
 	PAUSE,
-	RESTART
+	RESTART,
+	RESTORE,
+	BACK,
+	APPLY
 };
 
 enum element_state
@@ -47,7 +50,7 @@ public:
 	UI_element()
 	{}
 
-	UI_element(int x, int y, element_type type, SDL_Rect section, j1Module* callback, SDL_Texture* texture = nullptr) : localPosition({ x, y }), element_type(type), section(section), callback(callback), texture(texture)
+	UI_element(int x, int y, element_type type, SDL_Rect section, j1Module* callback, SDL_Texture* texture = nullptr) : localPosition({ x, y }), Original_Pos({ x, y }), element_type(type), section(section), callback(callback), texture(texture)
 	{}
 
 	virtual ~UI_element()
@@ -89,15 +92,41 @@ public:
 		verticalMovement = vertically;
 	}
 
+	void setOriginalPos(int x, int y)
+	{
+		Original_Pos = { x, y };
+	}
+	//-1 to delete limit
+	void setLimits(int right_limit, int left_limit, int top_limit, int bottom_limit)
+	{
+		this->right_limit = right_limit;
+		this->left_limit = left_limit;
+		this->top_limit = top_limit;
+		this->bottom_limit = bottom_limit;
+	}
 	void Mouse_Drag()
 	{
 		iPoint Mouse_Movement;
 		App->input->GetMousePosition(Mouse_Movement.x, Mouse_Movement.y);
 		if (horizontalMovement)
+		{
 			localPosition.x += (Mouse_Movement.x - Click_Pos.x);
+			Click_Pos.x += (Mouse_Movement.x - Click_Pos.x);
+		}
 		if (verticalMovement)
+		{
 			localPosition.y += (Mouse_Movement.y - Click_Pos.y);
-		Click_Pos = Mouse_Movement;
+			Click_Pos.y += (Mouse_Movement.y - Click_Pos.y);
+		}
+		if (left_limit >= 0 && localPosition.x < Original_Pos.x - left_limit)
+			localPosition.x = Original_Pos.x - left_limit;
+		else if (right_limit >= 0 && localPosition.x > Original_Pos.x + right_limit)
+			localPosition.x = Original_Pos.x + right_limit;
+		if (top_limit >= 0 && localPosition.y < Original_Pos.y - top_limit)
+			localPosition.y = Original_Pos.y - top_limit;
+		else if (bottom_limit >= 0 && localPosition.y > Original_Pos.y + bottom_limit)
+			localPosition.y = Original_Pos.y + bottom_limit;
+
 	}
 	void Start_Drag()
 	{
@@ -109,8 +138,10 @@ public:
 	void End_Drag()
 	{
 		Click_Pos = { 0,0 };
+
 		moving = false;
 	}
+
 public:
 
 	SDL_Texture * texture = nullptr;
@@ -124,11 +155,17 @@ public:
 	bool hovering = false;
 	bool moving = false;
 	bool dragable = false;
-protected:
+	bool solid = true;
 
+protected:
 	iPoint Click_Pos{ 0,0 };
+	iPoint Original_Pos{ 0, 0 };
 	bool verticalMovement = false;
 	bool horizontalMovement = false;
+	int right_limit = -1;
+	int left_limit = -1;
+	int top_limit = -1;
+	int bottom_limit = -1;
 };
 
 #endif // !__UI_ELEMENT__

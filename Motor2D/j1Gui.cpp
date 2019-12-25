@@ -19,6 +19,7 @@
 j1Gui::j1Gui() : j1Module()
 {
 	name.create("gui");
+	pausable = false;
 }
 
 // Destructor
@@ -66,7 +67,7 @@ bool j1Gui::PreUpdate()
 			for (p2List_item<UI_element*>* item = App->uiScene->current_menu->elements.end; item; item = item->prev)
 			{
 				iPoint globalPos = item->data->calculateAbsolutePosition();
-				if (x > globalPos.x && x < globalPos.x + item->data->section.w / scale && y > globalPos.y && y < globalPos.y + item->data->section.h / scale && element == nullptr && item->data->dragable)
+				if (x > globalPos.x && x < globalPos.x + item->data->section.w / scale && y > globalPos.y && y < globalPos.y + item->data->section.h / scale && element == nullptr && item->data->solid)
 				{
 					element = item->data;
 				}
@@ -209,6 +210,7 @@ const SDL_Texture* j1Gui::GetAtlas() const
 Text* j1Gui::createText(char* text, int x, int y, _TTF_Font* font, SDL_Color color, j1Module* callback)
 {
 	Text* ret = new Text(text, x, y, font, color, callback);
+	ret->solid = false;
 	UI_elements.add(ret);
 
 	return ret;
@@ -262,14 +264,20 @@ Window* j1Gui::createWindow(int x, int y, SDL_Texture * texture, SDL_Rect sectio
 	return ret;
 }
 
-Slider * j1Gui::createSlider(int x, int y, SDL_Texture * texture, SDL_Rect empty, SDL_Rect full, Button* button, _TTF_Font* text_font, SDL_Color text_color, int min_value, int max_value, int default_progress, j1Module * callback, char* text)
+Slider * j1Gui::createSlider(int x, int y, SDL_Texture * texture, SDL_Rect empty, SDL_Rect full, Button* button, _TTF_Font* text_font, SDL_Color text_color, int default_progress, j1Module * callback, char* text)
 {
 	SDL_Texture* usingTexture = (texture) ? texture : atlas;
-	Slider* ret = new Slider(x, y, usingTexture, empty, full, min_value, max_value, default_progress, callback);
+	Slider* ret = new Slider(x, y, usingTexture, empty, full, default_progress, callback);
 	if (full.w > full.h)
+	{
 		button->setDragable(true, false);
+		button->setLimits(empty.w / (2 / UI_scale), empty.w / (2 / UI_scale), -1, -1);
+	}
 	else
+	{
 		button->setDragable(false, true);
+		button->setLimits(-1, -1, empty.h / (2 / UI_scale), empty.h / (2 / UI_scale));
+	}
 	ret->appendChild(((empty.w * UI_scale) - 5 - button->section.w / (2 / UI_scale)) * default_progress / 100, y, button);
 	ret->appendChild(x, y, createText(text, x, y, text_font, text_color));
 	UI_elements.add(ret);
