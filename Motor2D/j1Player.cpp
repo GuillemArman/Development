@@ -245,6 +245,12 @@ bool j1Player::PostUpdate(float dt)
 		}
 	}
 
+	if (App->paused)
+	{
+		v.x = 0;
+		state = IDLE;
+	}
+
 	// Win condition
 	if (((collider->rect.x + collider->rect.w) > App->scene->current_lvl->data->end.x) && (position.y + collider->rect.h) < (App->scene->current_lvl->data->end.y + App->scene->current_lvl->data->end.h))
 	{

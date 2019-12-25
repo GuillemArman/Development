@@ -94,7 +94,7 @@ bool j1EntityManager::PostUpdate(float dt)
 						i++;
 					}
 				}
-				App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y, &entity->data->animation->GetCurrentFrame(dt), entity->data->scale);
+				App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y, &entity->data->animation->GetCurrentFrame(dt), true, entity->data->scale);
 			}
 		}
 	}
