@@ -9,8 +9,9 @@
 	<entityManager>
 		<player position_x="26" position_y="244" level="1" lives="2" />
 		<player position_x="26" position_y="249" />
-		<walking position_x="204" position_y="219" />
-		<flying position_x="716" position_y="138" />
+		<walking position_x="452" position_y="184" />
+		<flying position_x="65" position_y="260" />
+		<flying position_x="637" position_y="129" />
 		<walking position_x="1705" position_y="273" />
 		<flying position_x="1169" position_y="283" />
 	</entityManager>

@@ -45,50 +45,74 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {
-	//Send events related to UI elements
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	int scale = App->win->GetScale();
-	for (p2List_item<UI_element*>* item = UI_elements.start; item; item = item->next)
+	UI_element* element = nullptr;
+
+	//Get element to interact with
+	if (draggingElement != nullptr)
+		element = draggingElement;
+	else
 	{
-		iPoint globalPos = item->data->calculateAbsolutePosition();
-		if (x > globalPos.x && x < globalPos.x + item->data->section.w / scale && y > globalPos.y && y < globalPos.y + item->data->section.h / scale)
+		for (p2List_item<UI_element*>* item = UI_elements.end; item; item = item->prev)
 		{
-			if (!item->data->hovering)
+			iPoint globalPos = item->data->calculateAbsolutePosition();
+			if (x > globalPos.x && x < globalPos.x + item->data->section.w / scale && y > globalPos.y && y < globalPos.y + item->data->section.h / scale && element == nullptr)
 			{
-				item->data->hovering = true;
-				if (item->data->callback != nullptr)
-					item->data->callback->OnUIEvent(item->data, MOUSE_ENTER);
+				element = item->data;
 			}
-			else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-			{
-				if (item->data->callback != nullptr)
-					item->data->callback->OnUIEvent(item->data, MOUSE_LEFT_CLICK);
-			}
-			else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
-			{
-				if (item->data->callback != nullptr)
-					item->data->callback->OnUIEvent(item->data, MOUSE_LEFT_RELEASE);
-			}
-			else if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
-			{
-				if (item->data->callback != nullptr)
-					item->data->callback->OnUIEvent(item->data, MOUSE_RIGHT_CLICK);
-			}
-			else if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
-			{
-				if (item->data->callback != nullptr)
-					item->data->callback->OnUIEvent(item->data, MOUSE_RIGHT_RELEASE);
-			}
-		}
-		else
-		{
-			if (item->data->hovering)
+			else if (item->data->hovering)
 			{
 				item->data->hovering = false;
 				if (item->data->callback != nullptr)
 					item->data->callback->OnUIEvent(item->data, MOUSE_LEAVE);
 			}
+		}
+	}
+
+	//Send events related to UI elements
+	if (element != nullptr)
+	{
+		if (!element->hovering)
+		{
+			element->hovering = true;
+			if (element->callback != nullptr)
+				element->callback->OnUIEvent(element, MOUSE_ENTER);
+		}
+		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+		{
+			if (element->callback != nullptr)
+			{
+				element->callback->OnUIEvent(element, MOUSE_LEFT_CLICK);
+			}
+			if (element->dragable)
+			{
+				element->Start_Drag();
+				draggingElement = element;
+			}
+		}
+		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+		{
+			if (element->callback != nullptr)
+			{
+				element->callback->OnUIEvent(element, MOUSE_LEFT_RELEASE);
+			}
+			if (element->dragable)
+			{
+				element->End_Drag();
+				draggingElement = nullptr;
+			}
+		}
+		else if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+		{
+			if (element->callback != nullptr)
+				element->callback->OnUIEvent(element, MOUSE_RIGHT_CLICK);
+		}
+		else if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
+		{
+			if (element->callback != nullptr)
+				element->callback->OnUIEvent(element, MOUSE_RIGHT_RELEASE);
 		}
 	}
 
@@ -108,6 +132,12 @@ bool j1Gui::PostUpdate(float dt)
 {
 	for (p2List_item<UI_element*>* item = UI_elements.start; item; item = item->next)
 	{
+		if (item->data->moving)
+		{
+			item->data->Mouse_Drag();
+			item->data->state = CLICKED;
+		}
+
 		if (item->data->parent == nullptr)
 			item->data->BlitElement();
 	}
@@ -226,5 +256,3 @@ Button* j1Gui::createButton(int x, int y, SDL_Texture* texture, SDL_Rect standby
 
 	return ret;
 }
-
-// class Gui ---------------------------------------------------
