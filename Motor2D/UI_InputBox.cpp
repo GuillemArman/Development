@@ -29,7 +29,7 @@ void InputBox::readInput()
 		{
 			int x, y;
 			App->input->GetMousePosition(x, y);
-			if (!(x > localPosition.x && x < localPosition.x + section.w && y > localPosition.y && y <localPosition.y + section.h)) //This event should be able to be detected in other modules
+			if (!(x > localPosition.x && x < localPosition.x + section.w && y > localPosition.y && y < localPosition.y + section.h)) //This event should be able to be detected in other modules
 			{
 				reading = false;
 				SDL_StopTextInput();
@@ -53,7 +53,7 @@ void InputBox::setOutlined(bool isOutlined)
 void InputBox::BlitElement()
 {
 	iPoint globalPos = calculateAbsolutePosition();
-	App->render->Blit(texture, globalPos.x, globalPos.y, &section, false, 0.5f);
+	App->render->Blit(texture, globalPos.x, globalPos.y, &section, false, App->gui->UI_scale);
 
 	if (text != nullptr)
 	{
