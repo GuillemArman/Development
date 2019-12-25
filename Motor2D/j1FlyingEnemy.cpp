@@ -25,7 +25,7 @@ Flying_Enemy::Flying_Enemy() : Entity("flying")
 	collider_offset.y *= scale;
 
 	if (die_fx == 0) {}
-		// fx flying enemy dies
+	// fx flying enemy dies
 
 
 }

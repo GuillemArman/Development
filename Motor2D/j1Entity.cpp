@@ -36,7 +36,7 @@ Entity::~Entity()
 	App->tex->UnLoad(graphics);
 	graphics = nullptr;
 	if (collider != nullptr)
-	collider->to_delete = true;
+		collider->to_delete = true;
 }
 
 bool Entity::Entity_Update(float dt)
@@ -53,7 +53,7 @@ bool Entity::Entity_Update(float dt)
 	if (v.y < -jump_force)
 		v.y = -jump_force;
 
-	virtualPosition.y -= v.y * dt; 
+	virtualPosition.y -= v.y * dt;
 
 	if (pos_relCam > 2 || v.x > 0 || type != PLAYER)
 		virtualPosition.x += v.x * dt;
@@ -210,7 +210,8 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 void Entity::setAnimation()
 {
 	if (specificAnimation())
-	{ }
+	{
+	}
 	else if (dead && death != nullptr)
 	{
 		animation = death;
@@ -376,7 +377,7 @@ void Entity::LoadLogic(const char* animationPath)
 						jump_force = property.attribute("value").as_float();
 				}
 				for (pugi::xml_node object = objectGroup.child("object"); object; object = object.next_sibling("object"))
-				{				
+				{
 					p2SString name = object.attribute("name").as_string();
 					if (name == "sprite")
 					{
@@ -417,6 +418,9 @@ bool Entity::Collision_from_top(Collider* c1, Collider* c2) const
 {
 	return ((c2->rect.y + (c2->rect.h)) < (c1->rect.y + (v.y*prev_dt) + 10));
 }
+
+
+
 
 
 

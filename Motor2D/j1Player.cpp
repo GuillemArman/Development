@@ -53,7 +53,7 @@ bool j1Player::Start()
 		graphics_god = App->tex->Load("textures/character/Santafinal.png");
 
 	if (collider == nullptr)
-		collider = App->collision->AddCollider({ 0, 0, 40, 70  }, COLLIDER_PLAYER, this);
+		collider = App->collision->AddCollider({ 0, 0, 40, 70 }, COLLIDER_PLAYER, this);
 
 	collider_offset.x = 3;
 	collider_offset.y = 2;
@@ -134,22 +134,22 @@ bool j1Player::Update(float dt)
 		{
 			if (App->entityManager->player_god_mode)
 			{
-				
+
 				App->entityManager->player_god_mode = false;
 				App->audio->PlayFx(SSJ_off, 0);
 			}
 			else
 			{
-				
+
 				App->entityManager->player_god_mode = true;
 				App->audio->PlayFx(SSJ_transformation, 0);
-				
+
 			}
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
 		{
-			v.x = -speed*1.2;
+			v.x = -speed * 1.2;
 			going_left = true;
 			if (state != JUMPING && state != DEAD)
 			{
@@ -167,7 +167,7 @@ bool j1Player::Update(float dt)
 		}
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
 		{
-			v.x = speed*1.2;
+			v.x = speed * 1.2;
 			going_right = true;
 			if (state != JUMPING && state != DEAD)
 			{
@@ -183,7 +183,7 @@ bool j1Player::Update(float dt)
 				state = IDLE;
 			}
 		}
-		
+
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
 			jumping = true;
@@ -224,13 +224,13 @@ bool j1Player::Update(float dt)
 		step_time = SDL_GetTicks() + (1 / right->speed) + 450;
 	}
 
-	
+
 
 	return true;
 }
 
 bool j1Player::PostUpdate(float dt)
-{	
+{
 	if (!dead)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !colliding_right && v.x == 0)
@@ -244,7 +244,7 @@ bool j1Player::PostUpdate(float dt)
 			state = LEFT;
 		}
 	}
-	
+
 	// Win condition
 	if (((collider->rect.x + collider->rect.w) > App->scene->current_lvl->data->end.x) && (position.y + collider->rect.h) < (App->scene->current_lvl->data->end.y + App->scene->current_lvl->data->end.h))
 	{
@@ -285,7 +285,7 @@ bool j1Player::PostUpdate(float dt)
 	if (position.y > App->win->screen_surface->h / win_scale + 50 && !won && !dead)
 	{
 		if (App->entityManager->player_god_mode)
-		{ 
+		{
 			App->LoadGame(true);
 		}
 		else
@@ -309,7 +309,7 @@ bool j1Player::PostUpdate(float dt)
 		App->render->Blit(graphics_god, position.x + godmode_offset.x, position.y + godmode_offset.y, &godMode->GetCurrentFrame(dt));
 		App->render->Blit(graphics_god, position.x, position.y, &animation->GetCurrentFrame(dt));
 		App->render->Blit(graphics_god, position.x + godmode_offset.x, position.y + godmode_offset.y, &godMode->GetCurrentFrame(dt));
-		
+
 		//GODMODE MOVEMENT
 
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && App->entityManager->player_god_mode)
@@ -360,7 +360,7 @@ bool j1Player::PostUpdate(float dt)
 
 	if (double_jump)
 	{
-		App->render->Blit(graphics, jump_pos.x,jump_pos.y, &jump->GetCurrentFrame(dt));
+		App->render->Blit(graphics, jump_pos.x, jump_pos.y, &jump->GetCurrentFrame(dt));
 	}
 
 	return true;
@@ -381,7 +381,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	if (!dead && c2->type == COLLIDER_ENEMY)
 	{
 		p2SString c2_name = c2->callback->name.GetString();
-		if ((c2_name == "flying" || c2_name =="walking") && Collision_from_bottom(c1, c2, 3) && v.y < 0)
+		if ((c2_name == "flying" || c2_name == "walking") && Collision_from_bottom(c1, c2, 3) && v.y < 0)
 		{
 			v.y = (jump_force * 2 / 3);
 			c2->entity->dead = true;
@@ -394,8 +394,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			if (!sound_one_time && killed_finished == 0)
 			{
 				lives--;
-   				killed_finished = SDL_GetTicks();
-				
+				killed_finished = SDL_GetTicks();
+
 				sound_one_time = true;
 				if (lives > 0)
 					App->audio->PlayFx(killed_fx, 0);
@@ -424,7 +424,7 @@ bool j1Player::Load(pugi::xml_node& data)
 	{
 		App->render->virtualCamPos = App->scene->max_camera_pos;
 	}
-	
+
 	return true;
 }
 
@@ -437,6 +437,6 @@ bool j1Player::Save(pugi::xml_node& data) const
 	data.append_attribute("level") = App->scene->current_lvl->data->lvl;
 
 	data.append_attribute("lives") = lives;
-	
+
 	return true;
 }

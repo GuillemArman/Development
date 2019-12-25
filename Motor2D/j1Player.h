@@ -43,7 +43,7 @@ public:
 
 	bool double_jump = false;
 	bool won = false;
-	float end_reached = 0;	
+	float end_reached = 0;
 };
 
 #endif

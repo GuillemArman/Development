@@ -56,10 +56,10 @@ public:
 	Animation* LoadAnimation(const char* animationPath, const char* animationName);
 	void LoadLogic(const char* animationPath);
 
-	bool Collision_from_bottom	(Collider* c1, Collider* c2, int margin = 1) const;
-	bool Collision_from_left	(Collider* c1, Collider* c2) const;
-	bool Collision_from_right	(Collider* c1, Collider* c2) const;
-	bool Collision_from_top		(Collider* c1, Collider* c2) const;
+	bool Collision_from_bottom(Collider* c1, Collider* c2, int margin = 1) const;
+	bool Collision_from_left(Collider* c1, Collider* c2) const;
+	bool Collision_from_right(Collider* c1, Collider* c2) const;
+	bool Collision_from_top(Collider* c1, Collider* c2) const;
 
 private:
 
@@ -76,7 +76,7 @@ public:
 	j1Timer doStandardPath;
 	bool counting = false;
 	bool slowerPath = false;
-	
+
 	//Keep orientation of collision
 	bool colliding_bottom = false;
 	bool colliding_right = false;
@@ -90,7 +90,7 @@ public:
 	bool dead = false;
 
 	SDL_Texture* graphics = nullptr;
-	
+
 	entity_state state;
 	//Basic animations
 	Animation* animation = nullptr;			Animation* idle_right = nullptr;
@@ -99,8 +99,8 @@ public:
 	Animation* jumping_right = nullptr;		Animation* falling_left = nullptr;
 	Animation* falling_right = nullptr;		Animation* death = nullptr;
 
-	
-	
+
+
 	uint landing_fx = 0;
 
 	Collider* collider = nullptr;

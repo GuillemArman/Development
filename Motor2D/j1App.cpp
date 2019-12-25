@@ -14,7 +14,9 @@
 #include "j1Collision.h"
 #include "j1Player.h"
 #include "j1EntityManager.h"
-#include "j1PathFinding.h"
+#include "j1Pathfinding.h"
+#include "j1Fonts.h"
+#include "j1Gui.h"
 #include "Brofiler\Brofiler.h"
 
 // Constructor
@@ -33,6 +35,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	collision = new j1Collision();
 	entityManager = new j1EntityManager();
 	pathfinding = new j1PathFinding();
+	font = new j1Fonts();
+	gui = new j1Gui();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -45,6 +49,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entityManager);
 	AddModule(map);
 	AddModule(collision);
+	AddModule(font);
+	AddModule(gui);
 
 	// render last to swap buffer
 	AddModule(render);
@@ -258,6 +264,7 @@ bool j1App::DoUpdate()
 			if (pModule->active == false) {
 				continue;
 			}
+
 			ret = item->data->Update(dt);
 		}
 
@@ -436,4 +443,3 @@ bool j1App::SavegameNow() const
 	want_to_save = false;
 	return ret;
 }
-

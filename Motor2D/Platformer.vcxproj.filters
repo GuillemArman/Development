@@ -61,6 +61,27 @@
     <ClCompile Include="j1WalkingEnemy.cpp">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="UI_Button.cpp">
+      <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Image.cpp">
+      <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_InputBox.cpp">
+      <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Text.cpp">
+      <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Window.cpp">
+      <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Gui.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Fonts.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -147,6 +168,30 @@
     <ClInclude Include="j1WalkingEnemy.h">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="UI_Button.h">
+      <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_element.h">
+      <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Image.h">
+      <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_InputBox.h">
+      <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Text.h">
+      <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Window.h">
+      <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Gui.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Fonts.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -169,6 +214,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\Entities">
       <UniqueIdentifier>{ee1e42ca-4f27-4ebd-8cc0-0a550ccfea77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\UI_Elements">
+      <UniqueIdentifier>{852e2bf7-f272-43e8-a949-965ed2d54db8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

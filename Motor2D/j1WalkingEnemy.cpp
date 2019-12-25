@@ -63,7 +63,7 @@ bool Walking_Enemy::Update(float dt)
 		if (entityPath.Count() > 1)
 			followPath();
 
-		
+
 
 	}
 	else
@@ -106,7 +106,7 @@ void Walking_Enemy::followPath()
 	iPoint next_cell;
 	next_cell = *entityPath.At(1);
 	next_cell = App->map->MapToWorld(next_cell.x, next_cell.y);
-	next_cell = { next_cell.x + App->map->data.tile_width / 2, next_cell.y};
+	next_cell = { next_cell.x + App->map->data.tile_width / 2, next_cell.y };
 	iPoint map_pos(position.x + collider_offset.x + collider->rect.w / 2, position.y + collider_offset.y + collider->rect.h / 2);
 
 	float usingSpeed = (slowerPath) ? (speed / 2) : speed;

@@ -47,7 +47,7 @@ bool j1EntityManager::Update(float dt)
 	int win_scale = App->win->GetScale();
 	int win_width = App->win->screen_surface->w / win_scale;
 	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
-	{	
+	{
 		if (entity->data->pos_relCam >= (0 - SCREEN_MARGIN) && entity->data->pos_relCam <= (win_width + SCREEN_MARGIN))
 		{
 			entity->data->Entity_Update(dt);
@@ -61,7 +61,7 @@ bool j1EntityManager::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		draw_path = !draw_path;
-		
+
 
 	return true;
 }
@@ -107,7 +107,7 @@ bool j1EntityManager::CleanUp()
 	Entity* player = getPlayer();
 	if (player)
 		getPlayer()->CleanUp();
-	
+
 	p2List_item<Entity*>* item;
 	item = entities.start->next; //Skip first entity, player
 
@@ -124,7 +124,7 @@ bool j1EntityManager::CleanUp()
 
 void j1EntityManager::DeleteEntity(Entity* entity_to_delete)
 {
-	p2List_item<Entity*>* entity_finder = entities.start; 
+	p2List_item<Entity*>* entity_finder = entities.start;
 	while (entity_finder != NULL)
 	{
 		if (entity_finder->data == entity_to_delete)
@@ -142,7 +142,7 @@ void j1EntityManager::DeleteEntity(Entity* entity_to_delete)
 Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 {
 	Entity* ret = nullptr;
-	
+
 	switch (type)
 	{
 	case WALKING_ENEMY:
@@ -192,7 +192,7 @@ bool j1EntityManager::Load(pugi::xml_node& data)
 	{
 		createEntity(FLYING_ENEMY, flying.attribute("position_x").as_int(), flying.attribute("position_y").as_int());
 	}
-	
+
 	return true;
 }
 

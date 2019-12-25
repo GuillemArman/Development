@@ -11,6 +11,8 @@
 
 class j1App;
 class Collider;
+class UI_element;
+enum event_type;
 
 class j1Module
 {
@@ -70,6 +72,11 @@ public:
 		return true;
 	}
 
+	virtual bool OnUIEvent(UI_element* element, event_type event_type)
+	{
+		return true;
+	}
+
 	virtual void OnCollision(Collider* c1, Collider* c2)
 	{
 
@@ -80,6 +87,7 @@ public:
 	p2SString	name;
 	bool		active = false;
 	bool		pausable = true;
+
 };
 
 #endif // __j1MODULE_H__

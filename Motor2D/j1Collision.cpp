@@ -9,7 +9,7 @@
 
 j1Collision::j1Collision()
 {
-	for(uint i = 0; i < MAX_COLLIDERS; ++i)
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
 	matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
@@ -42,9 +42,9 @@ bool j1Collision::PreUpdate()
 {
 	BROFILER_CATEGORY("Collision PreUpdate", Profiler::Color::Brown);
 	// Remove all colliders scheduled for deletion
-	for(uint i = 0; i < MAX_COLLIDERS; ++i)
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		if(colliders[i] != nullptr && colliders[i]->to_delete == true)
+		if (colliders[i] != nullptr && colliders[i]->to_delete == true)
 		{
 			delete colliders[i];
 			colliders[i] = nullptr;
@@ -114,19 +114,19 @@ bool j1Collision::Update(float dt)
 
 void j1Collision::DebugDraw()
 {
-	if(App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		debug = !debug;
 
-	if(debug == false)
+	if (debug == false)
 		return;
 
 	Uint8 alpha = 80;
-	for(uint i = 0; i < MAX_COLLIDERS; ++i)
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		if(colliders[i] == nullptr)
+		if (colliders[i] == nullptr)
 			continue;
-		
-		switch(colliders[i]->type)
+
+		switch (colliders[i]->type)
 		{
 		case COLLIDER_NONE: // white
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
@@ -152,9 +152,9 @@ bool j1Collision::CleanUp()
 {
 	LOG("Freeing all colliders");
 
-	for(uint i = 0; i < MAX_COLLIDERS; ++i)
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		if(colliders[i] != nullptr)
+		if (colliders[i] != nullptr)
 		{
 			delete colliders[i];
 			colliders[i] = nullptr;
@@ -168,9 +168,9 @@ Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* 
 {
 	Collider* ret = nullptr;
 
-	for(uint i = 0; i < MAX_COLLIDERS; ++i)
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		if(colliders[i] == nullptr)
+		if (colliders[i] == nullptr)
 		{
 			ret = colliders[i] = new Collider(rect, type, callback, entity);
 			break;
@@ -182,19 +182,19 @@ Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* 
 
 bool j1Collision::EraseCollider(Collider* collider)
 {
-	if(collider != nullptr)
+	if (collider != nullptr)
 	{
 		// we still search for it in case we received a dangling pointer
-		for(uint i = 0; i < MAX_COLLIDERS; ++i)
+		for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		{
-			if(colliders[i] == collider)
+			if (colliders[i] == collider)
 			{
 				collider->to_delete = true;
 				break;
 			}
 		}
 	}
-		
+
 
 	return false;
 }
@@ -204,9 +204,9 @@ bool j1Collision::EraseCollider(Collider* collider)
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
 	return (rect.x < r.x + r.w &&
-			rect.x + rect.w > r.x &&
-			rect.y < r.y + r.h &&
-			rect.h + rect.y > r.y);
+		rect.x + rect.w > r.x &&
+		rect.y < r.y + r.h &&
+		rect.h + rect.y > r.y);
 }
 
 bool Collider::Update()

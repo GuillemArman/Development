@@ -13,6 +13,9 @@
 #include "j1PathFinding.h"
 #include "j1EntityManager.h"
 #include "Brofiler\Brofiler.h"
+#include "j1Gui.h"
+#include "j1Fonts.h"
+#include "UI_element.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -62,6 +65,7 @@ bool j1Scene::PreUpdate()
 	return true;
 }
 
+
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
@@ -70,6 +74,12 @@ bool j1Scene::Update(float dt)
 	{
 		load_lvl = true;
 		newLvl = 1;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
+	{
+		App->gui->createButton(100, 100, NULL, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
+		App->gui->createText("Hello World", 200, 200, App->font->Load("fonts/open_sans/OpenSans-Regular.ttf", 25), { 255, 0, 0, 255 }, this);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
@@ -95,11 +105,11 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && !App->entityManager->getPlayer()->dead)
 		App->SaveGame();
 
-	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !App->entityManager->getPlayer()->dead)
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !App->entityManager->getPlayer()->dead)
 		App->LoadGame();
 
 
-	
+
 
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 	{
@@ -111,7 +121,7 @@ bool j1Scene::Update(float dt)
 	App->win->GetWindowSize(win_width, win_height);
 	max_camera_pos = current_lvl->data->length + (win_width);
 	max_camera_pos *= -1;
-	if ((App->entityManager->getPlayer()->pos_relCam > (win_width / App->win->GetScale() / 2) ) && (App->render->virtualCamPos > max_camera_pos))
+	if ((App->entityManager->getPlayer()->pos_relCam > (win_width / App->win->GetScale() / 2)) && (App->render->virtualCamPos > max_camera_pos))
 	{
 		App->render->virtualCamPos -= App->entityManager->getPlayer()->speed * 2 * dt; //*dt
 	}
@@ -122,7 +132,7 @@ bool j1Scene::Update(float dt)
 	//}
 	// ------------------------------------------------
 
-	
+
 
 	// Parallax
 	p2List_item<ImageLayer*>* image = nullptr; // Parallax when player moves
@@ -141,7 +151,7 @@ bool j1Scene::Update(float dt)
 		}
 	}
 
-	
+	App->map->Draw();
 
 	return true;
 }
@@ -152,7 +162,8 @@ bool j1Scene::PostUpdate(float dt)
 	BROFILER_CATEGORY("Scene PostUpdate", Profiler::Color::White);
 	bool ret = true;
 
-	App->map->Draw();
+
+
 
 	if (load_lvl)
 	{
@@ -165,6 +176,26 @@ bool j1Scene::PostUpdate(float dt)
 		ret = false;
 
 	return ret;
+}
+
+bool j1Scene::OnUIEvent(UI_element* element, event_type event_type)
+{
+	if (event_type == MOUSE_ENTER || event_type == MOUSE_LEFT_RELEASE || event_type == MOUSE_RIGHT_RELEASE)
+	{
+		element->state = MOUSEOVER;
+	}
+	else if (event_type == MOUSE_LEAVE)
+	{
+		element->state = STANDBY;
+	}
+	else if (event_type == MOUSE_LEFT_CLICK)
+	{
+		element->state = CLICKED;
+	}
+	else if (event_type == MOUSE_RIGHT_CLICK)
+	{
+	}
+	return true;
 }
 
 // Called before quitting

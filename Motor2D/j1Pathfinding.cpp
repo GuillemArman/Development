@@ -25,7 +25,7 @@ bool j1PathFinding::isWalkable(const iPoint& coords) const
 	bool ret = false;
 
 	int position = (coords.y * width) + coords.x;
-	if (coords.x < width && map[position] == 1 && coords.x >= 0 && coords.y >= 0 && coords.y < height-1)
+	if (coords.x < width && map[position] == 1 && coords.x >= 0 && coords.y >= 0 && coords.y < height - 1)
 		ret = true;
 
 	return ret;
@@ -45,18 +45,18 @@ bool j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint
 {
 	BROFILER_CATEGORY("PathFinding algorithm", Profiler::Color::Black);
 	bool ret = false;
-	
+
 	ResetPath(path_to_fill);
 
 	//Define origin and destination coords
-	iPoint origin_coords = App->map->WorldToMap(entity->position.x + entity->collider_offset.x + entity->collider->rect.w/2, entity->position.y + entity->collider_offset.y + entity->collider->rect.h/2);
+	iPoint origin_coords = App->map->WorldToMap(entity->position.x + entity->collider_offset.x + entity->collider->rect.w / 2, entity->position.y + entity->collider_offset.y + entity->collider->rect.h / 2);
 	frontier.Push(origin_coords, 0);
 	visited.add(origin_coords);
 	breadcrumbs.add(origin_coords);
 	iPoint destination_coords = App->map->WorldToMap(objective->position.x + objective->collider_offset.x + objective->collider->rect.w / 2, objective->position.y + objective->collider_offset.y + objective->collider->rect.h / 2);
-	
+
 	if (isWalkable(destination_coords) && isWalkable(origin_coords) && (entity->flying || (origin_coords.y <= destination_coords.y)))
-	{	
+	{
 		while (visited.find(destination_coords) == -1)
 		{
 			iPoint curr;
@@ -89,7 +89,7 @@ bool j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint
 					if (cost_so_far[neighbors[i].x][neighbors[i].y] == NULL || newCost < cost_so_far[neighbors[i].x][neighbors[i].y])
 					{
 						cost_so_far[neighbors[i].x][neighbors[i].y] = newCost;
-						
+
 						//Set falling value
 						if (curr.x == neighbors[i].x)
 							falling_value[neighbors[i].x][neighbors[i].y] = falling_value[curr.x][curr.y] + (falling_value[curr.x][curr.y] % 2 == 0) ? 2 : 1;

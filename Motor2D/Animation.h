@@ -3,20 +3,19 @@
 
 #include "SDL/include/SDL_rect.h"
 #include "j1App.h"
-#define MAX_FRAMES 500
+#define MAX_FRAMES 25
 
 class Animation
 {
 public:
 	bool loop = true;
-	float speed = 7.0f;
+	float speed = 1.0f;
 	SDL_Rect frames[MAX_FRAMES];
 
 private:
 	float current_frame = 0.0f;
 	int last_frame = 0;
 	int loops = 0;
-	pugi::xml_document file;
 
 public:
 
@@ -35,7 +34,7 @@ public:
 
 	SDL_Rect& GetCurrentFrame(float dt)
 	{
-		if(!App->paused)
+		if (!App->paused)
 		current_frame += speed * dt; //*dt
 		if(current_frame >= last_frame)
 		{
@@ -53,11 +52,9 @@ public:
 
 	void Reset()
 	{
- 		loops = 0;
+		loops = 0;
 		current_frame = 0.0f;
 	}
-
-	
 };
 
 #endif
