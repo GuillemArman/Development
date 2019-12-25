@@ -1,4 +1,5 @@
 #include "j1UIScene.h"
+#include "j1Scene.h"
 #include "j1App.h"
 #include "j1Fonts.h"
 #include "UI_element.h"
@@ -29,22 +30,32 @@ bool j1UIScene::Start()
 	_TTF_Font* mid_buttons_font = App->font->Load("fonts/BMYEONSUNG.ttf", 30);
 	SDL_Color yellow_color = { 229, 168, 61, 255 };
 	SDL_Color dark_yellow_color = { 146, 97, 45, 255 };
+	SDL_Color grey_color = { 170, 170, 170, 87 };
 	_TTF_Font* big_texts_font = App->font->Load("fonts/TCCEB.ttf", 55);
 	SDL_Color black_color = { 0, 0, 0, 255 };
 	_TTF_Font* mid_texts_font = App->font->Load("fonts/TCCEB.ttf", 36);
 	_TTF_Font* small_texts_font = App->font->Load("fonts/TCCEB.ttf", 19);
 	SDL_Texture* big_window_tex = App->tex->Load("gui/big_parchment.png");
 	SDL_Texture* mid_window_tex = App->tex->Load("gui/medium_parchment.png");
+	SDL_Texture* credits_tex = App->tex->Load("gui/credits.png");
 
-
-	menu* mainMenu = new menu(MAIN_MENU);
+	menu* creditsMenu = new menu(CREDITS_MENU);
 	{
+		UI_element* credits_img = App->gui->createImage(0, 0, credits_tex, this);
+		creditsMenu->elements.add(credits_img);
+		menus.add(creditsMenu);
+	}
+
+	menu* startMenu = new menu(START_MENU);
+	{
+		App->paused = true;
 		//TITLE
 		UI_element* title_img = App->gui->createImageFromAtlas(179 * App->gui->UI_scale, 92 * App->gui->UI_scale, { 0, 0, 664,147 }, this);
 
 		//NEW GAME
 		UI_element* new_game = App->gui->createButton(372 * App->gui->UI_scale, 341 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
 		new_game->dragable = true;
+		new_game->function = NEW_GAME;
 
 		UI_element* new_text = App->gui->createText("NEW GAME", 200, 200, big_buttons_font, yellow_color);
 		new_text->setOutlined(true);
@@ -54,14 +65,16 @@ bool j1UIScene::Start()
 		//CONTINUE GAME
 		UI_element* continue_game = App->gui->createButton(372 * App->gui->UI_scale, 469 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
 		continue_game->setDragable(true, true);
+		continue_game->function = CONTINUE;
 
-		UI_element* continue_text = App->gui->createText("CONTINUE", 200, 200, big_buttons_font, yellow_color);
+		UI_element* continue_text = App->gui->createText("CONTINUE", 200, 200, big_buttons_font, grey_color);
 		continue_text->setOutlined(true);
 		continue_game->appendChildAtCenter(continue_text);
 
 		//EXIT GAME
 		UI_element* exit_game = App->gui->createButton(372 * App->gui->UI_scale, 595 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
 		exit_game->setDragable(true, true);
+		exit_game->function = EXIT;
 
 		UI_element* exit_text = App->gui->createText("EXIT", 200, 200, big_buttons_font, yellow_color);
 		exit_text->setOutlined(true);
@@ -70,39 +83,46 @@ bool j1UIScene::Start()
 		//CREDITS
 		UI_element* credits = App->gui->createButton(31 * App->gui->UI_scale, 647 * App->gui->UI_scale, NULL, { 666,0,168,66 }, { 666,67,168,66 }, { 835,0,168,66 }, this);
 		credits->dragable = true;
+		credits->function = CREDITS;
 
 		UI_element* credits_text = App->gui->createText("CREDITS", 200, 200, mid_buttons_font, yellow_color);
 		credits_text->setOutlined(true);
 		credits->appendChildAtCenter(credits_text);
 
 		//SETTINGS
-		UI_element* settings = App->gui->createButton(823 * App->gui->UI_scale, 647 * App->gui->UI_scale, NULL, { 666,0,168,66 }, { 666,67,168,66 }, { 835,0,168,66 }, this);
-		settings->setDragable(true, true);
+		UI_element* settings_start_menu = App->gui->createButton(823 * App->gui->UI_scale, 647 * App->gui->UI_scale, NULL, { 666,0,168,66 }, { 666,67,168,66 }, { 835,0,168,66 }, this);
+		settings_start_menu->setDragable(true, true);
+		settings_start_menu->function = SETTINGS;
 
 		UI_element* settings_text = App->gui->createText("SETTINGS", 200, 200, mid_buttons_font, yellow_color);
 		settings_text->setOutlined(true);
-		settings->appendChildAtCenter(settings_text);
-
-		mainMenu->elements.add(title_img);
-		mainMenu->elements.add(new_game);
-		mainMenu->elements.add(new_text);
-		mainMenu->elements.add(continue_game);
-		mainMenu->elements.add(continue_text);
-		mainMenu->elements.add(exit_game);
-		mainMenu->elements.add(exit_text);
-		mainMenu->elements.add(credits);
-		mainMenu->elements.add(credits_text);
-		mainMenu->elements.add(settings);
-		mainMenu->elements.add(settings_text);
-		menus.add(mainMenu);
+		settings_start_menu->appendChildAtCenter(settings_text);
+		startMenu->elements.add(title_img);
+		startMenu->elements.add(new_game);
+		startMenu->elements.add(new_text);
+		startMenu->elements.add(continue_game);
+		startMenu->elements.add(continue_text);
+		startMenu->elements.add(exit_game);
+		startMenu->elements.add(exit_text);
+		startMenu->elements.add(credits);
+		startMenu->elements.add(credits_text);
+		startMenu->elements.add(settings_start_menu);
+		startMenu->elements.add(settings_text);
+		menus.add(startMenu);
 	}
 
-	menu* pauseMenu = new menu(PAUSE_MENU);
+	menu* inGameMenu = new menu(INGAME_MENU);
 	{
 		//PAUSE BUTTON
 		UI_element* pause_button = App->gui->createButton(947 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 666,266,60,63 }, { 726,266,60,63 }, { 786,266,60,63 }, this);
 		pause_button->setDragable(true, true);
 		pause_button->function = PAUSE;
+
+		inGameMenu->elements.add(pause_button);
+		menus.add(inGameMenu);
+	}
+	menu* pauseMenu = new menu(PAUSE_MENU);
+	{
 
 		//WINDOW
 		UI_element* pause_window = App->gui->createWindow(208 * App->gui->UI_scale, 182 * App->gui->UI_scale, mid_window_tex, { 0,0,588,404 }, this);
@@ -111,17 +131,20 @@ bool j1UIScene::Start()
 		//SETTING CIRCLE BUTTON
 		UI_element* settings_button = App->gui->createButton(275 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 876,341,120,123 }, { 876,465,120,123 }, { 876,589,120,123 }, this);
 		settings_button->setDragable(true, true);
+		settings_button->function = SETTINGS;
 		pause_window->appendChild(67 * App->gui->UI_scale, 233 * App->gui->UI_scale, settings_button);
 
 		//PLAY CIRCLE BUTTON
 		UI_element* play_button = App->gui->createButton(439 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 638,341,119,124 }, { 638,465,119,124 }, { 638,589,119,124 }, this);
 		play_button->setDragable(true, true);
+		play_button->function = RESTART;
 		pause_window->appendChild(231 * App->gui->UI_scale, 233 * App->gui->UI_scale, play_button);
 
-		//RESTART CIRCLE BUTTON
-		UI_element* restart_button = App->gui->createButton(606 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 757,341,119,124 }, { 757,465,119,124 }, { 757,589,119,124 }, this);
-		restart_button->setDragable(true, true);
-		pause_window->appendChild(398 * App->gui->UI_scale, 233 * App->gui->UI_scale, restart_button);
+		//NEW GAME CIRCLE BUTTON
+		UI_element* newGame_pauseMenu = App->gui->createButton(606 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 757,341,119,124 }, { 757,465,119,124 }, { 757,589,119,124 }, this);
+		newGame_pauseMenu->setDragable(true, true);
+		newGame_pauseMenu->function = NEW_GAME;
+		pause_window->appendChild(398 * App->gui->UI_scale, 233 * App->gui->UI_scale, newGame_pauseMenu);
 
 		//SLIDER
 		UI_element* slider = App->gui->createImageFromAtlas(248 * App->gui->UI_scale, 310 * App->gui->UI_scale, { 0, 321, 504, 53 }, this);
@@ -129,10 +152,10 @@ bool j1UIScene::Start()
 		pause_window->appendChild(40 * App->gui->UI_scale, 129 * App->gui->UI_scale, slider);
 
 
-		pauseMenu->elements.add(pause_button);
+
 		pauseMenu->elements.add(pause_window);
 		pauseMenu->elements.add(settings_button);
-		pauseMenu->elements.add(restart_button);
+		pauseMenu->elements.add(newGame_pauseMenu);
 		pauseMenu->elements.add(play_button);
 		pauseMenu->elements.add(slider);
 		menus.add(pauseMenu);
@@ -203,7 +226,7 @@ bool j1UIScene::Start()
 		settingsMenu->elements.add(switchB);
 		menus.add(settingsMenu);
 	}
-	current_menu = mainMenu;
+	current_menu = startMenu;
 
 	return true;
 }
@@ -216,7 +239,7 @@ bool j1UIScene::PreUpdate()
 bool j1UIScene::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		LoadMenu(MAIN_MENU);
+		LoadMenu(START_MENU);
 	else if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 		LoadMenu(PAUSE_MENU);
 	else if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
@@ -257,31 +280,41 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		switch (element->function)
 		{
 		case NEW_GAME:
-			break;
+		{
+			App->paused = false;
+			App->scene->load_lvl = true;
+			App->scene->newLvl = 1;
+			LoadMenu(INGAME_MENU);
+		}
+		break;
 		case CONTINUE:
-			break;
+		{
+			App->LoadGame();
+			LoadMenu(INGAME_MENU);
+		}
+
+		break;
 		case SETTINGS:
 			LoadMenu(SETTINGS_MENU);
 			break;
 		case CREDITS:
 			LoadMenu(CREDITS_MENU);
 			break;
-		case QUIT:
+		case EXIT:
 			ret = false;
 			break;
 		case PAUSE:
-			if (App->paused)
-			{
-				App->paused = false;
-				LoadMenu(INGAME_MENU);
-			}
-			else
+			if (!App->paused)
 			{
 				App->paused = true;
 				LoadMenu(PAUSE_MENU);
 			}
 			break;
 		case RESTART:
+
+			App->paused = false;
+			LoadMenu(INGAME_MENU);
+
 			break;
 		}
 	}

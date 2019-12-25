@@ -21,7 +21,7 @@ public:
 	void BlitElement();
 
 public:
-
+	p2List_item<UI_element*>* focus = nullptr;
 	p2List<UI_element*> content;
 };
 

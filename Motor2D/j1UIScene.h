@@ -7,7 +7,7 @@ class Button;
 class UI_element;
 enum menu_id
 {
-	MAIN_MENU,
+	START_MENU,
 	SETTINGS_MENU,
 	INGAME_MENU,
 	PAUSE_MENU,

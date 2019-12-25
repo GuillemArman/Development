@@ -28,7 +28,7 @@ enum element_function
 	CONTINUE,
 	SETTINGS,
 	CREDITS,
-	QUIT,
+	EXIT,
 	PAUSE,
 	RESTART
 };
@@ -125,8 +125,8 @@ public:
 	bool moving = false;
 	bool dragable = false;
 protected:
+
 	iPoint Click_Pos{ 0,0 };
-	iPoint Displace{ 0,0 };
 	bool verticalMovement = false;
 	bool horizontalMovement = false;
 };
