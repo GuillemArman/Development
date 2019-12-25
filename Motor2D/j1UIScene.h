@@ -1,7 +1,24 @@
 #ifndef __j1UISCENE_H__
 #define __j1UISCENE_H__
 #include "j1Module.h"
+#include "p2List.h"
+
 class Button;
+class UI_element;
+enum menu_id
+{
+	MAIN_MENU,
+	SETTINGS_MENU,
+	PAUSE_MENU,
+	CREDITS_MENU
+};
+struct menu
+{
+	menu(menu_id id) : id(id)
+	{}
+	p2List<UI_element*> elements;
+	menu_id id;
+};
 class j1UIScene : public j1Module
 {
 public:
@@ -20,13 +37,10 @@ public:
 	bool OnUIEvent(UI_element* element, event_type event_type);
 	// Called before quitting
 	bool CleanUp();
+
+	bool LoadMenu(menu_id id);
 public:
-	Button * newGame = nullptr;
-	Button* continueGame = nullptr;
-	Button* setting = nullptr;
-	Button* credits = nullptr;
-	Button* quit = nullptr;
-	Button* pause = nullptr;
-	Button* restart = nullptr;
+	p2List<menu*> menus;
+	menu* current_menu = nullptr;
 };
 #endif // !__j1UISCENE_H__ 
