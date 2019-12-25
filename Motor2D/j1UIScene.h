@@ -9,6 +9,7 @@ enum menu_id
 {
 	MAIN_MENU,
 	SETTINGS_MENU,
+	INGAME_MENU,
 	PAUSE_MENU,
 	CREDITS_MENU
 };
