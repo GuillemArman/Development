@@ -7,7 +7,7 @@
 class Collectible : public Entity
 {
 public:
-	Collectible();
+	Collectible(int id);
 	~Collectible();
 	bool Awake(pugi::xml_node&);
 	bool Update(float dt);
@@ -18,5 +18,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 public:
 	uint earn_coin_fx = 0;
+	int id = 0;
+	SDL_Texture* ghost_graphics = nullptr;
 };
 #endif // !__j1Collectible__

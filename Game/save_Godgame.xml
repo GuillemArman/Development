@@ -11,9 +11,10 @@
 		<player position_x="26" position_y="249" />
 		<walking position_x="406" position_y="136" />
 		<flying position_x="389" position_y="83" />
-		<flying position_x="765" position_y="32" />
-		<walking position_x="1705" position_y="272" />
-		<flying position_x="1169" position_y="283" />
+		<collectible position_x="97" position_y="272" />
+		<collectible position_x="169" position_y="180" />
+		<collectible position_x="498" position_y="175" />
+		<flying position_x="848" position_y="48" />
 	</entityManager>
 	<map />
 	<:anonymous />

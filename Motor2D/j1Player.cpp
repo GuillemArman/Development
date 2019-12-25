@@ -82,6 +82,7 @@ bool j1Player::Start()
 	{
 		//App->uiScene->loadMenu(START_MENU);
 		lives = 3;
+		coin1 = coin2 = coin3 = false;
 	}
 
 	animation = idle_right;

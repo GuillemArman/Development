@@ -140,7 +140,17 @@ void j1EntityManager::DeleteEntity(Entity* entity_to_delete)
 	}
 }
 
-Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
+void j1EntityManager::cleanCollectibles()
+{
+	for (p2List_item<Entity*>* item = entities.start; item; item = item->next)
+	{
+		if (item->data->type == COLLECTIBLE)
+			DeleteEntity(item->data);
+	}
+}
+
+
+Entity* j1EntityManager::createEntity(entity_type type, int x, int y, int id)
 {
 	Entity* ret = nullptr;
 
@@ -150,7 +160,7 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 		ret = new Walking_Enemy();
 		break;
 	case COLLECTIBLE:
-		ret = new Collectible();
+		ret = new Collectible(id);
 		ret->flying = true;
 		break;
 	case FLYING_ENEMY:
