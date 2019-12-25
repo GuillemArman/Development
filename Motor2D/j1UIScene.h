@@ -40,7 +40,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	bool LoadMenu(menu_id id);
+	bool loadMenu(menu_id id);
 public:
 	p2List<menu*> menus;
 	menu* current_menu = nullptr;

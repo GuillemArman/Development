@@ -7,12 +7,12 @@
 	<:anonymous />
 	<scene />
 	<entityManager>
-		<player position_x="26" position_y="244" level="1" lives="3" />
+		<player position_x="26" position_y="244" level="1" lives="4294967290" />
 		<player position_x="26" position_y="249" />
-		<walking position_x="406" position_y="136" />
-		<flying position_x="389" position_y="83" />
-		<flying position_x="765" position_y="32" />
-		<walking position_x="1705" position_y="272" />
+		<walking position_x="280" position_y="219" />
+		<flying position_x="56" position_y="260" />
+		<flying position_x="752" position_y="46" />
+		<walking position_x="1705" position_y="273" />
 		<flying position_x="1169" position_y="283" />
 	</entityManager>
 	<map />

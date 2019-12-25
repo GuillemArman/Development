@@ -31,8 +31,9 @@ bool j1UIScene::Start()
 	SDL_Color yellow_color = { 229, 168, 61, 255 };
 	SDL_Color dark_yellow_color = { 146, 97, 45, 255 };
 	SDL_Color grey_color = { 190, 177, 158, 191 };
-	_TTF_Font* big_texts_font = App->font->Load("fonts/TCCEB.ttf", 55);
+	SDL_Color white_color = { 255, 255, 255, 0 };
 	SDL_Color black_color = { 0, 0, 0, 255 };
+	_TTF_Font* big_texts_font = App->font->Load("fonts/TCCEB.ttf", 55);
 	_TTF_Font* mid_texts_font = App->font->Load("fonts/TCCEB.ttf", 36);
 	_TTF_Font* small_texts_font = App->font->Load("fonts/TCCEB.ttf", 19);
 	SDL_Texture* big_window_tex = App->tex->Load("gui/big_parchment.png");
@@ -42,7 +43,15 @@ bool j1UIScene::Start()
 	menu* creditsMenu = new menu(CREDITS_MENU);
 	{
 		UI_element* credits_img = App->gui->createImage(0, 0, credits_tex, this);
+		//BACK
+		UI_element* back_button = App->gui->createButton(10, 335, NULL, { 849,69,133,36 }, { 849,106,133,36 }, { 849,143,133,36 }, this);
+		back_button->function = BACK;
+		UI_element* back_text = App->gui->createText("BACK", 200, 200, small_texts_font, white_color);
+		back_text->setOutlined(true);
+		back_button->appendChildAtCenter(back_text);
 		creditsMenu->elements.add(credits_img);
+		creditsMenu->elements.add(back_button);
+		creditsMenu->elements.add(back_text);
 		menus.add(creditsMenu);
 	}
 
@@ -240,11 +249,11 @@ bool j1UIScene::PreUpdate()
 bool j1UIScene::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		LoadMenu(START_MENU);
+		loadMenu(START_MENU);
 	else if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-		LoadMenu(PAUSE_MENU);
+		loadMenu(PAUSE_MENU);
 	else if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-		LoadMenu(SETTINGS_MENU);
+		loadMenu(SETTINGS_MENU);
 
 	return true;
 }
@@ -286,22 +295,22 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->paused = false;
 			App->scene->load_lvl = true;
 			App->scene->newLvl = 1;
-			LoadMenu(INGAME_MENU);
+			loadMenu(INGAME_MENU);
 		}
 		break;
 		case CONTINUE:
 		{
 			App->paused = false;
 			App->LoadGame();
-			LoadMenu(INGAME_MENU);
+
 		}
 
 		break;
 		case SETTINGS:
-			LoadMenu(SETTINGS_MENU);
+			loadMenu(SETTINGS_MENU);
 			break;
 		case CREDITS:
-			LoadMenu(CREDITS_MENU);
+			loadMenu(CREDITS_MENU);
 			break;
 		case EXIT:
 			ret = false;
@@ -310,17 +319,17 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			if (!App->paused)
 			{
 				App->paused = true;
-				LoadMenu(PAUSE_MENU);
+				loadMenu(PAUSE_MENU);
 			}
 			else
 			{
 				App->paused = false;
-				LoadMenu(INGAME_MENU);
+				loadMenu(INGAME_MENU);
 			}
 			break;
 		case APPLY: //Has to apply changes before
 		case BACK:
-			LoadMenu(current_menu->previous_menu);
+			loadMenu(current_menu->previous_menu);
 			break;
 		case RESTORE:
 
@@ -359,7 +368,7 @@ bool j1UIScene::CleanUp()
 	return true;
 }
 
-bool j1UIScene::LoadMenu(menu_id id)
+bool j1UIScene::loadMenu(menu_id id)
 {
 	bool ret = false;
 
