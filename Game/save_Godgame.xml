@@ -9,7 +9,7 @@
 	<entityManager>
 		<player position_x="26" position_y="244" level="1" lives="2" />
 		<player position_x="26" position_y="249" />
-		<walking position_x="247" position_y="219" />
+		<walking position_x="292" position_y="219" />
 		<flying position_x="848" position_y="48" />
 		<collectible position_x="97" position_y="272" />
 		<collectible position_x="169" position_y="180" />

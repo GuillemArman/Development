@@ -94,8 +94,8 @@
     <ClCompile Include="UI_Clock.cpp">
       <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
     </ClCompile>
-    <ClCompile Include="j1IntroScene.cpp">
-      <Filter>Desenvolupament  ========\Modules</Filter>
+    <ClCompile Include="UI_PlayerInfo.cpp">
+      <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -219,8 +219,8 @@
     <ClInclude Include="UI_Clock.h">
       <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
     </ClInclude>
-    <ClInclude Include="j1IntroScene.h">
-      <Filter>Desenvolupament  ========\Modules</Filter>
+    <ClInclude Include="UI_PlayerInfo.h">
+      <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
