@@ -7,14 +7,8 @@
 	<:anonymous />
 	<scene />
 	<entityManager>
-		<player position_x="26" position_y="244" level="2" lives="3" coin1="false" coin2="false" coin3="false" />
-		<player position_x="26" position_y="249" />
-		<walking position_x="406" position_y="136" />
-		<flying position_x="389" position_y="83" />
-		<collectible position_x="97" position_y="272" />
-		<collectible position_x="169" position_y="180" />
-		<collectible position_x="498" position_y="175" />
-		<flying position_x="848" position_y="48" />
+		<player position_x="26" position_y="248" level="1" lives="3" coin1="false" coin2="false" coin3="false" />
+		<player position_x="26" position_y="253" />
 	</entityManager>
 	<map />
 	<:anonymous />

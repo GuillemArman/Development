@@ -48,7 +48,7 @@ void Clock::BlitElement()
 						callback->OnUIEvent(this, STOPWATCH_ALARM);
 				}
 			}
-			p2SString secs("%d", time);
+			p2SString secs("%04d", time);
 			text->setText(secs);
 			section = text->section;
 		}

@@ -37,6 +37,7 @@ bool j1UIScene::Start()
 	_TTF_Font* big_texts_font = App->font->Load("fonts/TCCEB.ttf", 55);
 	_TTF_Font* mid_texts_font = App->font->Load("fonts/TCCEB.ttf", 36);
 	_TTF_Font* small_texts_font = App->font->Load("fonts/TCCEB.ttf", 19);
+	_TTF_Font* huge_texts_font = App->font->Load("fonts/TCCEB.ttf", 80);
 
 	SDL_Color yellow_color = { 229, 168, 61, 255 };
 	SDL_Color white_color = { 255, 255, 255, 0 };
@@ -143,12 +144,16 @@ bool j1UIScene::Start()
 		//PLAYER INFO
 		UI_element* playerInfo = App->gui->createPlayerInfo(0, 0, this);
 
-		//CHRONO
-		Clock* clock = App->gui->createTimer(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, 35, mid_texts_font, white_color, this);
-		/*Chrono* chrono = App->gui->createStopWatch(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font,white_color, this);
-		chrono->setAlarm(5);
-		chrono->setAlarm(10);
-		chrono->setAlarm(15);*/
+		//TIME
+		UI_element* time_txt = App->gui->createText("TIME:", 529 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, white_color, this);
+		time_txt->setOutlined(true);
+
+		//CLOCK
+		clock = App->gui->createTimer(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, 35, mid_texts_font, white_color, this);
+		clock = App->gui->createStopWatch(650 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, black_color, this);
+		clock->setAlarm(5);
+		clock->setAlarm(10);
+		clock->setAlarm(15);
 
 		inGameMenu->elements.add(pause_button);
 		inGameMenu->elements.add(lives_txt);
@@ -277,6 +282,29 @@ bool j1UIScene::Start()
 		menus.add(settingsMenu);
 	}
 
+	menu* endMenu = new menu(FINAL_MENU);
+	{
+		UI_element* lvl_end_window = App->gui->createWindow(50 * App->gui->UI_scale, 75 * App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 0,0,923,581 }, this);
+		UI_element* succes_txt = App->gui->createText("SUCCESS!", 0, 0, huge_texts_font, white_color, this);
+		succes_txt->setOutlined(true);
+		lvl_end_window->appendChildAtCenter(succes_txt);
+		succes_txt->localPosition.y = 20;
+		//NEW GAME
+		UI_element* newGame_endMenu = App->gui->createButton(0, 0, NULL, { 757,341,119,124 }, { 757,465,119,124 }, { 757,589,119,124 }, this);
+		newGame_endMenu->function = NEW_GAME;
+		lvl_end_window->appendChild(602 * App->gui->UI_scale, 400 * App->gui->UI_scale, newGame_endMenu);//X = 402 FOR CENTRE
+		//NEXT LVL
+		UI_element* nextLvl;
+		//HOME BUTTON
+		UI_element* home_button2 = App->gui->createButton(947 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 353,506,62,64 }, { 415,506,62,64 }, { 477,506,62,64 }, this);
+		home_button2->function = HOME;
+		lvl_end_window->appendChild(202 * App->gui->UI_scale, 400 * App->gui->UI_scale, home_button2);//NEEDS TO BE RESCALED THE IMG FROM ATLAS
+		endMenu->elements.add(lvl_end_window);
+		endMenu->elements.add(newGame_endMenu);
+		endMenu->elements.add(home_button2);
+		menus.add(endMenu);
+	}
+
 	current_menu = startMenu;
 
 	defaultValues.fx = fx_progress;
@@ -288,6 +316,9 @@ bool j1UIScene::Start()
 
 bool j1UIScene::PreUpdate()
 {
+	/*if ( clock->counter.isPaused())
+		clock->counter.Play();*/
+
 	return true;
 }
 
@@ -307,6 +338,11 @@ bool j1UIScene::Update(float dt)
 	{
 		App->paused = true;
 		loadMenu(SETTINGS_MENU);
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+	{
+		App->paused = true;
+		loadMenu(FINAL_MENU);
 	}
 
 	return true;

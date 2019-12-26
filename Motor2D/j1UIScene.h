@@ -5,13 +5,16 @@
 
 class Button;
 class UI_element;
+class Clock;
+
 enum menu_id
 {
 	START_MENU,
 	SETTINGS_MENU,
 	INGAME_MENU,
 	PAUSE_MENU,
-	CREDITS_MENU
+	CREDITS_MENU,
+	FINAL_MENU
 };
 struct menu
 {
@@ -61,5 +64,6 @@ public:
 	settings_values newValues;
 	settings_values startValues;
 	settings_values defaultValues;
+	Clock* clock = nullptr;
 };
 #endif // !__j1UISCENE_H__ 

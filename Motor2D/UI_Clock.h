@@ -24,8 +24,7 @@ public:
 	Clock(int x, int y, chrono_type type, _TTF_Font* font, SDL_Color color, j1Module* callback) : UI_element(x, y, element_type::CLOCK, { 0, 0, 0, 0 }, callback, nullptr),
 		type(type)
 	{
-		text = new Text("0", x, y, font, color, nullptr);
-		text->setOutlined(true);
+		text = new Text("0000", x, y, font, color, nullptr);
 		counter.Pause();
 	}
 

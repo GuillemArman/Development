@@ -35,9 +35,9 @@ void PlayerInfo::BlitElement()
 	j1Player* player = (j1Player*)App->entityManager->getPlayer();
 	p2SString score_str("%d", player->score);
 
-	score->setText(score_str);//NEEDS TO CHANGE TO ONLY SET TEXT IF SCORE IS DIFFERENT
+	score->setText(score_str);
 	score->setOutlined(true);
-	score->BlitElement();
+	//score->BlitElement();
 	for (int i = 0; i < 3; i++)
 	{
 		if (i < player->lives)
@@ -45,7 +45,7 @@ void PlayerInfo::BlitElement()
 		else
 			App->render->Blit(empty_live->texture, livePos.x + (i * 28), livePos.y, &empty_live->section, false, App->gui->UI_scale);
 	}
-
+		
 	for (int i = 0; i < 3; i++)
 	{
 		if (player->coins[i])
