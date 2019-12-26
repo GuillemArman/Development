@@ -157,26 +157,6 @@ bool j1Gui::PostUpdate(float dt)
 				item->data->state = CLICKED;
 			}
 
-			if (item->data->callback != nullptr && item->data->element_type == CLOCK)
-			{
-				Clock* clock = (Clock*)item->data;
-				switch (clock->type)
-				{
-				case TIMER:
-					if (clock->time == 0)
-						clock->callback->OnUIEvent(item->data, TIMER_ZERO);
-					break;
-				case STOPWATCH:
-					for (int i = 0; i < clock->alarms.Count(); i++)
-					{
-						if (clock->time == (int)clock->alarms.At(i))
-							clock->callback->OnUIEvent(item->data, STOPWATCH_ALARM);
-					}
-					break;
-				}
-			}
-
-
 			if (item->data->parent == nullptr)
 				item->data->BlitElement();
 		}

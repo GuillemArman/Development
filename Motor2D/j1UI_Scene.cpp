@@ -148,7 +148,11 @@ bool j1UIScene::Start()
 		UI_element* playerInfo = App->gui->createPlayerInfo(0, 0, this);
 
 		// CLOCK
-		UI_element* clock = App->gui->createTimer(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, 50, mid_texts_font, white_color, this);
+		Clock* clock = App->gui->createTimer(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, 30, mid_texts_font, white_color, this);
+		/*Chrono* chrono = App->gui->createStopWatch(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font,white_color, this);
+		chrono->setAlarm(5);
+		chrono->setAlarm(10);
+		chrono->setAlarm(15);*/
 
 		inGameMenu->elements.add(pause_button);
 		inGameMenu->elements.add(lives_txt);
@@ -424,7 +428,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 	}
 	else if (event_type == STOPWATCH_ALARM)
 	{
-		LOG("Clock alarm");
+	Clock* clock = (Clock*)element;
+	LOG("Clock alarm at: %d", clock->time);
 	}
 
 	return ret;

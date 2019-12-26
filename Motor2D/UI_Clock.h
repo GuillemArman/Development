@@ -41,7 +41,7 @@ public:
 
 
 public:
-	int time = 0;
+	int time = 1;
 	uint time_elapsed = 0;
 	uint start_value = 0;
 	p2DynArray<uint> alarms;
