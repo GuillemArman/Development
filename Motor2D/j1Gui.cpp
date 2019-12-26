@@ -15,6 +15,7 @@
 #include "j1Window.h"
 #include "j1UIScene.h"
 #include "UI_Slider.h"
+#include "UI_Clock.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -289,6 +290,15 @@ Button* j1Gui::createButton(int x, int y, SDL_Texture* texture, SDL_Rect standby
 	SDL_Texture* usingTexture = (texture) ? texture : atlas;
 
 	Button* ret = new Button(x, y, usingTexture, standby, OnMouse, OnClick, callback);
+	UI_elements.add(ret);
+
+	return ret;
+}
+
+Clock* j1Gui::createChrono(int x, int y, _TTF_Font* font, SDL_Color color, j1Module* callback)
+{
+	Clock* ret = new Clock(x, y, font, color, callback);
+	ret->solid = false;
 	UI_elements.add(ret);
 
 	return ret;

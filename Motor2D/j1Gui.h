@@ -16,6 +16,7 @@ class Button;
 class InputBox;
 class Window;
 class Slider;
+class Clock;
 
 enum event_type
 {
@@ -58,6 +59,7 @@ public:
 	// Gui creation functions
 	const SDL_Texture* GetAtlas() const;
 	Text* createText(char* text, int x, int y, _TTF_Font* font, SDL_Color color = { 255, 255, 255, 255 }, j1Module* callback = nullptr);
+	Clock* createChrono(int x, int y, _TTF_Font* font, SDL_Color color, j1Module* callback = nullptr);
 	Image* createImage(int x, int y, SDL_Texture* texture, j1Module* callback = nullptr);
 	Image* createImageFromAtlas(int x, int y, SDL_Rect section, j1Module* callback = nullptr);
 	//NULL texture to use atlas

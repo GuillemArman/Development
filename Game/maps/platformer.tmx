@@ -40,8 +40,14 @@
  <tileset firstgid="144" name="Sign_2" tilewidth="32" tileheight="64" tilecount="1" columns="1">
   <image source="Sprites/png/Object/Sign_2.png" width="62" height="64"/>
  </tileset>
+ <imagelayer name="Sky">
+  <image source="sky.png" width="6115" height="750"/>
+ </imagelayer>
+ <imagelayer name="Mountains">
+  <image source="Mountains.png" width="4301" height="327"/>
+ </imagelayer>
  <imagelayer name="Background">
-  <image source="BG.png" width="1536" height="384"/>
+  <image source="BG.png" width="3076" height="384"/>
  </imagelayer>
  <imagelayer name="Water">
   <image source="water.png" width="8599" height="384"/>

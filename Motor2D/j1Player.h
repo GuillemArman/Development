@@ -31,7 +31,7 @@ public:
 	float step_time = 0;
 	float killed_finished = 0;
 	bool sound_one_time = false;
-	uint lives = 3;
+	uint lives = 0;
 
 	Animation* jump = nullptr;
 	iPoint jump_offset;

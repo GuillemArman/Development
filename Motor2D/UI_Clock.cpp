@@ -5,7 +5,14 @@
 
 void Clock::BlitElement()
 {
-	time_changed = App->gui->clock.ReadSec();
-	p2SString("%d", timer);
+	if (timer < time_changed)
+	{
+		timer++;
+		p2SString secs = p2SString("%d", timer);
+		text->setText(secs);
+	}
 
+	time_changed = App->gui->clock.ReadSec();
+	
+	text->BlitElement();
 }

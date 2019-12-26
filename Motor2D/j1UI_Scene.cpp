@@ -9,6 +9,8 @@
 #include "j1Render.h"
 #include "UI_Slider.h"
 #include "UI_Window.h"
+#include "UI_CLock.h"
+#include "j1EntityManager.h"
 
 j1UIScene::j1UIScene()
 {
@@ -131,8 +133,12 @@ bool j1UIScene::Start()
 		UI_element* lives_txt = App->gui->createText("LIVES: ", 25, 0, mid_texts_font, white_color, this);
 		lives_txt->setOutlined(true);
 
+		//CLOCK
+		UI_element* clock = App->gui->createChrono(250, 0, mid_texts_font, white_color, this);
+
 		inGameMenu->elements.add(pause_button);
 		inGameMenu->elements.add(lives_txt);
+		inGameMenu->elements.add(clock);
 		menus.add(inGameMenu);
 	}
 	menu* pauseMenu = new menu(PAUSE_MENU);
