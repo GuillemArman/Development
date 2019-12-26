@@ -22,7 +22,7 @@ struct menu
 	{}
 	p2List<UI_element*> elements;
 	menu_id id;
-	menu_id previous_menu;
+	
 };
 
 struct settings_values
@@ -65,5 +65,6 @@ public:
 	settings_values startValues;
 	settings_values defaultValues;
 	Clock* clock = nullptr;
+	menu_id previous_menu;
 };
 #endif // !__j1UISCENE_H__ 

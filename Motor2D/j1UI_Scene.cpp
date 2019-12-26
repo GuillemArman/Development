@@ -15,6 +15,7 @@
 #include "j1Audio.h"
 #include "j1Window.h"
 #include "p2Log.h"
+#include "j1Transition.h"
 
 j1UIScene::j1UIScene()
 {
@@ -157,6 +158,7 @@ bool j1UIScene::Start()
 
 		inGameMenu->elements.add(pause_button);
 		inGameMenu->elements.add(lives_txt);
+		inGameMenu->elements.add(time_txt);
 		inGameMenu->elements.add(clock);
 		inGameMenu->elements.add(playerInfo);
 
@@ -176,28 +178,25 @@ bool j1UIScene::Start()
 		//SETTING CIRCLE BUTTON
 		UI_element* settings_button = App->gui->createButton(275 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 876,341,119,124 }, { 876,465,119,124 }, { 876,589,119,124 }, this);
 		settings_button->function = SETTINGS;
-		pause_window->appendChild(67 * App->gui->UI_scale, 233 * App->gui->UI_scale, settings_button);
+		pause_window->appendChild(67 * App->gui->UI_scale, 150 * App->gui->UI_scale, settings_button);
 
 		//PLAY CIRCLE BUTTON
 		UI_element* play_button = App->gui->createButton(439 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 638,341,119,124 }, { 638,465,119,124 }, { 638,589,119,124 }, this);
 		play_button->function = PAUSE;
-		pause_window->appendChild(231 * App->gui->UI_scale, 233 * App->gui->UI_scale, play_button);
+		pause_window->appendChild(231 * App->gui->UI_scale, 150 * App->gui->UI_scale, play_button);
 
 		//NEW GAME CIRCLE BUTTON
 		UI_element* newGame_pauseMenu = App->gui->createButton(606 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 757,341,119,124 }, { 757,465,119,124 }, { 757,589,119,124 }, this);
 		newGame_pauseMenu->function = NEW_GAME;
-		pause_window->appendChild(398 * App->gui->UI_scale, 233 * App->gui->UI_scale, newGame_pauseMenu);
+		pause_window->appendChild(398 * App->gui->UI_scale, 150 * App->gui->UI_scale, newGame_pauseMenu);
 
-		//TEMP SLIDER (only img)
-		UI_element* slider = App->gui->createImageFromAtlas(248 * App->gui->UI_scale, 310 * App->gui->UI_scale, { 0, 321, 504, 53 }, this);
-		pause_window->appendChild(40 * App->gui->UI_scale, 129 * App->gui->UI_scale, slider);
 
 		pauseMenu->elements.add(home_button);
 		pauseMenu->elements.add(pause_window);
 		pauseMenu->elements.add(settings_button);
 		pauseMenu->elements.add(newGame_pauseMenu);
 		pauseMenu->elements.add(play_button);
-		pauseMenu->elements.add(slider);
+
 		menus.add(pauseMenu);
 	}
 
@@ -316,6 +315,7 @@ bool j1UIScene::Start()
 
 bool j1UIScene::PreUpdate()
 {
+
 	/*if ( clock->counter.isPaused())
 		clock->counter.Play();*/
 
@@ -377,7 +377,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			tmp->active = !tmp->active;
 			newValues.fullscreen = tmp->active;
 		}
-		menu_id previous_menu = current_menu->id;
+
+
 		switch (element->function)
 		{
 		case NEW_GAME:
@@ -395,7 +396,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		}
 		break;
 		case SETTINGS:
-			loadMenu(SETTINGS_MENU);
+			App->transition->menuTransition(SETTINGS_MENU, FADE, 0.5);
 			break;
 		case CREDITS:
 			loadMenu(CREDITS_MENU);
@@ -407,37 +408,35 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			if (!App->paused)
 			{
 				App->paused = true;
-				loadMenu(PAUSE_MENU);
+				App->transition->menuTransition(PAUSE_MENU, FADE, 0.5);
 			}
 			else
 			{
 				App->paused = false;
-				loadMenu(INGAME_MENU);
+				App->transition->menuTransition(INGAME_MENU, FADE, 0.5);
 			}
 			break;
 		case APPLY:
 			applySettings(newValues);
-			loadMenu(current_menu->previous_menu);
+			App->transition->menuTransition(previous_menu, FADE, 0.5);
 			break;
 		case CANCEL:
 			newValues = startValues;
 			applySettings(startValues);
-			loadMenu(current_menu->previous_menu);
+			App->transition->menuTransition(previous_menu, FADE, 0.5);
 			break;
 		case BACK:
-			loadMenu(current_menu->previous_menu);
+			App->transition->menuTransition(previous_menu, FADE, 0.5);
 			break;
 		case RESTORE:
 			applySettings(defaultValues);
-			loadMenu(current_menu->previous_menu);
+			App->transition->menuTransition(previous_menu, FADE, 0.5);
 			break;
 		case HOME:
 			App->scene->load_lvl = true;
 			App->scene->newLvl = 1;
 			break;
 		}
-		if (current_menu->id != previous_menu)
-			current_menu->previous_menu = previous_menu;
 	}
 	else if (event_type == MOUSE_LEFT_RELEASE)
 	{
@@ -496,6 +495,7 @@ bool j1UIScene::loadMenu(menu_id id)
 	bool ret = false;
 	if (current_menu->id != id)
 	{
+		previous_menu = current_menu->id;
 		pauseChronos();
 		for (p2List_item<menu*>* item = menus.start; item; item = item->next)
 		{

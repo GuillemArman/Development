@@ -97,6 +97,9 @@
     <ClCompile Include="UI_PlayerInfo.cpp">
       <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
     </ClCompile>
+    <ClCompile Include="j1Transition.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -221,6 +224,9 @@
     </ClInclude>
     <ClInclude Include="UI_PlayerInfo.h">
       <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Transition.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

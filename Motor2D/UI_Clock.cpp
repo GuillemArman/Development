@@ -11,7 +11,6 @@ void Clock::setStartValue(int new_start_value)
 
 void Clock::setAlarm(int alarm)
 {
-
 	alarms.PushBack(alarm);
 }
 
@@ -19,7 +18,6 @@ void Clock::restartChrono()
 {
 	switch (this->type)
 	{
-
 	case TIMER:
 		time = start_value;
 		break;
@@ -27,12 +25,12 @@ void Clock::restartChrono()
 		time = 0;
 		break;
 	}
-
 }
 
 void Clock::BlitElement()
 {
 	time_elapsed = counter.ReadSec();
+
 	switch (type)
 	{
 	case STOPWATCH:
@@ -48,23 +46,32 @@ void Clock::BlitElement()
 						callback->OnUIEvent(this, STOPWATCH_ALARM);
 				}
 			}
+
 			p2SString secs("%04d", time);
-			text->setText(secs);
+			if (last_secs != secs)
+				text->setText(secs);
+
 			section = text->section;
+			last_secs = ("%04d", time);
 		}
 		break;
 	case TIMER:
 		if (start_value - time_elapsed != time && time != 0)
 		{
 			time = start_value - time_elapsed;
+
 			if (time == 0 && callback != nullptr) //If has callback send event
 				callback->OnUIEvent(this, TIMER_ZERO);
 
 			p2SString secs("%d", time);
-			text->setText(secs);
+			if (last_secs != secs)
+				text->setText(secs);
+
 			section = text->section;
+			last_secs = ("%04d", time);
 		}
 		break;
 	}
+
 	text->BlitElement();
 }

@@ -1,41 +1,41 @@
-#ifndef __j1TRANSITION_H__
-#define __j1TRANSITION_H__
-
-#include "PugiXml/src/pugixml.hpp"
+#ifndef __J1TRANSITION_H__
+#define __J1TRANSITION_H__
 #include "j1Module.h"
-#include "SDL\include\SDL_rect.h"
-
-enum fade_step { none, fade_to_black, fade_from_black };
-
-
-
-class j1Transition : public j1Module
+#include "j1UIScene.h"
+#include "j1Scene.h"
+#include "j1Timer.h"
+enum transition_effect
+{
+	FADE,
+	DRAG
+};
+enum transition_type
+{
+	MENU,
+	SCENE
+};
+enum transition_state
+{
+	UNACTIVE,
+	GIN,
+	GOUT
+};
+class Transition : public j1Module
 {
 public:
-	j1Transition();
-
-	// Destructor
-	~j1Transition();
-
-	// Called before the first frame
-	bool Start();
-
-	// Called each loop iteration
+	Transition();
+	~Transition();
 	bool Update(float dt);
-
-	bool FadeToBlack(j1Module* module_off, j1Module* module_on, float time);
-	bool IsFading() const;
-
-	j1Module* ModuleOn;
-	j1Module* ModuleOff;
-
+	void menuTransition(menu_id newMenuID, transition_effect effect, float time = 0.5f);
+	void sceneTransition(int newLvl, transition_effect effect, float time = 0.5f);
 private:
-
-	
-	Uint32 start_time = 0;
-	Uint32 total_time = 0;
-	SDL_Rect screen;
-	fade_step current_step = fade_step::none;
+	transition_state state = UNACTIVE;
+	bool doingTransition = false;
+	menu_id newMenuID;
+	int newLvl;
+	transition_effect currentEffect;
+	transition_type type;
+	j1Timer timer;
+	float total_time = 0.0f;
 };
-
-#endif 
+#endif // !__J1TRANSITION_H__
