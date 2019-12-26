@@ -19,6 +19,7 @@ struct level
 	}
 
 	p2SString mapPath;
+	p2SString music;
 	int lvl;
 	int length;
 	iPoint player_start_pos;

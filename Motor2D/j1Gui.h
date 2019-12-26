@@ -5,7 +5,6 @@
 #include "p2Point.h"
 #include "SDL/include/SDL_rect.h"
 
-#define CURSOR_WIDTH 2
 
 struct _TTF_Font;
 struct SDL_Texture;

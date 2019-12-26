@@ -20,7 +20,7 @@
 	<:anonymous />
 	<fonts />
 	<gui />
-	<:anonymous chrono="412" />
+	<:anonymous chrono="399" />
 	<:anonymous />
 	<renderer>
 		<camera x="0" y="0" />
