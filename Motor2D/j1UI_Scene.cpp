@@ -152,7 +152,7 @@ bool j1UIScene::Start()
 		//CLOCK
 		clock = App->gui->createTimer(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, 35, mid_texts_font, white_color, this);
 		clock = App->gui->createStopWatch(800 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, black_color, this);
-		
+
 
 		inGameMenu->elements.add(pause_button);
 		inGameMenu->elements.add(lives_txt);
@@ -383,9 +383,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		case RESTART:
 		{
 			App->paused = false;
-			App->transition->sceneTransition(2, FADE);
-			//App->scene->load_lvl = true;
-			//App->scene->newLvl = 2;
+			App->transition->sceneTransition(2);
 			App->entityManager->player_god_mode = false;
 			App->setSaveFileLoadable(false);
 		}
@@ -400,10 +398,10 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		}
 		break;
 		case SETTINGS:
-			App->transition->menuTransition(SETTINGS_MENU, FADE, 0.3);
+			App->transition->menuTransition(SETTINGS_MENU, 0.3);
 			break;
 		case CREDITS:
-			App->transition->menuTransition(CREDITS_MENU, FADE, 0.5);
+			App->transition->menuTransition(CREDITS_MENU, 0.5);
 			break;
 		case EXIT:
 			ret = false;
@@ -412,36 +410,36 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			if (!App->paused)
 			{
 				App->paused = true;
-				App->transition->menuTransition(PAUSE_MENU, FADE, 0.3);
+				App->transition->menuTransition(PAUSE_MENU, 0.3);
 			}
 			else
 			{
 				App->paused = false;
-				App->transition->menuTransition(INGAME_MENU, FADE, 0.3);
+				App->transition->menuTransition(INGAME_MENU, 0.3);
 			}
 			break;
 		case APPLY:
 			applySettings(newValues);
-			App->transition->menuTransition(previous_menu, FADE, 0.3);
+			App->transition->menuTransition(previous_menu, 0.3);
 			break;
 		case CANCEL:
 			newValues = startValues;
 			applySettings(startValues);
-			App->transition->menuTransition(previous_menu, FADE, 0.3);
+			App->transition->menuTransition(previous_menu, 0.3);
 			break;
 		case BACK:
-			App->transition->menuTransition(previous_menu, FADE, 0.3);
+			App->transition->menuTransition(previous_menu, 0.3);
 			break;
 		case RESTORE:
 			applySettings(defaultValues);
-			App->transition->menuTransition(previous_menu, FADE, 0.3);
+			App->transition->menuTransition(previous_menu, 0.3);
 			break;
 		case HOME:
 			if (!App->scene->current_lvl->data->default_paused)
 				App->SaveGame();
 			else
 				App->setSaveFileLoadable(false);
-			App->transition->sceneTransition(1, FADE);
+			App->transition->sceneTransition(1);
 			break;
 		}
 	}

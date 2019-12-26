@@ -82,7 +82,7 @@ bool j1Player::Start()
 	sound_one_time = false;
 
 	old_savedCol = nullptr;
-	//App->SaveGame(true);
+	
 
 	v.x = 0;
 	v.y = 0;
@@ -126,7 +126,6 @@ bool j1Player::Update(float dt)
 {
 	BROFILER_CATEGORY("Player Update", Profiler::Color::Red);
 
-	LOG("Lives: %d", lives);
  
 	if (!dead)
 	{
@@ -259,7 +258,7 @@ bool j1Player::PostUpdate(float dt)
 				won = true;
 				App->uiScene->pauseClock();
 				end_reached = SDL_GetTicks();
-				if (App->scene->current_lvl == App->scene->levels.end - 1)
+				if (App->scene->current_lvl == (App->scene->levels.end->prev))
 				{
 					App->audio->PlayFx(App->scene->win_fx, 0);
 					
@@ -270,34 +269,35 @@ bool j1Player::PostUpdate(float dt)
 				}
 			}
 		}
-	if (won && !loading && (/*(App->scene->current_lvl == App->scene->levels.end && SDL_GetTicks() > end_reached + 5000) || */(App->scene->current_lvl != App->scene->levels.end && SDL_GetTicks() > end_reached + 500)))
+	if (!App->paused)
 	{
+		if (won && loading && ((App->scene->current_lvl != App->scene->levels.end && SDL_GetTicks() > end_reached + 500)))
+		{
+
 			end_reached = 0;
 			won = false;
-			loading = true;
 			dead = false;
-			App->transition->sceneTransition(0, FADE);
-	}
-
-		// Lose condition
-		//By enemyy
-		if (dead && SDL_GetTicks() > killed_finished + 1500 && !won && loading)
-		{
-		loading = false;
-		//App->scene->load_lvl = true;
-			if (lives > 0)
-			{
-				App->transition->sceneTransition(App->scene->current_lvl->data->lvl, FADE);
-				//App->scene->newLvl = App->scene->current_lvl->data->lvl;
-				App->scene->respawn_enemies = false;
-			}
-			else
-				App->transition->sceneTransition(1, FADE);
-
-			killed_finished = 0;
+			App->transition->sceneTransition(0);
 
 		}
-		//By falling
+		if (dead && SDL_GetTicks() > killed_finished + 1500 && !won && loading)
+		{
+			loading = false;
+
+			if (lives > 0)
+			{
+				App->transition->sceneTransition(App->scene->current_lvl->data->lvl);
+				App->scene->respawn_enemies = false;
+
+			}
+			else
+			{
+				App->setSaveFileLoadable(false);
+				App->transition->sceneTransition(1);
+			}
+
+			killed_finished = 0;
+		}
 		int win_scale = App->win->GetScale();
 		if (position.y > App->win->screen_surface->h / win_scale + 50 && !won && !dead)
 		{
@@ -309,17 +309,17 @@ bool j1Player::PostUpdate(float dt)
 			{
 				lives--;
 				dead = true;
-				//App->scene->load_lvl = true;
+
 				if (lives > 0)
 				{
-					App->transition->sceneTransition(App->scene->current_lvl->data->lvl, FADE);
-					//App->scene->newLvl = App->scene->current_lvl->data->lvl;
+					App->transition->sceneTransition(App->scene->current_lvl->data->lvl);
 					App->scene->respawn_enemies = false;
 					App->audio->PlayFx(killed_fx, 0);
 				}
 				else
 				{
-					App->transition->sceneTransition(1, FADE);
+					App->setSaveFileLoadable(false);
+					App->transition->sceneTransition(1);
 					App->audio->PlayFx(die_fx, 0);
 				}
 				App->scene->load_lvl = true;
@@ -327,7 +327,11 @@ bool j1Player::PostUpdate(float dt)
 			}
 		}
 
-		//When f10 is clicked he converts into god mode
+		else if (dead)
+		{
+			killed_finished += dt * 1000;
+		}
+
 		if (App->entityManager->player_god_mode)
 		{
 			App->render->Blit(graphics_god, position.x + godmode_offset.x, position.y + godmode_offset.y, &godMode->GetCurrentFrame(dt));
@@ -388,7 +392,7 @@ bool j1Player::PostUpdate(float dt)
 		}
 
 		return true;
-		
+	}
 }
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
@@ -402,6 +406,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			jump->Reset();
 		}
 	}
+
 
 	//, if the player hits the Enemy from the top the  enemy must die
 	if (!dead && c2->type == COLLIDER_ENEMY)
@@ -431,10 +436,11 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 					App->audio->PlayFx(die_fx, 0);
 			}
 		}
-		
+
 	}
 
-	Entity_OnCollision(c1, c2);
+		Entity_OnCollision(c1, c2);
+	
 }
 
 bool j1Player::Load(pugi::xml_node& data)

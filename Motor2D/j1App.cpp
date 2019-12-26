@@ -147,8 +147,11 @@ bool j1App::Update()
 	bool ret = true;
 	PrepareUpdate();
 
-	if(input->GetWindowEvent(WE_QUIT) == true)
+	if (input->GetWindowEvent(WE_QUIT) == true)
+	{
+		App->scene->LoadLvl(1);
 		ret = false;
+	}
 
 	if(ret == true)
 		ret = PreUpdate();

@@ -14,6 +14,8 @@ PlayerInfo::PlayerInfo(int x, int y, j1Module* callback) : UI_element(x, y, PLAY
 	_TTF_Font* mid_texts_font = App->font->Load("fonts/TCCEB.ttf", 36);
 	SDL_Color white_color = { 255, 255, 255, 0 };
 	coin_socket = App->gui->createImageFromAtlas(x + 150, y + 2, { 948, 189, 48, 46 });
+	score = App->gui->createText("0", x + 412, y + 364, mid_texts_font, white_color);
+	score->setOutlined(true);
 	j1Player* player = (j1Player*)App->entityManager->getPlayer();
 	player->coins_pos[0] = { x + 160, y + 2 };
 	player->coins_pos[1] = { x + 185, y + 2 };
@@ -36,10 +38,10 @@ void PlayerInfo::BlitElement()
 	iPoint livePos = live->calculateAbsolutePosition();
 
 	j1Player* player = (j1Player*)App->entityManager->getPlayer();
-	p2SString score_str("%d", player->score);
+	p2SString score_str("SCORE: %0d", player->score);
 
 	score->setText(score_str);
-	score->setOutlined(true);
+
 	score->BlitElement();
 	for (int i = 0; i < 3; i++)
 	{
