@@ -27,6 +27,7 @@ public:
 	Transition();
 	~Transition();
 	bool Update(float dt);
+	bool PostUpdate(float dt);
 	void menuTransition(menu_id newMenuID, transition_effect effect, float time = 0.5f);
 	void sceneTransition(int newLvl, transition_effect effect, float time = 0.5f);
 private:
@@ -38,5 +39,6 @@ private:
 	transition_type type;
 	j1Timer timer;
 	float total_time = 0.0f;
+	float alpha_value = 0;
 };
 #endif // !__J1TRANSITION_H__

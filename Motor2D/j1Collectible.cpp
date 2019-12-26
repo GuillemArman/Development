@@ -48,6 +48,23 @@ bool Collectible::Awake(pugi::xml_node&)
 bool Collectible::Update(float dt)
 {
 	BROFILER_CATEGORY("Collectible Update", Profiler::Color::Cyan);
+
+	if (moving)
+	{
+		fPoint dPos;
+		dPos.x = distanceTo.x / (0.3 / dt);
+		dPos.y = distanceTo.y / (0.3 / dt);
+		virtualPosition.x -= dPos.x;
+		virtualPosition.y -= dPos.y;
+		if (pos_relCam <= goingTo.x && virtualPosition.y <= goingTo.y)
+		{
+			j1Player* player = (j1Player*)App->entityManager->getPlayer();
+			player->score += 500;
+			player->coins[id - 1] = true;
+			moving = false;
+			App->entityManager->DeleteEntity(this);
+		}
+	}
 	return true;
 }
 bool Collectible::PostUpdate(float dt)
@@ -62,20 +79,32 @@ bool Collectible::CleanUp()
 }
 void Collectible::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c2->type == COLLIDER_PLAYER && !App->entityManager->getPlayer()->dead)
+	if (c2->type == COLLIDER_PLAYER && !App->entityManager->getPlayer()->dead && !moving)
 	{
 		App->audio->PlayFx(earn_coin_fx, 0);
-		App->entityManager->DeleteEntity(this);
+		
 
 		j1Player* player = (j1Player*)App->entityManager->getPlayer();
 
 		if (!player->coins[id - 1])
 		{
-			player->score += 500;
-			player->coins[id - 1] = true;
+			moveTo(player->coins_pos[id - 1].x, player->coins_pos[id - 1].y);
+		}
+		else
+		{
+			App->entityManager->DeleteEntity(this);
 		}
 	}
 }
+
+void Collectible::moveTo(int x, int y)
+{
+	goingTo = { x,y };
+	distanceTo.x = pos_relCam - x;
+	distanceTo.y = position.y - y;
+	moving = true;
+}
+
 bool Collectible::Load(pugi::xml_node&)
 {
 	return true;

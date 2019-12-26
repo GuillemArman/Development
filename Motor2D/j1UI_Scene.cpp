@@ -152,9 +152,7 @@ bool j1UIScene::Start()
 		//CLOCK
 		clock = App->gui->createTimer(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, 35, mid_texts_font, white_color, this);
 		clock = App->gui->createStopWatch(800 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, black_color, this);
-		clock->setAlarm(5);
-		clock->setAlarm(10);
-		clock->setAlarm(15);
+		
 
 		inGameMenu->elements.add(pause_button);
 		inGameMenu->elements.add(lives_txt);
@@ -385,8 +383,9 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		case RESTART:
 		{
 			App->paused = false;
-			App->scene->load_lvl = true;
-			App->scene->newLvl = 2;
+			App->transition->sceneTransition(2, FADE);
+			//App->scene->load_lvl = true;
+			//App->scene->newLvl = 2;
 			App->entityManager->player_god_mode = false;
 			App->setSaveFileLoadable(false);
 		}
@@ -404,7 +403,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->transition->menuTransition(SETTINGS_MENU, FADE, 0.3);
 			break;
 		case CREDITS:
-			loadMenu(CREDITS_MENU);
+			App->transition->menuTransition(CREDITS_MENU, FADE, 0.5);
 			break;
 		case EXIT:
 			ret = false;
@@ -442,8 +441,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				App->SaveGame();
 			else
 				App->setSaveFileLoadable(false);
-			App->scene->load_lvl = true;
-			App->scene->newLvl = 1;
+			App->transition->sceneTransition(1, FADE);
 			break;
 		}
 	}

@@ -14,11 +14,19 @@ public:
 	bool PostUpdate(float dt);
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
+
+	void moveTo(int x, int y);
+
+
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 public:
 	uint earn_coin_fx = 0;
 	int id = 0;
 	SDL_Texture* ghost_graphics = nullptr;
+
+	bool moving = false;
+	iPoint goingTo;
+	fPoint distanceTo;
 };
 #endif // !__j1Collectible__
