@@ -15,5 +15,6 @@ public:
 public:
 	Image * coin_socket;
 	Image* coin;
+	Image* live;
 };
 #endif // !__UI_PLAYERINFO__  

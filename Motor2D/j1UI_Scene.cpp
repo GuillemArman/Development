@@ -88,7 +88,7 @@ bool j1UIScene::Start()
 		continue_game->setDragable(true, true);
 		continue_game->function = CONTINUE;
 
-		UI_element* continue_text = App->gui->createText("CONTINUE", 200, 200, big_buttons_font, yellow_color);
+		UI_element* continue_text = App->gui->createText("CONTINUE", 200, 200, big_buttons_font, grey_color);
 		continue_text->setOutlined(true);
 		continue_game->appendChildAtCenter(continue_text);
 
@@ -147,8 +147,8 @@ bool j1UIScene::Start()
 		//PLAYER INFO
 		UI_element* playerInfo = App->gui->createPlayerInfo(0, 0, this);
 
-		// CLOCK
-		Clock* clock = App->gui->createTimer(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, 30, mid_texts_font, white_color, this);
+		//CHRONO
+		Clock* clock = App->gui->createTimer(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, 35, mid_texts_font, white_color, this);
 		/*Chrono* chrono = App->gui->createStopWatch(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font,white_color, this);
 		chrono->setAlarm(5);
 		chrono->setAlarm(10);
