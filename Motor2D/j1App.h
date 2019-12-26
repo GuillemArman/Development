@@ -59,6 +59,10 @@ public:
 	void SaveGame(bool specialGod = false) const;
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
+	void setSaveFileLoadable(bool loadable) const;
+	bool getSaveFileLoadability() const;
+
+
 private:
 
 	// Load config file

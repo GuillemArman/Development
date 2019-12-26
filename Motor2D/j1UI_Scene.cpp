@@ -76,7 +76,6 @@ bool j1UIScene::Start()
 
 		//NEW GAME
 		UI_element* new_game = App->gui->createButton(372 * App->gui->UI_scale, 341 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
-		new_game->dragable = true;
 		new_game->function = NEW_GAME;
 
 		UI_element* new_text = App->gui->createText("NEW GAME", 200, 200, big_buttons_font, yellow_color);
@@ -84,17 +83,17 @@ bool j1UIScene::Start()
 		new_game->appendChildAtCenter(new_text);
 
 		//CONTINUE GAME
-		UI_element* continue_game = App->gui->createButton(372 * App->gui->UI_scale, 469 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
-		continue_game->setDragable(true, true);
-		continue_game->function = CONTINUE;
+		continueButton = App->gui->createButton(372 * App->gui->UI_scale, 469 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+		continueButton->function = CONTINUE;
+
 
 		UI_element* continue_text = App->gui->createText("CONTINUE", 200, 200, big_buttons_font, grey_color);
 		continue_text->setOutlined(true);
-		continue_game->appendChildAtCenter(continue_text);
+		continueButton->appendChildAtCenter(continue_text);
 
 		//EXIT GAME
 		UI_element* exit_game = App->gui->createButton(372 * App->gui->UI_scale, 595 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
-		exit_game->setDragable(true, true);
+
 		exit_game->function = EXIT;
 
 		UI_element* exit_text = App->gui->createText("EXIT", 200, 200, big_buttons_font, yellow_color);
@@ -103,7 +102,7 @@ bool j1UIScene::Start()
 
 		//CREDITS
 		UI_element* credits = App->gui->createButton(31 * App->gui->UI_scale, 647 * App->gui->UI_scale, NULL, { 666,0,168,66 }, { 666,67,168,66 }, { 835,0,168,66 }, this);
-		credits->setDragable(true, true);
+
 		credits->function = CREDITS;
 
 		UI_element* credits_text = App->gui->createText("CREDITS", 200, 200, mid_buttons_font, yellow_color);
@@ -112,7 +111,7 @@ bool j1UIScene::Start()
 
 		//SETTINGS
 		UI_element* settings_start_menu = App->gui->createButton(823 * App->gui->UI_scale, 647 * App->gui->UI_scale, NULL, { 666,0,168,66 }, { 666,67,168,66 }, { 835,0,168,66 }, this);
-		settings_start_menu->setDragable(true, true);
+
 		settings_start_menu->function = SETTINGS;
 
 		UI_element* settings_text = App->gui->createText("SETTINGS", 200, 200, mid_buttons_font, yellow_color);
@@ -122,7 +121,7 @@ bool j1UIScene::Start()
 		startMenu->elements.add(title_img);
 		startMenu->elements.add(new_game);
 		startMenu->elements.add(new_text);
-		startMenu->elements.add(continue_game);
+		startMenu->elements.add(continueButton);
 		startMenu->elements.add(continue_text);
 		startMenu->elements.add(exit_game);
 		startMenu->elements.add(exit_text);
@@ -241,7 +240,7 @@ bool j1UIScene::Start()
 		//FULLSCREEN SWITCH
 		Button* switchB = App->gui->createSwitch(0, 0, NULL, { 507, 329, 58, 39 }, { 507, 368, 58, 39 }, { 571, 329, 58, 39 }, { 571, 368, 58, 39 }, this);
 		settings_window->appendChild(222 * App->gui->UI_scale, 372 * App->gui->UI_scale, switchB);
-		switchB->setDragable(true, true);
+
 
 		//APPLY
 		UI_element* apply_button = App->gui->createButton(439 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 666,0,168,66 }, { 666,67,168,66 }, { 835,0,168,66 }, this);
@@ -292,12 +291,13 @@ bool j1UIScene::Start()
 		//NEW GAME
 		UI_element* newGame_endMenu = App->gui->createButton(0, 0, NULL, { 757,341,119,124 }, { 757,465,119,124 }, { 757,589,119,124 }, this);
 		newGame_endMenu->function = NEW_GAME;
-		lvl_end_window->appendChild(602 * App->gui->UI_scale, 400 * App->gui->UI_scale, newGame_endMenu);//X = 402 FOR CENTRE
-		
+		lvl_end_window->appendChild(502 * App->gui->UI_scale, 400 * App->gui->UI_scale, newGame_endMenu);
+
 		//HOME BUTTON
-		UI_element* home_button2 = App->gui->createButton(947 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 353,506,62,64 }, { 415,506,62,64 }, { 477,506,62,64 }, this);
+		UI_element* home_button2 = App->gui->createButton(0 * App->gui->UI_scale, 0 * App->gui->UI_scale, NULL, { 638,713,119,124 }, { 757,713,119,124 }, { 876,713,119,124 }, this);
 		home_button2->function = HOME;
-		lvl_end_window->appendChild(202 * App->gui->UI_scale, 400 * App->gui->UI_scale, home_button2);//NEEDS TO BE RESCALED THE IMG FROM ATLAS
+		lvl_end_window->appendChild(302 * App->gui->UI_scale, 400 * App->gui->UI_scale, home_button2);
+
 		endMenu->elements.add(lvl_end_window);
 		endMenu->elements.add(newGame_endMenu);
 		endMenu->elements.add(home_button2);
@@ -388,12 +388,16 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->scene->load_lvl = true;
 			App->scene->newLvl = 2;
 			App->entityManager->player_god_mode = false;
+			App->setSaveFileLoadable(false);
 		}
 		break;
 		case CONTINUE:
 		{
-			App->paused = false;
-			App->LoadGame();
+			if (App->getSaveFileLoadability())
+			{
+				App->paused = false;
+				App->LoadGame();
+			}
 		}
 		break;
 		case SETTINGS:
@@ -434,7 +438,10 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->transition->menuTransition(previous_menu, FADE, 0.3);
 			break;
 		case HOME:
-			App->SaveGame();
+			if (!App->scene->current_lvl->data->default_paused)
+				App->SaveGame();
+			else
+				App->setSaveFileLoadable(false);
 			App->scene->load_lvl = true;
 			App->scene->newLvl = 1;
 			break;
@@ -522,43 +529,53 @@ bool j1UIScene::Save(pugi::xml_node& data) const
 bool j1UIScene::loadMenu(menu_id id)
 {
 	bool ret = false;
-	if (true)
+
+	previous_menu = current_menu->id;
+	pauseClock();
+	for (p2List_item<menu*>* item = menus.start; item; item = item->next)
 	{
-		previous_menu = current_menu->id;
-		pauseClock();
-		for (p2List_item<menu*>* item = menus.start; item; item = item->next)
+		if (item->data->id == id)
 		{
-			if (item->data->id == id)
+			current_menu = item->data;
+			playClock();
+			ret = true;
+			if (id == SETTINGS_MENU)
 			{
-				current_menu = item->data;
-				playClock();
-				ret = true;
-				if (id == SETTINGS_MENU)
+				for (p2List_item<UI_element*>* item2 = current_menu->elements.start; item2; item2 = item2->next)
 				{
-					for (p2List_item<UI_element*>* item2 = current_menu->elements.start; item2; item2 = item2->next)
+					if (item2->data->element_type == SWITCH)
 					{
-						if (item2->data->element_type == SWITCH)
+						Button* switchB = (Button*)item2->data;
+						startValues.fullscreen = switchB->active;
+					}
+					if (item2->data->element_type == SLIDER)
+					{
+						Slider* slider = (Slider*)item2->data;
+						switch (slider->modify)
 						{
-							Button* switchB = (Button*)item2->data;
-							startValues.fullscreen = switchB->active;
-						}
-						if (item2->data->element_type == SLIDER)
-						{
-							Slider* slider = (Slider*)item2->data;
-							switch (slider->modify)
-							{
-							case MUSIC:
-								startValues.music = slider->getProgress();
-								break;
-							case FX:
-								startValues.fx = slider->getProgress();
-								break;
-							}
+						case MUSIC:
+							startValues.music = slider->getProgress();
+							break;
+						case FX:
+							startValues.fx = slider->getProgress();
+							break;
 						}
 					}
 				}
-				break;
 			}
+			break;
+		}
+	}
+
+	if (current_menu->id == START_MENU)
+	{
+		if (App->getSaveFileLoadability())
+		{
+			continueButton->text->setColor({ 229, 168, 61, 255 });
+		}
+		else
+		{
+			continueButton->text->setColor({ 190, 177, 158, 191 });
 		}
 	}
 

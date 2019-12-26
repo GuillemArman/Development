@@ -33,5 +33,12 @@ void FinalInfo::BlitElement()
 	final_score->setOutlined(true);
 	final_score->BlitElement();
 
-
+	for (int i = 0; i < 3; i++)
+	{
+		if (player->coins[i])
+		{
+			App->render->Blit(big_coin->texture, big_coinPos.x + (i * 50), big_coinPos.y, &big_coin->section, false, App->gui->UI_scale);
+		}
+		App->render->Blit(big_coin_socket->texture, big_coin_socketPos.x + (i * 50), big_coin_socketPos.y, &big_coin_socket->section, false, App->gui->UI_scale);
+	}
 }
