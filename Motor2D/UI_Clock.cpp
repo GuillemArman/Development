@@ -3,16 +3,59 @@
 #include "j1Render.h"
 #include "j1Gui.h"
 
-void Clock::BlitElement()
+
+void Clock::setStartValue(int new_start_value)
 {
-	if (timer < time_changed)
+	start_value = new_start_value;
+}
+
+void Clock::setAlarm(int alarm)
+{
+
+	alarms.PushBack(alarm);
+}
+
+void Clock::restartChrono()
+{
+	switch (this->type)
 	{
-		timer++;
-		p2SString secs = p2SString("%d", timer);
-		text->setText(secs);
+
+	case TIMER:
+		time = start_value;
+		break;
+	case STOPWATCH:
+		time = 0;
+		break;
 	}
 
-	time_changed = App->gui->clock.ReadSec();
-	
+}
+
+void Clock::BlitElement()
+{
+	time_elapsed = counter.ReadSec();
+	switch (type)
+	{
+	case STOPWATCH:
+		if (time < time_elapsed)
+		{
+			time++;
+			p2SString secs("%d", time);
+			text->setText(secs);
+		}
+		break;
+	case TIMER:
+		if (start_value - time_elapsed != time)
+		{
+			time = start_value - time_elapsed;
+			if (time < 0)
+				time = 0;
+			else
+			{
+				p2SString secs("%d", time);
+				text->setText(secs);
+			}
+		}
+		break;
+	}
 	text->BlitElement();
 }

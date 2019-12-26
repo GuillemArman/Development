@@ -156,6 +156,25 @@ bool j1Gui::PostUpdate(float dt)
 				item->data->state = CLICKED;
 			}
 
+			if (item->data->callback != nullptr && item->data->element_type == CLOCK)
+			{
+				Clock* clock = (Clock*)item->data;
+				switch (clock->type)
+				{
+				case TIMER:
+					if (clock->time == 0)
+						clock->callback->OnUIEvent(item->data, TIMER_ZERO);
+					break;
+				case STOPWATCH:
+					for (int i = 0; i < clock->alarms.Count(); i++)
+					{
+						if (clock->time == (int)clock->alarms.At(i))
+							clock->callback->OnUIEvent(item->data, STOPWATCH_ALARM);
+					}
+					break;
+				}
+			}
+
 
 			if (item->data->parent == nullptr)
 				item->data->BlitElement();
@@ -164,14 +183,7 @@ bool j1Gui::PostUpdate(float dt)
 
 	if (UI_Debug)
 		UIDebugDraw();
-	/*for (p2List_item<inputBox*>* item = inputTexts.start; item; item = item->next) //Input Text reading
-	{
-	if (item->data->reading)
-	{
-	item->data->readInput();
-	break;
-	}
-	}*/
+
 
 	return true;
 }
@@ -304,11 +316,20 @@ Button* j1Gui::createButton(int x, int y, SDL_Texture* texture, SDL_Rect standby
 	return ret;
 }
 
-Clock* j1Gui::createChrono(int x, int y, _TTF_Font* font, SDL_Color color, j1Module* callback)
+Clock * j1Gui::createTimer(int x, int y, int initial_value, _TTF_Font * font, SDL_Color color, j1Module * callback)
 {
-	Clock* ret = new Clock(x, y, font, color, callback);
+	Clock* ret = new Clock(x, y, TIMER, font, color, callback);
+	ret->setStartValue(initial_value);
 	ret->solid = false;
 	UI_elements.add(ret);
 
+	return ret;
+}
+
+Clock * j1Gui::createStopWatch(int x, int y, _TTF_Font * font, SDL_Color color, j1Module * callback)
+{
+	Clock* ret = new Clock(x, y, STOPWATCH, font, color, callback);
+	ret->solid = false;
+	UI_elements.add(ret);
 	return ret;
 }
