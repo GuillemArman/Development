@@ -82,6 +82,8 @@ private:
 	bool LoadGameNow();
 	bool SavegameNow() const;
 
+	void RequestBrowser(const char * url) const;
+
 public:
 
 	// Modules

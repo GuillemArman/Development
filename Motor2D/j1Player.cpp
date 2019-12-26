@@ -408,7 +408,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		p2SString c2_name = c2->callback->name.GetString();
 		if ((c2_name == "flying" || c2_name == "walking") && Collision_from_bottom(c1, c2, 3) && v.y < 0)
 		{
-			score += 250;
+			score += 200;
 			v.y = (jump_force * 2 / 3);
 			c2->entity->dead = true;
 			c2->to_delete = true;
@@ -442,6 +442,9 @@ bool j1Player::Load(pugi::xml_node& data)
 	lives = data.attribute("lives").as_uint();
 	virtualPosition.x = data.attribute("position_x").as_int();
 	virtualPosition.y = data.attribute("position_y").as_int();
+	coins[0] = data.attribute("coin1").as_bool();
+	coins[1] = data.attribute("coin2").as_bool();
+	coins[2] = data.attribute("coin3").as_bool();
 	App->render->virtualCamPos = -(virtualPosition.x * (int)App->win->GetScale() - 300);
 	if (App->render->virtualCamPos > 0)
 	{
@@ -464,6 +467,12 @@ bool j1Player::Save(pugi::xml_node& data) const
 	data.append_attribute("level") = App->scene->current_lvl->data->lvl;
 
 	data.append_attribute("lives") = lives;
+
+	data.append_attribute("coin1") = coins[0];
+
+	data.append_attribute("coin2") = coins[1];
+
+	data.append_attribute("coin3") = coins[2];
 
 	return true;
 }

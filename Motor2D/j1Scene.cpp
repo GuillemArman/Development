@@ -80,11 +80,7 @@ bool j1Scene::Update(float dt)
 		newLvl = 2;
 	}
 
-	/*if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
-	{
-		App->gui->createButton(100, 100, NULL, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
-		App->gui->createText("Hello World", 200, 200, App->font->Load("fonts/open_sans/OpenSans-Regular.ttf", 25), { 255, 0, 0, 255 }, this);
-	}*/
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
@@ -120,7 +116,7 @@ bool j1Scene::Update(float dt)
 		App->cap_frames = !App->cap_frames;
 	}
 
-	// Move camera with player -----------------------
+	// camera move -----------------------
 	uint win_width, win_height;
 	App->win->GetWindowSize(win_width, win_height);
 	max_camera_pos = current_lvl->data->length + (win_width);
@@ -130,11 +126,6 @@ bool j1Scene::Update(float dt)
 		App->render->virtualCamPos -= App->entityManager->getPlayer()->speed * 2 * dt; //*dt
 	}
 
-	//if ((App->entityManager->getPlayer()->pos_relCam < (win_width / App->win->GetScale() / 6)) && (App->render->virtualCamPos > max_camera_pos))
-	//{
-	//	App->render->virtualCamPos += App->entityManager->getPlayer()->speed * 2 * dt; //*dt
-	//}
-	// ------------------------------------------------
 
 
 
@@ -223,6 +214,8 @@ void j1Scene::LoadLvl(int num)
 		{
 			j1Player* player = (j1Player*)App->entityManager->getPlayer();
 			player->coins[0] = player->coins[1] = player->coins[2] = false;
+			player->lives = 3;
+			player->score = 0;
 		}
 		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end_rect, !respawn_enemies);
 		App->uiScene->loadMenu(current_lvl->data->default_menu);

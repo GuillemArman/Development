@@ -88,6 +88,7 @@ void Walking_Enemy::OnCollision(Collider* c1, Collider* c2)
 	if (c2->type == COLLIDER_PLAYER && dead && !App->entityManager->getPlayer()->dead && Collision_from_top(c1, c2))
 	{
 		App->audio->PlayFx(die_fx, 0);
+		collider->to_delete = true;
 		v = { 0,0 };
 	}
 }
