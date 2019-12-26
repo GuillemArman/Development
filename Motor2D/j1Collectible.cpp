@@ -71,6 +71,7 @@ void Collectible::OnCollision(Collider* c1, Collider* c2)
 
 		if (!player->coins[id - 1])
 		{
+			player->score += 500;
 			player->coins[id - 1] = true;
 		}
 	}

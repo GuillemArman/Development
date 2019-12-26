@@ -36,7 +36,8 @@ enum element_function
 	RESTORE,
 	BACK,
 	CANCEL,
-	APPLY
+	APPLY,
+	HOME
 };
 
 enum element_state

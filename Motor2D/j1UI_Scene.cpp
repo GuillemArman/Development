@@ -44,18 +44,15 @@ bool j1UIScene::Start()
 	SDL_Color dark_yellow_color = { 146, 97, 45, 255 };
 	SDL_Color black_color = { 0, 0, 0, 255 };
 
-	SDL_Texture* big_window_tex = App->tex->Load("gui/big_parchment.png");
-	SDL_Texture* mid_window_tex = App->tex->Load("gui/medium_parchment.png");
-	SDL_Texture* credits_tex = App->tex->Load("gui/credits.png");
 
 	float music_progress = (float)App->audio->getMusicVolume() / 128;
 	float fx_progress = (float)App->audio->getFxVolume() / 128;
 
 	menu* creditsMenu = new menu(CREDITS_MENU);
 	{
-		UI_element* credits_img = App->gui->createImage(0, 0, credits_tex, this);
+		UI_element* credits_img = App->gui->createImage(0, 0, App->tex->Load("gui/credits.png"), this);
 		//BACK
-		UI_element* back_button = App->gui->createButton(10, 335, NULL, { 849,69,133,36 }, { 849,106,133,36 }, { 849,143,133,36 }, this);
+		UI_element* back_button = App->gui->createButton(34 * App->gui->UI_scale, 675 * App->gui->UI_scale, NULL, { 849,69,133,36 }, { 849,106,133,36 }, { 849,143,133,36 }, this);
 		back_button->function = BACK;
 
 		UI_element* back_text = App->gui->createText("BACK", 200, 200, small_texts_font, white_color);
@@ -143,7 +140,6 @@ bool j1UIScene::Start()
 		UI_element* lives_txt = App->gui->createText("LIVES: ", 25 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, white_color, this);
 		lives_txt->setOutlined(true);
 
-
 		//PLAYER INFO
 		UI_element* playerInfo = App->gui->createPlayerInfo(0, 0, this);
 
@@ -165,8 +161,12 @@ bool j1UIScene::Start()
 
 	menu* pauseMenu = new menu(PAUSE_MENU);
 	{
+		//HOME BUTTON
+		UI_element* home_button = App->gui->createButton(947 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 353,506,62,64 }, { 415,506,62,64 }, { 377,506,62,64 }, this);
+		home_button->function = HOME;
+
 		//WINDOW
-		UI_element* pause_window = App->gui->createWindow(208 * App->gui->UI_scale, 182 * App->gui->UI_scale, mid_window_tex, { 0,0,588,404 }, this);
+		UI_element* pause_window = App->gui->createWindow(208 * App->gui->UI_scale, 182 * App->gui->UI_scale, App->tex->Load("gui/medium_parchment.png"), { 0,0,588,404 }, this);
 
 		//SETTING CIRCLE BUTTON
 		UI_element* settings_button = App->gui->createButton(275 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 876,341,119,124 }, { 876,465,119,124 }, { 876,589,119,124 }, this);
@@ -187,6 +187,7 @@ bool j1UIScene::Start()
 		UI_element* slider = App->gui->createImageFromAtlas(248 * App->gui->UI_scale, 310 * App->gui->UI_scale, { 0, 321, 504, 53 }, this);
 		pause_window->appendChild(40 * App->gui->UI_scale, 129 * App->gui->UI_scale, slider);
 
+		pauseMenu->elements.add(home_button);
 		pauseMenu->elements.add(pause_window);
 		pauseMenu->elements.add(settings_button);
 		pauseMenu->elements.add(newGame_pauseMenu);
@@ -198,7 +199,7 @@ bool j1UIScene::Start()
 	menu* settingsMenu = new menu(SETTINGS_MENU);
 	{
 		//WINDOW
-		UI_element* settings_window = App->gui->createWindow(51 * App->gui->UI_scale, 93 * App->gui->UI_scale, big_window_tex, { 0,0,923,581 }, this);
+		UI_element* settings_window = App->gui->createWindow(51 * App->gui->UI_scale, 93 * App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 0,0,923,581 }, this);
 
 		//SOUND TXT
 		UI_element* sound_txt = App->gui->createText("Sound", 0, 0, big_texts_font, black_color, this);
@@ -294,8 +295,8 @@ bool j1UIScene::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		App->paused = true;
-		loadMenu(START_MENU);
+		App->scene->load_lvl = true;
+		App->scene->newLvl = 1;
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 	{
@@ -348,7 +349,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		{
 			App->paused = false;
 			App->scene->load_lvl = true;
-			App->scene->newLvl = 1;
+			App->scene->newLvl = 2;
 		}
 		break;
 		case CONTINUE:
@@ -394,6 +395,10 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			applySettings(defaultValues);
 			loadMenu(current_menu->previous_menu);
 			break;
+		case HOME:
+			App->scene->load_lvl = true;
+			App->scene->newLvl = 1;
+			break;
 		}
 		if (current_menu->id != previous_menu)
 			current_menu->previous_menu = previous_menu;
@@ -428,8 +433,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 	}
 	else if (event_type == STOPWATCH_ALARM)
 	{
-	Clock* clock = (Clock*)element;
-	LOG("Clock alarm at: %d", clock->time);
+		Clock* clock = (Clock*)element;
+		LOG("Clock alarm at: %d", clock->time);
 	}
 
 	return ret;

@@ -7,7 +7,7 @@
 	<:anonymous />
 	<scene />
 	<entityManager>
-		<player position_x="26" position_y="244" level="1" lives="3" />
+		<player position_x="26" position_y="244" level="2" lives="3" />
 		<player position_x="26" position_y="249" />
 		<walking position_x="406" position_y="136" />
 		<flying position_x="389" position_y="83" />
