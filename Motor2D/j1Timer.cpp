@@ -15,7 +15,7 @@ j1Timer::j1Timer()
 // ---------------------------------------------
 void j1Timer::Start()
 {
-	started_at = SDL_GetTicks();
+	started_at = paused_at = SDL_GetTicks();
 }
 
 // ---------------------------------------------
@@ -52,6 +52,11 @@ void j1Timer::Play()
 		started_at = SDL_GetTicks() - paused_at;
 		paused = false;
 	}
+}
+
+void j1Timer::setAt(float miliseconds)
+{
+	started_at = paused_at = SDL_GetTicks() - miliseconds;
 }
 
 bool j1Timer::isPaused() const

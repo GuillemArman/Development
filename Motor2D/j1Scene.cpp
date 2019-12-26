@@ -16,6 +16,8 @@
 #include "j1Gui.h"
 #include "j1Fonts.h"
 #include "UI_element.h"
+#include "UI_Clock.h"
+#include "j1Transition.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -66,6 +68,13 @@ bool j1Scene::PreUpdate()
 	BROFILER_CATEGORY("Scene PreUpdate", Profiler::Color::White);
 	if (current_lvl->data->default_paused)
 		App->render->virtualCamPos = 0;
+	if (load_lvl)
+	{
+		LoadLvl(newLvl);
+		load_lvl = false;
+		newLvl = 0;
+	}
+
 	return true;
 }
 
@@ -81,7 +90,6 @@ bool j1Scene::Update(float dt)
 	}
 
 	
-
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		load_lvl = true;
@@ -90,12 +98,12 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
-		if (current_lvl->data->lvl == 2)
+		if (current_lvl->data->lvl == 3)
 		{
 			load_lvl = true;
 			newLvl = 3;
 		}
-		else
+		else if (current_lvl->data->lvl == 2)
 		{
 			load_lvl = true;
 			newLvl = 2;
@@ -119,8 +127,7 @@ bool j1Scene::Update(float dt)
 	// camera move -----------------------
 	uint win_width, win_height;
 	App->win->GetWindowSize(win_width, win_height);
-	max_camera_pos = current_lvl->data->length + (win_width);
-	max_camera_pos *= -1;
+	
 	if ((App->entityManager->getPlayer()->pos_relCam > (win_width / App->win->GetScale() / 2)) && (App->render->virtualCamPos > max_camera_pos))
 	{
 		App->render->virtualCamPos -= App->entityManager->getPlayer()->speed * 2 * dt; //*dt
@@ -159,11 +166,23 @@ bool j1Scene::PostUpdate(float dt)
 
 	App->map->Draw();
 
-	if (load_lvl)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)	
 	{
-		LoadLvl(newLvl);
-		load_lvl = false;
-		newLvl = 0;
+		if (current_lvl->data->default_paused)
+			ret = false;
+		else
+		{
+			if (!App->paused)
+			{
+				App->paused = true;
+				App->transition->menuTransition(PAUSE_MENU, FADE, 0.3);
+			}
+			else
+			{
+				App->paused = false;
+				App->transition->menuTransition(INGAME_MENU, FADE, 0.3);
+			}
+		}
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
@@ -210,17 +229,24 @@ void j1Scene::LoadLvl(int num)
 	if (current_lvl != nullptr)
 	{
 		App->entityManager->cleanCollectibles();
-		if (respawn_enemies)
+		if (respawn_enemies && num == 2)
 		{
 			j1Player* player = (j1Player*)App->entityManager->getPlayer();
 			player->coins[0] = player->coins[1] = player->coins[2] = false;
 			player->lives = 3;
 			player->score = 0;
+			App->uiScene->clock->counter.Play();
+			App->uiScene->clock->counter.Start();
 		}
 		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end_rect, !respawn_enemies);
 		App->uiScene->loadMenu(current_lvl->data->default_menu);
 		respawn_enemies = true;
 		if (current_lvl->data->default_paused)
 			App->paused = true;
+		uint win_width, win_height;
+		App->win->GetWindowSize(win_width, win_height);
+		max_camera_pos = current_lvl->data->length + (win_width);
+		max_camera_pos *= -1;
+
 	}
 }

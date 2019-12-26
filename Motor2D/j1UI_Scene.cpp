@@ -28,6 +28,7 @@ j1UIScene::~j1UIScene()
 
 bool j1UIScene::Awake()
 {
+	name.create("UIScene");
 	return true;
 }
 
@@ -387,6 +388,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->paused = false;
 			App->scene->load_lvl = true;
 			App->scene->newLvl = 2;
+			App->entityManager->player_god_mode = false;
 		}
 		break;
 		case CONTINUE:
@@ -396,7 +398,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		}
 		break;
 		case SETTINGS:
-			App->transition->menuTransition(SETTINGS_MENU, FADE, 0.5);
+			App->transition->menuTransition(SETTINGS_MENU, FADE, 0.3);
 			break;
 		case CREDITS:
 			loadMenu(CREDITS_MENU);
@@ -408,31 +410,32 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			if (!App->paused)
 			{
 				App->paused = true;
-				App->transition->menuTransition(PAUSE_MENU, FADE, 0.5);
+				App->transition->menuTransition(PAUSE_MENU, FADE, 0.3);
 			}
 			else
 			{
 				App->paused = false;
-				App->transition->menuTransition(INGAME_MENU, FADE, 0.5);
+				App->transition->menuTransition(INGAME_MENU, FADE, 0.3);
 			}
 			break;
 		case APPLY:
 			applySettings(newValues);
-			App->transition->menuTransition(previous_menu, FADE, 0.5);
+			App->transition->menuTransition(previous_menu, FADE, 0.3);
 			break;
 		case CANCEL:
 			newValues = startValues;
 			applySettings(startValues);
-			App->transition->menuTransition(previous_menu, FADE, 0.5);
+			App->transition->menuTransition(previous_menu, FADE, 0.3);
 			break;
 		case BACK:
-			App->transition->menuTransition(previous_menu, FADE, 0.5);
+			App->transition->menuTransition(previous_menu, FADE, 0.3);
 			break;
 		case RESTORE:
 			applySettings(defaultValues);
-			App->transition->menuTransition(previous_menu, FADE, 0.5);
+			App->transition->menuTransition(previous_menu, FADE, 0.3);
 			break;
 		case HOME:
+			App->SaveGame();
 			App->scene->load_lvl = true;
 			App->scene->newLvl = 1;
 			break;
@@ -490,19 +493,46 @@ bool j1UIScene::CleanUp()
 	return true;
 }
 
+
+bool j1UIScene::Load(pugi::xml_node& data)
+{
+	for (p2List_item<UI_element*>* item = getMenu(INGAME_MENU)->elements.start; item; item = item->next)
+	{
+		if (item->data->element_type == CLOCK)
+		{
+			Clock* clock = (Clock*)item->data;
+			clock->counter.setAt(data.attribute("clock").as_float());
+		}
+	}
+	return true;
+}
+
+bool j1UIScene::Save(pugi::xml_node& data) const
+{
+	for (p2List_item<UI_element*>* item = getMenu(INGAME_MENU)->elements.start; item; item = item->next)
+	{
+		if (item->data->element_type == CLOCK)
+		{
+			Clock* clock = (Clock*)item->data;
+			data.append_attribute("chrono") = clock->counter.Read();
+		}
+	}
+	return true;
+}
+
 bool j1UIScene::loadMenu(menu_id id)
 {
 	bool ret = false;
-	if (current_menu->id != id)
+	if (true)
 	{
 		previous_menu = current_menu->id;
-		pauseChronos();
+		pauseClock();
 		for (p2List_item<menu*>* item = menus.start; item; item = item->next)
 		{
 			if (item->data->id == id)
 			{
 				current_menu = item->data;
-				playChronos();
+				playClock();
 				ret = true;
 				if (id == SETTINGS_MENU)
 				{
@@ -534,6 +564,18 @@ bool j1UIScene::loadMenu(menu_id id)
 	}
 
 	return ret;
+}
+
+menu* j1UIScene::getMenu(menu_id id) const
+{
+	for (p2List_item<menu*>* item = menus.start; item; item = item->next)
+	{
+		if (item->data->id == id)
+			return item->data;
+	}
+
+	LOG("Menu with given id not found");
+	return nullptr;
 }
 
 void j1UIScene::applySettings(settings_values values)
@@ -570,7 +612,7 @@ void j1UIScene::applySettings(settings_values values)
 	}
 }
 
-void j1UIScene::pauseChronos()
+void j1UIScene::pauseClock()
 {
 	for (p2List_item<UI_element*>* item = current_menu->elements.start; item; item = item->next)
 	{
@@ -583,7 +625,7 @@ void j1UIScene::pauseChronos()
 	}
 }
 
-void j1UIScene::playChronos()
+void j1UIScene::playClock()
 {
 	for (p2List_item<UI_element*>* item = current_menu->elements.start; item; item = item->next)
 	{

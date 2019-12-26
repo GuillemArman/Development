@@ -18,7 +18,7 @@ PlayerInfo::PlayerInfo(int x, int y, j1Module* callback) : UI_element(x, y, PLAY
 	coin = App->gui->createImageFromAtlas(x + 152, y + 3, { 895, 189, 41, 41 });
 	live = App->gui->createImageFromAtlas(x + 60, y + 5, { 880, 235, 100, 100 });
 	empty_live = App->gui->createImageFromAtlas(x + 62, y + 3, { 431, 449, 51, 48 });
-	score = App->gui->createText("0", x + 275, y + 3, mid_texts_font, white_color);
+	score = App->gui->createText("0", x + 200, y + 3, mid_texts_font, white_color);
 }
 
 
@@ -37,7 +37,7 @@ void PlayerInfo::BlitElement()
 
 	score->setText(score_str);
 	score->setOutlined(true);
-	//score->BlitElement();
+	score->BlitElement();
 	for (int i = 0; i < 3; i++)
 	{
 		if (i < player->lives)

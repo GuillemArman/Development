@@ -53,10 +53,15 @@ public:
 
 	bool loadMenu(menu_id id);
 
+	menu* getMenu(menu_id id) const;
+
 	void applySettings(settings_values values);
 
-	void pauseChronos();
-	void playChronos();
+	void pauseClock();
+	void playClock();
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 public:
 	p2List<menu*> menus;
 	menu* current_menu = nullptr;

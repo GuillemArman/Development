@@ -38,7 +38,12 @@ j1Player::j1Player() : Entity("player")
 }
 
 j1Player::~j1Player()
-{}
+{
+	App->tex->UnLoad(graphics);
+	graphics = nullptr;
+	App->tex->UnLoad(graphics_god);
+	graphics_god = nullptr;
+}
 
 // Load assets
 bool j1Player::Start()
@@ -55,6 +60,9 @@ bool j1Player::Start()
 
 	if (collider == nullptr)
 		collider = App->collision->AddCollider({ 0, 0, 40, 70 }, COLLIDER_PLAYER, this);
+
+	else
+		collider->SetPos(0, 0);
 
 	collider_offset.x = 3;
 	collider_offset.y = 2;
@@ -110,24 +118,7 @@ bool j1Player::Start()
 	return true;
 }
 
-// Unload assets
-bool j1Player::CleanUp()
-{
-	LOG("Unloading player");
 
-	App->tex->UnLoad(graphics);
-	graphics = nullptr;
-	App->tex->UnLoad(graphics_god);
-	graphics_god = nullptr;
-
-	if (collider != nullptr)
-	{
-		collider->to_delete = true;
-		collider = nullptr;
-	}
-
-	return true;
-}
 
 // Update: draw background
 bool j1Player::Update(float dt)
@@ -260,134 +251,137 @@ bool j1Player::PostUpdate(float dt)
 	}
 
 	// Win condition
-	if (((collider->rect.x + collider->rect.w) > App->scene->current_lvl->data->end_rect.x) && (position.y + collider->rect.h) < (App->scene->current_lvl->data->end_rect.y + App->scene->current_lvl->data->end_rect.h))
-	{
-		if (end_reached == 0)
+	if ((((collider->rect.x + collider->rect.w) > App->scene->current_lvl->data->end_rect.x) && (position.y + collider->rect.h) < (App->scene->current_lvl->data->end_rect.y + App->scene->current_lvl->data->end_rect.h)) && !won) {
 		{
-			won = true;
-			end_reached = SDL_GetTicks();
-			if (App->scene->current_lvl == App->scene->levels.end)
+			if (end_reached == 0)
 			{
-				App->audio->PlayFx(App->scene->win_fx, 0);
+				won = true;
+				App->uiScene->pauseClock();
+				end_reached = SDL_GetTicks();
+				if (App->scene->current_lvl == App->scene->levels.end)
+				{
+					App->audio->PlayFx(App->scene->win_fx, 0);
+				}
+				else
+				{
+					App->audio->PlayFx(App->scene->complete_level_fx, 0);
+				}
 			}
-			else
-			{
-				App->audio->PlayFx(App->scene->complete_level_fx, 0);
-			}
 		}
-	}
-	if (won && ((App->scene->current_lvl == App->scene->levels.end && SDL_GetTicks() > end_reached + 5000) || (App->scene->current_lvl != App->scene->levels.end && SDL_GetTicks() > end_reached + 500)))
-	{
-		end_reached = 0;
-		won = false;
-		App->scene->load_lvl = true;
-	}
+		if (won && ((App->scene->current_lvl == App->scene->levels.end && SDL_GetTicks() > end_reached + 5000) || (App->scene->current_lvl != App->scene->levels.end && SDL_GetTicks() > end_reached + 500)))
+		{
+			end_reached = 0;
+			won = false;
+			dead = false;
+			App->scene->load_lvl = true;
+		}
 
-	// Lose condition
-	//By enemyy
-	if (dead && SDL_GetTicks() > killed_finished + 1500)
-	{
-		App->scene->load_lvl = true;
-		if (lives > 0)
+		// Lose condition
+		//By enemyy
+		if (dead && SDL_GetTicks() > killed_finished + 1500)
 		{
-			App->scene->newLvl = App->scene->current_lvl->data->lvl;
-			App->scene->respawn_enemies = false;
-		}
-		else
-			App->scene->newLvl = 1;
-
-		killed_finished = 0;
-		
-	}
-	//By falling
-	int win_scale = App->win->GetScale();
-	if (position.y > App->win->screen_surface->h / win_scale + 50 && !won && !dead)
-	{
-		if (App->entityManager->player_god_mode)
-		{
-			App->LoadGame(true);
-		}
-		else
-		{
-			lives--;
 			App->scene->load_lvl = true;
 			if (lives > 0)
 			{
 				App->scene->newLvl = App->scene->current_lvl->data->lvl;
 				App->scene->respawn_enemies = false;
-				App->audio->PlayFx(killed_fx, 0);
+			}
+			else
+				App->scene->newLvl = 1;
+
+			killed_finished = 0;
+
+		}
+		//By falling
+		int win_scale = App->win->GetScale();
+		if (position.y > App->win->screen_surface->h / win_scale + 50 && !won && !dead)
+		{
+			if (App->entityManager->player_god_mode)
+			{
+				App->LoadGame(true);
 			}
 			else
 			{
-				App->scene->newLvl = 1;
-				App->audio->PlayFx(die_fx, 0);
+				lives--;
+				App->scene->load_lvl = true;
+				if (lives > 0)
+				{
+					App->scene->newLvl = App->scene->current_lvl->data->lvl;
+					App->scene->respawn_enemies = false;
+					App->audio->PlayFx(killed_fx, 0);
+				}
+				else
+				{
+					App->scene->newLvl = 1;
+					App->audio->PlayFx(die_fx, 0);
+				}
+				App->scene->load_lvl = true;
+				App->scene->newLvl = App->scene->current_lvl->data->lvl;
 			}
-			App->scene->load_lvl = true;
-			App->scene->newLvl = App->scene->current_lvl->data->lvl;
 		}
+
+		//When f10 is clicked he converts into god mode
+		if (App->entityManager->player_god_mode)
+		{
+			App->render->Blit(graphics_god, position.x + godmode_offset.x, position.y + godmode_offset.y, &godMode->GetCurrentFrame(dt));
+			App->render->Blit(graphics_god, position.x, position.y, &animation->GetCurrentFrame(dt));
+			App->render->Blit(graphics_god, position.x + godmode_offset.x, position.y + godmode_offset.y, &godMode->GetCurrentFrame(dt));
+
+			//GODMODE MOVEMENT
+
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && App->entityManager->player_god_mode)
+			{
+				v.y += 150;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP && App->entityManager->player_god_mode)
+			{
+				v.y = 0;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && App->entityManager->player_god_mode)
+			{
+				v.y -= 150;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_UP && App->entityManager->player_god_mode)
+			{
+				v.y = 0;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN && App->entityManager->player_god_mode)
+			{
+				v.x += 5;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP && App->entityManager->player_god_mode)
+			{
+				v.x = 0;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN && App->entityManager->player_god_mode)
+			{
+				v.x -= 5;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP && App->entityManager->player_god_mode)
+			{
+				v.x = 0;
+			}
+
+		}
+		else if (App->entityManager->player_god_mode == false)
+		{
+			App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame(dt));
+		}
+
+		if (double_jump)
+		{
+			App->render->Blit(graphics, jump_pos.x, jump_pos.y, &jump->GetCurrentFrame(dt));
+		}
+
+		return true;
 	}
-
-	//When f10 is clicked he converts into god mode
-	if (App->entityManager->player_god_mode)
-	{
-		App->render->Blit(graphics_god, position.x + godmode_offset.x, position.y + godmode_offset.y, &godMode->GetCurrentFrame(dt));
-		App->render->Blit(graphics_god, position.x, position.y, &animation->GetCurrentFrame(dt));
-		App->render->Blit(graphics_god, position.x + godmode_offset.x, position.y + godmode_offset.y, &godMode->GetCurrentFrame(dt));
-
-		//GODMODE MOVEMENT
-
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && App->entityManager->player_god_mode)
-		{
-			v.y += 150;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP && App->entityManager->player_god_mode)
-		{
-			v.y = 0;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && App->entityManager->player_god_mode)
-		{
-			v.y -= 150;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_UP && App->entityManager->player_god_mode)
-		{
-			v.y = 0;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN && App->entityManager->player_god_mode)
-		{
-			v.x += 5;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP && App->entityManager->player_god_mode)
-		{
-			v.x = 0;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN && App->entityManager->player_god_mode)
-		{
-			v.x -= 5;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP && App->entityManager->player_god_mode)
-		{
-			v.x = 0;
-		}
-
-	}
-	else if (App->entityManager->player_god_mode == false)
-	{
-		App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame(dt));
-	}
-
-	if (double_jump)
-	{
-		App->render->Blit(graphics, jump_pos.x, jump_pos.y, &jump->GetCurrentFrame(dt));
-	}
-
-	return true;
 }
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
