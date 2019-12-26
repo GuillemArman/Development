@@ -21,6 +21,14 @@ struct menu
 	menu_id id;
 	menu_id previous_menu;
 };
+
+struct settings_values
+{
+	bool fullscreen = false;
+	float music = 0.5f;
+	float fx = 0.5f;
+};
+
 class j1UIScene : public j1Module
 {
 public:
@@ -41,8 +49,15 @@ public:
 	bool CleanUp();
 
 	bool loadMenu(menu_id id);
+
+	void applySettings(settings_values values);
+
 public:
 	p2List<menu*> menus;
 	menu* current_menu = nullptr;
+
+	settings_values newValues;
+	settings_values startValues;
+	settings_values defaultValues;
 };
 #endif // !__j1UISCENE_H__ 

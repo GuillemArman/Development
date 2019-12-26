@@ -16,6 +16,10 @@ float Slider::getProgress() const
 {
 	return progress;
 }
+void Slider::setProgress(float newProgress)
+{
+	progress = newProgress;
+}
 void Slider::BlitElement()
 {
 	iPoint globalPos = calculateAbsolutePosition();
@@ -25,7 +29,7 @@ void Slider::BlitElement()
 	progress_num->setText(newText);
 	progress_num->localPosition.x = full.w * App->gui->UI_scale - progress_num->section.w / (2 / App->gui->UI_scale);
 	progress_num->localPosition.y = -progress_num->section.h * App->gui->UI_scale;
-	progress = (button->localPosition.x + button->section.w / (2 / App->gui->UI_scale)) / (bar_length * App->gui->UI_scale);
+	
 	if (progress < 0.01)
 		progress = 0;
 	else if (progress > 1)

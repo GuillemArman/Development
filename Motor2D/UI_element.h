@@ -34,6 +34,7 @@ enum element_function
 	RESTART,
 	RESTORE,
 	BACK,
+	CANCEL,
 	APPLY
 };
 
