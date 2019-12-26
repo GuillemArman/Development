@@ -11,6 +11,7 @@
 #include "j1Scene.h"
 #include "j1Audio.h"
 #include "j1entityManager.h"
+#include "j1Transition.h"
 #include "j1PathFinding.h"
 #include "Brofiler\Brofiler.h"
 
@@ -258,9 +259,10 @@ bool j1Player::PostUpdate(float dt)
 				won = true;
 				App->uiScene->pauseClock();
 				end_reached = SDL_GetTicks();
-				if (App->scene->current_lvl == App->scene->levels.end)
+				if (App->scene->current_lvl == App->scene->levels.end - 1)
 				{
 					App->audio->PlayFx(App->scene->win_fx, 0);
+					App->scene->load_lvl = 4;
 				}
 				else
 				{
@@ -268,13 +270,13 @@ bool j1Player::PostUpdate(float dt)
 				}
 			}
 		}
-		if (won && ((App->scene->current_lvl == App->scene->levels.end && SDL_GetTicks() > end_reached + 5000) || (App->scene->current_lvl != App->scene->levels.end && SDL_GetTicks() > end_reached + 500)))
-		{
+	if (won && (/*(App->scene->current_lvl == App->scene->levels.end && SDL_GetTicks() > end_reached + 5000) || */(App->scene->current_lvl != App->scene->levels.end && SDL_GetTicks() > end_reached + 500)))
+	{
 			end_reached = 0;
 			won = false;
 			dead = false;
 			App->scene->load_lvl = true;
-		}
+	}
 
 		// Lose condition
 		//By enemyy

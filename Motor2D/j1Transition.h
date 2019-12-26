@@ -12,7 +12,8 @@ enum transition_effect
 enum transition_type
 {
 	MENU,
-	SCENE
+	SCENE,
+	ENDMENU
 };
 enum transition_state
 {

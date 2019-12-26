@@ -147,12 +147,12 @@ bool j1UIScene::Start()
 		UI_element* playerInfo = App->gui->createPlayerInfo(0, 0, this);
 
 		//TIME
-		UI_element* time_txt = App->gui->createText("TIME:", 529 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, white_color, this);
+		UI_element* time_txt = App->gui->createText("TIME:", 700 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, white_color, this);
 		time_txt->setOutlined(true);
 
 		//CLOCK
 		clock = App->gui->createTimer(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, 35, mid_texts_font, white_color, this);
-		clock = App->gui->createStopWatch(650 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, black_color, this);
+		clock = App->gui->createStopWatch(800 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, black_color, this);
 		clock->setAlarm(5);
 		clock->setAlarm(10);
 		clock->setAlarm(15);
@@ -293,8 +293,7 @@ bool j1UIScene::Start()
 		UI_element* newGame_endMenu = App->gui->createButton(0, 0, NULL, { 757,341,119,124 }, { 757,465,119,124 }, { 757,589,119,124 }, this);
 		newGame_endMenu->function = NEW_GAME;
 		lvl_end_window->appendChild(602 * App->gui->UI_scale, 400 * App->gui->UI_scale, newGame_endMenu);//X = 402 FOR CENTRE
-		//NEXT LVL
-		UI_element* nextLvl;
+		
 		//HOME BUTTON
 		UI_element* home_button2 = App->gui->createButton(947 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 353,506,62,64 }, { 415,506,62,64 }, { 477,506,62,64 }, this);
 		home_button2->function = HOME;

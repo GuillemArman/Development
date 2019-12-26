@@ -10,7 +10,7 @@ struct SDL_Texture;
 
 struct level
 {
-	level(int num, char* mapPath, menu_id default_menu, bool default_paused = false)
+	level(int num, char* mapPath, menu_id default_menu, const char* background_music, bool default_paused = false)
 	{
 		this->mapPath.create(mapPath);
 		lvl = num;

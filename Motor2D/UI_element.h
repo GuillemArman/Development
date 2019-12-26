@@ -19,7 +19,8 @@ enum element_type
 	SLIDER,
 	WINDOW,
 	CLOCK,
-	PLAYERINFO
+	PLAYERINFO,
+	FINALINFO
 };
 
 enum element_function

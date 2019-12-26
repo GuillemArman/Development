@@ -103,6 +103,7 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="UI_Button.cpp" />
     <ClCompile Include="UI_Clock.cpp" />
+    <ClCompile Include="UI_FinalInfo.cpp" />
     <ClCompile Include="UI_Image.cpp" />
     <ClCompile Include="UI_PlayerInfo.cpp" />
     <ClCompile Include="UI_Slider.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="UI_Button.h" />
     <ClInclude Include="UI_Clock.h" />
     <ClInclude Include="UI_element.h" />
+    <ClInclude Include="UI_FinalInfo.h" />
     <ClInclude Include="UI_Image.h" />
     <ClInclude Include="UI_PlayerInfo.h" />
     <ClInclude Include="UI_Slider.h" />

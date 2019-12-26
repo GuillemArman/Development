@@ -24,13 +24,15 @@ j1Scene::j1Scene() : j1Module()
 	name.create("scene");
 	
 	// Add all levels to the list
-	level* main_lvl = new level(1, "main_menu.tmx", START_MENU, true);
-	level* lvl1 = new level(2, "platformer.tmx", INGAME_MENU);
-	level* lvl2 = new level(3, "platformer2.tmx", INGAME_MENU);
+	level* main_lvl = new level(1, "main_menu.tmx", START_MENU, "audio/music/menu_music.ogg", true);
+	level* lvl1 = new level(2, "platformer.tmx", INGAME_MENU, "audio/music/ambient_music.wav");
+	level* lvl2 = new level(3, "platformer2.tmx", INGAME_MENU, "audio/music/ambient_music.wav");
+	level* endGame_lvl = new level(4, "main_menu.tmx", FINAL_MENU, "audio/music/menu_music.ogg", true);
 
 	levels.add(main_lvl);
 	levels.add(lvl1);
 	levels.add(lvl2);
+	levels.add(endGame_lvl);
 
 	current_lvl = levels.start;
 
@@ -55,7 +57,8 @@ bool j1Scene::Start()
 {
 	App->map->Load(levels.start->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end_rect); //hello2.tmx
 	//Background music
-	App->audio->PlayMusic("audio/music/bg_music.ogg");
+	App->audio->PlayMusic(current_lvl->data->music.GetString(), 1.0f);
+	//App->audio->PlayMusic("audio/music/ambient_music.wav");
 	complete_level_fx = App->audio->LoadFx("audio/fx/level_complete.wav");
 	win_fx = App->audio->LoadFx("audio/fx/win.wav");
 
