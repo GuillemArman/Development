@@ -14,55 +14,62 @@ Transition::~Transition()
 }
 bool Transition::Update(float dt)
 {
-	if (doingMenuTransition)
+	if (doingTransition)
 	{
-		float Dalpha = 255 / (total_time / dt);
-		if (menuState == GIN)
+		switch (currentEffect)
 		{
-			App->gui->alpha_value -= Dalpha;
-			if (App->gui->alpha_value <= 0)
+		case FADE:
+			if (type == MENU)
 			{
-				App->gui->alpha_value = 0;
-				menuState = GOUT;
-				App->uiScene->loadMenu(newMenuID);
-			}
-		}
-		else if (menuState == GOUT)
-		{
-			App->gui->alpha_value += Dalpha;
-			if (App->gui->alpha_value >= 255)
+				float Dalpha = 255 / (total_time / dt);
+				if (state == GIN)
+				{
+					App->gui->alpha_value -= Dalpha;
+					if (App->gui->alpha_value <= 0)
+					{
+						App->gui->alpha_value = 0;
+						state = GOUT;
+						App->uiScene->loadMenu(newMenuID);
+					}
+				}
+				else if (state == GOUT)
+				{
+					App->gui->alpha_value += Dalpha;
+					if (App->gui->alpha_value >= 255)
+					{
+						App->gui->alpha_value = 255;
+						state = UNACTIVE;
+						doingTransition = false;
+					}
+				}
+			}if (type == SCENE)
 			{
-				App->gui->alpha_value = 255;
-				menuState = UNACTIVE;
-				doingMenuTransition = false;
+				float Dalpha = 255 / (total_time / dt);
+				if (state == GOUT)
+				{
+					alpha_value -= Dalpha;
+					if (alpha_value <= 0)
+					{
+						alpha_value = 0;
+						state = UNACTIVE;
+						doingTransition = false;
+					}
+				}
+				else if (state == GIN)
+				{
+					alpha_value += Dalpha;
+					if (alpha_value >= 255)
+					{
+						alpha_value = 255;
+						state = GOUT;
+						App->scene->newLvl = newLvl;
+						App->scene->load_lvl = true;
+					}
+				}
 			}
-		}
-	}
-
-	if (doingSceneTransition)
-	{
-		float Dalpha = 255 / (total_time / dt);
-		if (sceneState == GOUT)
-		{
-			alpha_value -= Dalpha;
-			if (alpha_value <= 0)
-			{
-				alpha_value = 0;
-				sceneState = UNACTIVE;
-				doingSceneTransition = false;
-			}
-		}
-		else if (sceneState == GIN)
-		{
-			alpha_value += Dalpha;
-			if (alpha_value >= 255)
-			{
-				alpha_value = 255;
-				sceneState = GOUT;
-				App->scene->newLvl = newLvl;
-				App->scene->load_lvl = true;
-			}
-
+			break;
+		case DRAG:
+			break;
 		}
 	}
 
@@ -71,24 +78,28 @@ bool Transition::Update(float dt)
 
 bool Transition::PostUpdate(float dt)
 {
-	if (doingSceneTransition)
+	if (doingTransition && currentEffect == FADE && type == SCENE)
 		App->render->DrawQuad({ 0, 0, App->win->screen_surface->w, App->win->screen_surface->h }, 0, 0, 0, alpha_value, true, false);
 	return true;
 }
 
-void Transition::menuTransition(menu_id newMenuID, float time)
+void Transition::menuTransition(menu_id newMenuID, transition_effect effect, float time)
 {
+	type = MENU;
 	this->newMenuID = newMenuID;
+	currentEffect = effect;
 	timer.Start();
 	total_time = time * 0.5f;
-	doingMenuTransition = true;
-	menuState = GIN;
+	doingTransition = true;
+	state = GIN;
 }
-void Transition::sceneTransition(int newLvl, float time)
+void Transition::sceneTransition(int newLvl, transition_effect effect, float time)
 {
+	type = SCENE;
 	this->newLvl = newLvl;
+	currentEffect = effect;
 	timer.Start();
 	total_time = time * 0.5f;
-	doingSceneTransition = true;
-	sceneState = GIN;
+	doingTransition = true;
+	state = GIN;
 }
