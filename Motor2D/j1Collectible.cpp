@@ -63,14 +63,18 @@ void Collectible::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c2->type == COLLIDER_PLAYER && !App->entityManager->getPlayer()->dead)
 	{
-		App->audio->PlayFx(earn_coin_fx, 0);
-		App->entityManager->DeleteEntity(this);
 
 		j1Player* player = (j1Player*)App->entityManager->getPlayer();
 		if (!player->coins[id - 1])
 		{
+			App->audio->PlayFx(earn_coin_fx, 0);
 			player->score += 500;
 			player->coins[id - 1] = true;
+
+		}
+		else
+		{
+			App->entityManager->DeleteEntity(this);
 		}
 	}
 }

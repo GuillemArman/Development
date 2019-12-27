@@ -12,7 +12,6 @@ FinalInfo::FinalInfo(int x, int y, j1Module* callback) : UI_element(x, y, FINALI
 {
 	_TTF_Font* big_texts_font = App->font->Load("fonts/BMYEONSUNG.ttf", 55);
 	SDL_Color white_color = { 255, 255, 255, 0 };
-	coins_text = App->gui->createText("0", x + 515 * App->gui->UI_scale, y + 377 * App->gui->UI_scale, big_texts_font, white_color);
 	big_coin = App->gui->createImageFromAtlas(x + 465 * App->gui->UI_scale, y + 242 * App->gui->UI_scale, { 11, 457, 82, 82 });
 	final_score = App->gui->createText("0", x + 515 * App->gui->UI_scale, y + 377 * App->gui->UI_scale, big_texts_font, white_color);
 
@@ -38,11 +37,14 @@ void FinalInfo::BlitElement()
 	
 	if (player->coins != 0)
 	{
-		App->render->Blit(big_coin->texture, big_coinPos.x, big_coinPos.y, &big_coin->section, false, App->gui->UI_scale);
+		App->render->Blit(big_coin->texture, big_coinPos.x + 200, big_coinPos.y, &big_coin->section, false, App->gui->UI_scale);
 	}
 
 	p2SString coins_str("X %d coins", player->coins);
-	//coins_text->
+	/*p2SString coins_str("X %d coins", player->coins);
+	coins_textPos.y + 100;
+	coins_text->setText(coins_str);
+	coins_text->BlitElement();*/
 
 
 }

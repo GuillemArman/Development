@@ -15,7 +15,6 @@ public:
 
 public:
 
-	Text* coins_text = nullptr;
 	Image* big_coin = nullptr;
 	Text* final_score = nullptr;
 };

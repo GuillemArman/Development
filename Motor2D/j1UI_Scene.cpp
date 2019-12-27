@@ -17,6 +17,7 @@
 #include "p2Log.h"
 #include "j1Transition.h"
 #include "UI_FinalInfo.h"
+#include "j1Player.h"
 
 j1UIScene::j1UIScene()
 {
@@ -35,12 +36,13 @@ bool j1UIScene::Awake()
 
 bool j1UIScene::Start()
 {
-	_TTF_Font* big_buttons_font = App->font->Load("fonts/BMYEONSUNG.ttf", 50);
-	_TTF_Font* mid_buttons_font = App->font->Load("fonts/BMYEONSUNG.ttf", 30);
-	_TTF_Font* big_texts_font = App->font->Load("fonts/TCCEB.ttf", 55);
-	_TTF_Font* mid_texts_font = App->font->Load("fonts/TCCEB.ttf", 36);
-	_TTF_Font* small_texts_font = App->font->Load("fonts/TCCEB.ttf", 19);
-	_TTF_Font* huge_texts_font = App->font->Load("fonts/TCCEB.ttf", 80);
+	_TTF_Font* big_buttons_font = App->font->Load("fonts/Unknown.ttf", 50);
+	_TTF_Font* mid_buttons_font = App->font->Load("fonts/Unknown.ttf", 30);
+	_TTF_Font* big_texts_font = App->font->Load("fonts/Unknown.ttf", 55);
+	_TTF_Font* mid_texts_font = App->font->Load("fonts/BMYEONSUNG.ttf", 36);
+	_TTF_Font* small_texts_font = App->font->Load("fonts/Unknown.ttf", 15);
+	_TTF_Font* huge_texts_font = App->font->Load("fonts/Unknown.ttf", 80);
+	_TTF_Font* special_text_font = App->font->Load("fonts/BMYEONSUNG.ttf", 55);
 
 	SDL_Color yellow_color = { 229, 168, 61, 255 };
 	SDL_Color white_color = { 255, 255, 255, 0 };
@@ -292,10 +294,14 @@ bool j1UIScene::Start()
 	menu* endMenu = new menu(FINAL_MENU);
 	{
 		UI_element* lvl_end_window = App->gui->createWindow(50 * App->gui->UI_scale, 75 * App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 0,0,923,581 }, this);
-		UI_element* congratulations_txt = App->gui->createText("CONGRATULATIONS!", 0, 0, huge_texts_font, white_color, this);
+
+		UI_element* congratulations_txt = App->gui->createText("CONGRATULATIONS", 0, 0, huge_texts_font, white_color, this);
 		congratulations_txt->setOutlined(true);
 		lvl_end_window->appendChildAtCenter(congratulations_txt);
 		congratulations_txt->localPosition.y = 20;
+		//COINS TEXT
+		UI_element* coins_txt = App->gui->createText(("COINS: X%d"), 330 * App->gui->UI_scale, 300 * App->gui->UI_scale, special_text_font, white_color, this);
+
 		//NEW GAME
 		UI_element* newGame_endMenu = App->gui->createButton(0, 0, NULL, { 757,341,119,124 }, { 757,465,119,124 }, { 757,589,119,124 }, this);
 		newGame_endMenu->function = NEW_GAME;
@@ -305,12 +311,15 @@ bool j1UIScene::Start()
 		UI_element* home_button2 = App->gui->createButton(0 * App->gui->UI_scale, 0 * App->gui->UI_scale, NULL, { 638,713,119,124 }, { 757,713,119,124 }, { 876,713,119,124 }, this);
 		home_button2->function = HOME;
 		lvl_end_window->appendChild(302 * App->gui->UI_scale, 400 * App->gui->UI_scale, home_button2);
-		
+
+
 		UI_element* finalInfo = App->gui->createFinalInfo(-100, 0, this);
+
 
 		endMenu->elements.add(lvl_end_window);
 		endMenu->elements.add(newGame_endMenu);
 		endMenu->elements.add(home_button2);
+		endMenu->elements.add(coins_txt);
 
 		endMenu->elements.add(finalInfo);
 		menus.add(endMenu);
