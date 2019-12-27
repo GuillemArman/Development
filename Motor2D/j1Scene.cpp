@@ -235,7 +235,7 @@ void j1Scene::LoadLvl(int num)
 		if (respawn_enemies && num == 2)
 		{
 			j1Player* player = (j1Player*)App->entityManager->getPlayer();
-			player->collectibles[0] = player->collectibles[1] = player->collectibles[2] = player->collectibles[3] = false;
+			player->coins[0] = player->coins[1] = player->coins[2] = false;
 			player->lives = 3;
 			player->score = 0;
 			App->uiScene->clock->counter.Play();

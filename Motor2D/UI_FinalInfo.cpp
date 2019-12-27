@@ -41,7 +41,7 @@ void FinalInfo::BlitElement()
 	final_score->BlitElement();
 
 
-	if (player->collectibles != 0)
+	if (player->coins != 0)
 	{
 		App->render->Blit(big_coin->texture, big_coinPos.x + 140, big_coinPos.y + 32, &big_coin->section, false, App->gui->UI_scale);
 	}
