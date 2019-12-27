@@ -42,7 +42,7 @@ public:
 	Animation* godMode = nullptr;
 	iPoint godmode_offset;
 
-	bool coins[3];
+	bool coins[4];
 	
 	bool double_jump = false;
 	bool won = false;

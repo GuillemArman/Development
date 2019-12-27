@@ -92,7 +92,7 @@ bool j1Player::Start()
 	{
 		score = 0;
 		lives = 3;
-		coins[0] = coins[1] = coins[2] = false;
+		coins[0] = coins[1] = coins[2] = coins[3] = false;
 	}
 
 	animation = idle_right;
@@ -456,6 +456,7 @@ bool j1Player::Load(pugi::xml_node& data)
 	coins[0] = data.attribute("coin1").as_bool();
 	coins[1] = data.attribute("coin2").as_bool();
 	coins[2] = data.attribute("coin3").as_bool();
+	coins[3] = data.attribute("coin4").as_bool();
 	App->scene->respawn_enemies = false;
 	App->scene->LoadLvl(data.attribute("level").as_int());
 	virtualPosition.x = data.attribute("position_x").as_int();
@@ -490,6 +491,8 @@ bool j1Player::Save(pugi::xml_node& data) const
 	data.append_attribute("coin2") = coins[1];
 
 	data.append_attribute("coin3") = coins[2];
+
+	data.append_attribute("coin4") = coins[3];
 
 	return true;
 }
