@@ -6,6 +6,7 @@
 #include "j1Render.h"
 #include "UI_Image.h"
 #include "UI_Text.h"
+#include "Brofiler\Brofiler.h"
 
 FinalInfo::FinalInfo(int x, int y, j1Module* callback) : UI_element(x, y, FINALINFO, { 0,0,0,0 }, callback)
 {
@@ -23,6 +24,8 @@ FinalInfo::~FinalInfo()
 
 void FinalInfo::BlitElement()
 {
+	BROFILER_CATEGORY("FinalInfo Blit", Profiler::Color::NavajoWhite);
+
 	iPoint big_coin_socketPos = big_coin_socket->calculateAbsolutePosition();
 	iPoint big_coinPos = big_coin->calculateAbsolutePosition();
 

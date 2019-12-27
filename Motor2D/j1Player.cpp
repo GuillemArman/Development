@@ -80,10 +80,11 @@ bool j1Player::Start()
 
 	dead = false;
 	sound_one_time = false;
+	loading = false;
+	won = false;
 
 	old_savedCol = nullptr;
-	//App->SaveGame(true);
-
+	
 	v.x = 0;
 	v.y = 0;
 
@@ -257,9 +258,10 @@ bool j1Player::PostUpdate(float dt)
 			if (end_reached == 0)
 			{
 				won = true;
+				loading = true;
 				App->uiScene->pauseClock();
 				end_reached = SDL_GetTicks();
-				if (App->scene->current_lvl == App->scene->levels.end - 1)
+				if (App->scene->current_lvl == (App->scene->levels.end->prev))
 				{
 					App->audio->PlayFx(App->scene->win_fx, 0);
 					
@@ -274,11 +276,11 @@ bool j1Player::PostUpdate(float dt)
 
 		if (!App->paused)
 		{
-			if (won && !loading && (/*(App->scene->current_lvl == App->scene->levels.end && SDL_GetTicks() > end_reached + 5000) || */(App->scene->current_lvl != App->scene->levels.end && SDL_GetTicks() > end_reached + 500)))
+			if (won && loading && ((App->scene->current_lvl != App->scene->levels.end && SDL_GetTicks() > end_reached + 500)))
 			{
 				end_reached = 0;
 				won = false;
-				loading = true;
+				
 				dead = false;
 				App->transition->sceneTransition(0);
 			}
@@ -287,11 +289,11 @@ bool j1Player::PostUpdate(float dt)
 			if (dead && SDL_GetTicks() > killed_finished + 1500 && !won && loading)
 			{
 				loading = false;
-				//App->scene->load_lvl = true;
+				
 				if (lives > 0)
 				{
 					App->transition->sceneTransition(App->scene->current_lvl->data->lvl);
-					//App->scene->newLvl = App->scene->current_lvl->data->lvl;
+					
 					App->scene->respawn_enemies = false;
 					
 				}
@@ -313,11 +315,11 @@ bool j1Player::PostUpdate(float dt)
 				{
 					lives--;
 					dead = true;
-					//App->scene->load_lvl = true;
+					
 					if (lives > 0)
 					{
 						App->transition->sceneTransition(App->scene->current_lvl->data->lvl);
-						//App->scene->newLvl = App->scene->current_lvl->data->lvl;
+						
 						App->scene->respawn_enemies = false;
 						App->audio->PlayFx(killed_fx, 0);
 					}
@@ -335,7 +337,7 @@ bool j1Player::PostUpdate(float dt)
 			killed_finished += dt * 1000;
 		}
 
-		//When f10 is clicked he converts into god mode
+		// god mode
 		if (App->entityManager->player_god_mode)
 		{
 			App->render->Blit(graphics_god, position.x + godmode_offset.x, position.y + godmode_offset.y, &godMode->GetCurrentFrame(dt));

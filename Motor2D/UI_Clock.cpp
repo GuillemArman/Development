@@ -2,7 +2,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Gui.h"
-
+#include "Brofiler\Brofiler.h"
 
 void Clock::setStartValue(int new_start_value)
 {
@@ -29,6 +29,8 @@ void Clock::restartChrono()
 
 void Clock::BlitElement()
 {
+	BROFILER_CATEGORY("Clock Blit", Profiler::Color::PowderBlue);
+
 	time_elapsed = counter.ReadSec();
 
 	switch (type)
