@@ -323,7 +323,7 @@ bool j1Player::PostUpdate(float dt)
 					{
 						App->transition->sceneTransition(App->scene->current_lvl->data->lvl);
 						
-						App->scene->respawn_enemies = true;
+						App->scene->respawn_enemies = false;
 						App->audio->PlayFx(killed_fx, 0);
 					}
 					else
