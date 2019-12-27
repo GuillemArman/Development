@@ -43,6 +43,7 @@ public:
 	iPoint godmode_offset;
 
 	bool coins[4];
+	iPoint coins_pos[4];
 	
 	bool double_jump = false;
 	bool won = false;

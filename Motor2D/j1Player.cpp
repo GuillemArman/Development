@@ -115,7 +115,7 @@ bool j1Player::Start()
 	if (godmode_off == 0)
 		godmode_off = App->audio->LoadFx("audio/fx/godmode_off_fx.wav");
 	if (killed_fx == 0)
-		killed_fx = App->audio->LoadFx("audio/fx/killed_by_enemy.wav");
+		killed_fx = App->audio->LoadFx("audio/fx/dead_fx.wav");
 
 	return true;
 }

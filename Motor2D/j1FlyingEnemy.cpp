@@ -24,7 +24,8 @@ Flying_Enemy::Flying_Enemy() : Entity("flying")
 	collider_offset.x *= scale;
 	collider_offset.y *= scale;
 
-	if (die_fx == 0) {}
+	if (die_fx == 0)
+		die_fx = App->audio->LoadFx("audio/fx/die.wav");	
 	// fx flying enemy dies
 
 

@@ -17,6 +17,7 @@
 #include "UI_Clock.h"
 #include "UI_PlayerInfo.h"
 #include "UI_FinalInfo.h"
+#include "j1Audio.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -45,6 +46,7 @@ bool j1Gui::Start()
 	atlas = App->tex->Load(atlas_file_name.GetString());
 	UI_scale = App->win->GetScale();
 	UI_scale = 1 / UI_scale;
+	button_click_fx = App->audio->LoadFx("audio/fx/button_click.wav");
 
 	return true;
 }
@@ -104,6 +106,8 @@ bool j1Gui::PreUpdate()
 				element->Start_Drag();
 				draggingElement = element;
 			}
+			if (element->element_type == BUTTON || element->element_type == SWITCH)
+				App->audio->PlayFx(button_click_fx, 0);
 		}
 		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 		{

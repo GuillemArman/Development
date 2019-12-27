@@ -5,19 +5,21 @@
 	<textures />
 	<audio />
 	<:anonymous />
+	<scene />
 	<entityManager>
-		<player position_x="28" position_y="248" level="1" />
-		<player position_x="28" position_y="253" />
-		<walking position_x="407" position_y="184" />
-		<walking position_x="1705" position_y="273" />
-		<flying position_x="413" position_y="141" />
-		<flying position_x="751" position_y="72" />
-		<flying position_x="1169" position_y="283" />
+		<player position_x="166" position_y="180" level="2" lives="2" score="1200" coin1="true" coin2="true" coin3="false" coin4="false" />
+		<player position_x="166" position_y="185" />
+		<walking position_x="293" position_y="219" />
+		<flying position_x="879" position_y="79" />
+		<collectible position_x="498" position_y="175" />
 	</entityManager>
 	<map />
-	<scene />
+	<:anonymous />
+	<fonts />
+	<gui />
+	<:anonymous chrono="8748" />
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-9" y="0" />
 	</renderer>
 </game_state>
