@@ -306,7 +306,7 @@ bool j1UIScene::Start()
 		home_button2->function = HOME;
 		lvl_end_window->appendChild(302 * App->gui->UI_scale, 400 * App->gui->UI_scale, home_button2);
 		
-		UI_element* finalInfo = App->gui->createFinalInfo(0, 0, this);
+		UI_element* finalInfo = App->gui->createFinalInfo(-100, 0, this);
 
 		endMenu->elements.add(lvl_end_window);
 		endMenu->elements.add(newGame_endMenu);
