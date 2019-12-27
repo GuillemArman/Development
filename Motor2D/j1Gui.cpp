@@ -16,6 +16,7 @@
 #include "UI_Slider.h"
 #include "UI_Clock.h"
 #include "UI_PlayerInfo.h"
+#include "UI_FinalInfo.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -312,3 +313,11 @@ PlayerInfo * j1Gui::createPlayerInfo(int x, int y, j1Module* callback)
 	UI_elements.add(ret);
 	return ret;
 }
+
+FinalInfo* j1Gui::createFinalInfo(int x, int y, j1Module* callback)
+{
+	FinalInfo* ret = new FinalInfo(x, y, callback);
+	UI_elements.add(ret);
+	return ret;
+}
+

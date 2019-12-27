@@ -15,7 +15,7 @@ public:
 
 public:
 
-	Image * big_coin_socket = nullptr;
+	
 	Image* big_coin = nullptr;
 	Text* final_score = nullptr;
 };

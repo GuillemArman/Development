@@ -16,6 +16,7 @@
 #include "j1Window.h"
 #include "p2Log.h"
 #include "j1Transition.h"
+#include "UI_FinalInfo.h"
 
 j1UIScene::j1UIScene()
 {
@@ -302,15 +303,16 @@ bool j1UIScene::Start()
 
 		//HOME BUTTON
 		UI_element* home_button2 = App->gui->createButton(0 * App->gui->UI_scale, 0 * App->gui->UI_scale, NULL, { 638,713,119,124 }, { 757,713,119,124 }, { 876,713,119,124 }, this);
-		UI_element* home_button2_image = App->gui->createImageFromAtlas(179 * App->gui->UI_scale, 92 * App->gui->UI_scale, { 890, 185, 50, 47 }, this);
 		home_button2->function = HOME;
 		lvl_end_window->appendChild(302 * App->gui->UI_scale, 400 * App->gui->UI_scale, home_button2);
-		lvl_end_window->appendChild(302 * App->gui->UI_scale, 400 * App->gui->UI_scale, home_button2_image);
+		
+		UI_element* finalInfo = App->gui->createFinalInfo(0, 0, this);
 
 		endMenu->elements.add(lvl_end_window);
 		endMenu->elements.add(newGame_endMenu);
 		endMenu->elements.add(home_button2);
-		endMenu->elements.add(home_button2_image);
+
+		endMenu->elements.add(finalInfo);
 		menus.add(endMenu);
 	}
 
