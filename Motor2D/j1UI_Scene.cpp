@@ -162,7 +162,6 @@ bool j1UIScene::Start()
 		time_txt->setOutlined(true);
 
 		//CLOCK
-		clock = App->gui->createTimer(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, 35, mid_texts_font, white_color, this);
 		clock = App->gui->createStopWatch(800 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, black_color, this);
 
 
@@ -293,14 +292,14 @@ bool j1UIScene::Start()
 
 	menu* endMenu = new menu(FINAL_MENU);
 	{
+		j1Player* player = (j1Player*)App->entityManager->getPlayer();
+
 		UI_element* lvl_end_window = App->gui->createWindow(50 * App->gui->UI_scale, 75 * App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 0,0,923,581 }, this);
 
 		UI_element* congratulations_txt = App->gui->createText("CONGRATULATIONS", 0, 0, huge_texts_font, white_color, this);
 		congratulations_txt->setOutlined(true);
 		lvl_end_window->appendChildAtCenter(congratulations_txt);
 		congratulations_txt->localPosition.y = 20;
-		//COINS TEXT
-		UI_element* coins_txt = App->gui->createText(("COINS: X%d"), 330 * App->gui->UI_scale, 300 * App->gui->UI_scale, special_text_font, white_color, this);
 
 		//NEW GAME
 		UI_element* newGame_endMenu = App->gui->createButton(0, 0, NULL, { 757,341,119,124 }, { 757,465,119,124 }, { 757,589,119,124 }, this);
@@ -312,14 +311,14 @@ bool j1UIScene::Start()
 		home_button2->function = HOME;
 		lvl_end_window->appendChild(302 * App->gui->UI_scale, 400 * App->gui->UI_scale, home_button2);
 
-
+		//COISN AND SCORE
 		UI_element* finalInfo = App->gui->createFinalInfo(-100, 0, this);
 
 
 		endMenu->elements.add(lvl_end_window);
 		endMenu->elements.add(newGame_endMenu);
 		endMenu->elements.add(home_button2);
-		endMenu->elements.add(coins_txt);
+
 
 		endMenu->elements.add(finalInfo);
 		menus.add(endMenu);

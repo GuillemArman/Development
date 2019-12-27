@@ -96,7 +96,7 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		load_lvl = true;
-		newLvl = 2;
+		newLvl = 3;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)

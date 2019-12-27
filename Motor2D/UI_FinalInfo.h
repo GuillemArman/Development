@@ -17,6 +17,8 @@ public:
 
 	Image* big_coin = nullptr;
 	Text* final_score = nullptr;
+	Text* total_coins = nullptr;
+	Text* total_time = nullptr;	
 };
 
 

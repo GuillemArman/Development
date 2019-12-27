@@ -70,7 +70,7 @@ void Collectible::OnCollision(Collider* c1, Collider* c2)
 			App->audio->PlayFx(earn_coin_fx, 0);
 			player->score += 500;
 			player->coins[id - 1] = true;
-
+			player->num_coins += 1;
 		}
 		else
 		{

@@ -32,6 +32,7 @@ public:
 	bool sound_one_time = false;
 	uint lives = 0;
 	uint score = 0;
+	uint num_coins = 0;
 
 	Animation* jump = nullptr;
 	iPoint jump_offset;
