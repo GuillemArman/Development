@@ -381,6 +381,10 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		switch (element->function)
 		{
 		case NEW_GAME:
+		{
+			j1Player* player = (j1Player*)App->entityManager->getPlayer();
+			player->num_coins = 0;
+		}
 		case RESTART:
 		{
 			App->paused = false;

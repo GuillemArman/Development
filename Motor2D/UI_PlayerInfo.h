@@ -13,11 +13,11 @@ public:
 	void BlitElement();
 
 public:
-	Image * coin_socket;
-	Image* coin;
-	Image* live;
+	Image* coin = nullptr;
+	Image* live = nullptr;
 	Image* empty_live = nullptr;
 	Text* score = nullptr;
 	Image* god_live = nullptr;
+	Text* coin_txt = nullptr;
 };
 #endif // !__UI_PLAYERINFO__  
