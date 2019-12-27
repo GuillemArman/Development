@@ -61,7 +61,7 @@ public:
 
 	void setSaveFileLoadable(bool loadable) const;
 	bool getSaveFileLoadability() const;
-
+	void RequestBrowser(const char * url) const;
 
 private:
 
@@ -87,7 +87,7 @@ private:
 	bool LoadGameNow();
 	bool SavegameNow() const;
 
-	void RequestBrowser(const char * url) const;
+	
 
 public:
 

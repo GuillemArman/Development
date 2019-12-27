@@ -62,9 +62,18 @@ bool j1UIScene::Start()
 		back_text->setOutlined(true);
 		back_button->appendChildAtCenter(back_text);
 
+		//WEBPAGE
+		UI_element* web_button = App->gui->createButton(825 * App->gui->UI_scale, 615 * App->gui->UI_scale, NULL, { 849,69,133,36 }, { 849,106,133,36 }, { 849,143,133,36 }, this);
+		web_button->function = WEBPAGE;
+		UI_element* web_text = App->gui->createText("WEB", 200, 200, small_texts_font, white_color);
+		web_text->setOutlined(true);
+		web_button->appendChildAtCenter(web_text);
+
 		creditsMenu->elements.add(credits_img);
 		creditsMenu->elements.add(back_button);
 		creditsMenu->elements.add(back_text);
+		creditsMenu->elements.add(web_button);
+		creditsMenu->elements.add(web_text);
 		menus.add(creditsMenu);
 	}
 
@@ -322,27 +331,6 @@ bool j1UIScene::PreUpdate()
 
 bool j1UIScene::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-	{
-		App->scene->load_lvl = true;
-		App->scene->newLvl = 1;
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-	{
-		App->paused = true;
-		loadMenu(PAUSE_MENU);
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
-		App->paused = true;
-		loadMenu(SETTINGS_MENU);
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
-	{
-		App->paused = true;
-		loadMenu(FINAL_MENU);
-	}
-
 	return true;
 }
 
@@ -443,6 +431,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				App->setSaveFileLoadable(false);
 			App->transition->sceneTransition(1);
 			break;
+		case WEBPAGE:
+			App->RequestBrowser("https://www.youtube.com/watch?v=SQNtGoM3FVU");
 		}
 	}
 	else if (event_type == MOUSE_LEFT_RELEASE)

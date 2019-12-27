@@ -156,10 +156,6 @@ bool j1App::Update()
 	if(ret == true)
 		ret = PreUpdate();
 
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-		paused = !paused;
-
-
 	if (ret == true)
 		ret = DoUpdate();
 
