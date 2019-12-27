@@ -28,7 +28,7 @@ Collectible::Collectible(int id) : Entity("collectible")
 	if (earn_coin_fx == 0)
 		earn_coin_fx = App->audio->LoadFx("audio/fx/cash.wav");
 	j1Player* player = (j1Player*)App->entityManager->getPlayer();
-	if (player->coins[id - 1])
+	if (player->collectibles[id - 1])
 	{
 		SDL_Texture* tmp = graphics;
 		graphics = ghost_graphics;
@@ -58,7 +58,7 @@ bool Collectible::Update(float dt)
 		{
 			j1Player* player = (j1Player*)App->entityManager->getPlayer();
 			player->score += 500;
-			player->coins[id - 1] = true;
+			player->collectibles[id - 1] = true;
 			moving = false;
 			App->entityManager->DeleteEntity(this);
 		}
@@ -83,10 +83,10 @@ void Collectible::OnCollision(Collider* c1, Collider* c2)
 		App->audio->PlayFx(earn_coin_fx, 0);
 
 		j1Player* player = (j1Player*)App->entityManager->getPlayer();
-		if (!player->coins[id - 1])
+		if (!player->collectibles[id - 1])
 		{
 			
-			moveTo(player->coins_pos[id - 1].x, player->coins_pos[id - 1].y);	
+			moveTo(player->collectible_pos[id - 1].x, player->collectible_pos[id - 1].y);
 			player->num_coins += 1;
 		}
 		else
