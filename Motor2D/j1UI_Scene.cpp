@@ -81,7 +81,7 @@ bool j1UIScene::Start()
 	{
 		App->paused = true;
 		//TITLE
-		UI_element* title_img = App->gui->createImageFromAtlas(179 * App->gui->UI_scale, 92 * App->gui->UI_scale, { 0, 0, 664,147 }, this);
+		UI_element* title_img = App->gui->createImageFromAtlas(179 * App->gui->UI_scale, 92 * App->gui->UI_scale, { 0, 0, 664, 147 }, this);
 
 		//NEW GAME
 		UI_element* new_game = App->gui->createButton(372 * App->gui->UI_scale, 341 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
@@ -291,10 +291,10 @@ bool j1UIScene::Start()
 	menu* endMenu = new menu(FINAL_MENU);
 	{
 		UI_element* lvl_end_window = App->gui->createWindow(50 * App->gui->UI_scale, 75 * App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 0,0,923,581 }, this);
-		UI_element* succes_txt = App->gui->createText("SUCCESS!", 0, 0, huge_texts_font, white_color, this);
-		succes_txt->setOutlined(true);
-		lvl_end_window->appendChildAtCenter(succes_txt);
-		succes_txt->localPosition.y = 20;
+		UI_element* congratulations_txt = App->gui->createText("CONGRATULATIONS!", 0, 0, huge_texts_font, white_color, this);
+		congratulations_txt->setOutlined(true);
+		lvl_end_window->appendChildAtCenter(congratulations_txt);
+		congratulations_txt->localPosition.y = 20;
 		//NEW GAME
 		UI_element* newGame_endMenu = App->gui->createButton(0, 0, NULL, { 757,341,119,124 }, { 757,465,119,124 }, { 757,589,119,124 }, this);
 		newGame_endMenu->function = NEW_GAME;
@@ -302,12 +302,15 @@ bool j1UIScene::Start()
 
 		//HOME BUTTON
 		UI_element* home_button2 = App->gui->createButton(0 * App->gui->UI_scale, 0 * App->gui->UI_scale, NULL, { 638,713,119,124 }, { 757,713,119,124 }, { 876,713,119,124 }, this);
+		UI_element* home_button2_image = App->gui->createImageFromAtlas(179 * App->gui->UI_scale, 92 * App->gui->UI_scale, { 890, 185, 50, 47 }, this);
 		home_button2->function = HOME;
 		lvl_end_window->appendChild(302 * App->gui->UI_scale, 400 * App->gui->UI_scale, home_button2);
+		lvl_end_window->appendChild(302 * App->gui->UI_scale, 400 * App->gui->UI_scale, home_button2_image);
 
 		endMenu->elements.add(lvl_end_window);
 		endMenu->elements.add(newGame_endMenu);
 		endMenu->elements.add(home_button2);
+		endMenu->elements.add(home_button2_image);
 		menus.add(endMenu);
 	}
 

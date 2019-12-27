@@ -110,10 +110,10 @@ bool j1Player::Start()
 		landing_fx = App->audio->LoadFx("audio/fx/landing.wav");
 	if (die_fx == 0)
 		die_fx = App->audio->LoadFx("audio/fx/die.wav");
-	if (SSJ_transformation == 0)
-		SSJ_transformation = App->audio->LoadFx("audio/fx/SSJ_transformation.wav");
-	if (SSJ_off == 0)
-		SSJ_off = App->audio->LoadFx("audio/fx/SSJ_off.wav");
+	if (godmode_on == 0)
+		godmode_on = App->audio->LoadFx("audio/fx/godmode_on_fx.wav");
+	if (godmode_off == 0)
+		godmode_off = App->audio->LoadFx("audio/fx/godmode_off_fx.wav");
 	if (killed_fx == 0)
 		killed_fx = App->audio->LoadFx("audio/fx/killed_by_enemy.wav");
 
@@ -137,13 +137,14 @@ bool j1Player::Update(float dt)
 			{
 
 				App->entityManager->player_god_mode = false;
-				App->audio->PlayFx(SSJ_off, 0);
+				App->audio->PlayFx(godmode_off, 0);
 			}
 			else
 			{
 
 				App->entityManager->player_god_mode = true;
-				App->audio->PlayFx(SSJ_transformation, 0);
+				App->audio->PlayFx(godmode_on, 0);
+				App->SaveGame(true);
 
 			}
 		}
@@ -449,14 +450,16 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 bool j1Player::Load(pugi::xml_node& data)
 {
-	App->scene->respawn_enemies = false;
-	App->scene->LoadLvl(data.attribute("level").as_int());
+	
 	lives = data.attribute("lives").as_uint();
-	virtualPosition.x = data.attribute("position_x").as_int();
-	virtualPosition.y = data.attribute("position_y").as_int();
+	score = data.attribute("score").as_int();
 	coins[0] = data.attribute("coin1").as_bool();
 	coins[1] = data.attribute("coin2").as_bool();
 	coins[2] = data.attribute("coin3").as_bool();
+	App->scene->respawn_enemies = false;
+	App->scene->LoadLvl(data.attribute("level").as_int());
+	virtualPosition.x = data.attribute("position_x").as_int();
+	virtualPosition.y = data.attribute("position_y").as_int();
 	App->render->virtualCamPos = -(virtualPosition.x * (int)App->win->GetScale() - 300);
 	if (App->render->virtualCamPos > 0)
 	{
@@ -479,6 +482,8 @@ bool j1Player::Save(pugi::xml_node& data) const
 	data.append_attribute("level") = App->scene->current_lvl->data->lvl;
 
 	data.append_attribute("lives") = lives;
+
+	data.append_attribute("score") = score;
 
 	data.append_attribute("coin1") = coins[0];
 
