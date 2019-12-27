@@ -15,12 +15,12 @@ PlayerInfo::PlayerInfo(int x, int y, j1Module* callback) : UI_element(x, y, PLAY
 	_TTF_Font* mid_texts_font = App->font->Load("fonts/BMYEONSUNG.ttf", 36);
 	SDL_Color black_color = { 0, 0, 0, 255 };
 	
-	god_live = App->gui->createImageFromAtlas(x + 60, y + 3, { 880, 285, 65, 50 });
+	god_live = App->gui->createImageFromAtlas(x + 60, y + 3, { 880, 290, 50, 50 });
 	
 	j1Player* player = (j1Player*)App->entityManager->getPlayer();
 
 	coin = App->gui->createImageFromAtlas(x + 152, y + 3, { 895, 189, 41, 41 });
-	live = App->gui->createImageFromAtlas(x + 60, y + 5, { 880, 235, 100, 40 });
+	live = App->gui->createImageFromAtlas(x + 60, y + 0, { 880, 235, 70, 50 });
 	empty_live = App->gui->createImageFromAtlas(x + 62, y + 3, { 431, 449, 51, 48 });
 	score = App->gui->createText("000", x + 230, y + 3, mid_texts_font, black_color);
 	coin_txt = App->gui->createText("0", x + 180, y + 3, mid_texts_font, black_color);
@@ -66,5 +66,5 @@ void PlayerInfo::BlitElement()
 		App->render->Blit(god_live->texture, godlivePos.x, godlivePos.y, &god_live->section, false, App->gui->UI_scale);
 	}
 
-	App->render->Blit(coin->texture, coinPos.x, coinPos.y, &coin->section, false, App->gui->UI_scale);
+	App->render->Blit(coin->texture,coinPos.x,coinPos.y, &coin->section, false, App->gui->UI_scale);
 }
