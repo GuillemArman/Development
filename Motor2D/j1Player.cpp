@@ -315,13 +315,15 @@ bool j1Player::PostUpdate(float dt)
 				else
 				{
 					lives--;
+					num_coins = 0;
+					score = 0;
 					dead = true;
 					
 					if (lives > 0)
 					{
 						App->transition->sceneTransition(App->scene->current_lvl->data->lvl);
 						
-						App->scene->respawn_enemies = false;
+						App->scene->respawn_enemies = true;
 						App->audio->PlayFx(killed_fx, 0);
 					}
 					else
@@ -433,8 +435,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			if (!sound_one_time && killed_finished == 0)
 			{
 				lives--;
+				num_coins = 0;
+				score = 0;
 				killed_finished = SDL_GetTicks();
-
 				sound_one_time = true;
 				if (lives > 0)
 					App->audio->PlayFx(killed_fx, 0);

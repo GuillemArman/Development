@@ -57,7 +57,7 @@ bool Collectible::Update(float dt)
 		if (pos_relCam <= goingTo.x && virtualPosition.y <= goingTo.y)
 		{
 			j1Player* player = (j1Player*)App->entityManager->getPlayer();
-			player->score += 500;
+			//player->score += 500;
 			player->coins[id - 1] = true;
 			moving = false;
 			App->entityManager->DeleteEntity(this);
@@ -80,14 +80,19 @@ void Collectible::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c2->type == COLLIDER_PLAYER && !App->entityManager->getPlayer()->dead && !moving)
 	{
+		j1Player* player = (j1Player*)App->entityManager->getPlayer();
 		App->audio->PlayFx(earn_coin_fx, 0);
 
-		j1Player* player = (j1Player*)App->entityManager->getPlayer();
+		player->score += 500;
+
+		
 		if (!player->coins[id - 1])
 		{
 			
 			moveTo(player->coins_pos[id - 1].x, player->coins_pos[id - 1].y);	
 			player->num_coins += 1;
+
+			App->entityManager->DeleteEntity(this);
 		}
 		else
 		{
