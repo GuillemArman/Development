@@ -7,6 +7,6 @@
   <image source="jgl_background.png" width="600" height="375"/>
  </imagelayer>
  <objectgroup name="Logic">
-  <object id="8" name="player_start_pos" x="197.5" y="185.5" width="21" height="33"/>
+  <object id="8" name="player_start_pos" x="586.5" y="385.5" width="21" height="33"/>
  </objectgroup>
 </map>
