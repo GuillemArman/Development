@@ -25,8 +25,6 @@ public:
 	int id = 0;
 	SDL_Texture* ghost_graphics = nullptr;
 
-	bool moving = false;
-	iPoint goingTo;
-	fPoint distanceTo;
+
 };
 #endif // !__j1Collectible__
