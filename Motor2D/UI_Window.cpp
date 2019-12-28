@@ -29,7 +29,7 @@ void Window::appendChildAtCenter(UI_element * child)
 
 void Window::BlitElement()
 {
-	BROFILER_CATEGORY("Window Blit", Profiler::Color::ForestGreen);
+	BROFILER_CATEGORY("Window Blit", Profiler::Color::LemonChiffon);
 
 	SDL_SetTextureAlphaMod(texture, App->gui->alpha_value);
 	iPoint globalPos = calculateAbsolutePosition();

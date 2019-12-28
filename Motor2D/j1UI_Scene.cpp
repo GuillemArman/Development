@@ -36,6 +36,16 @@ bool j1UIScene::Awake()
 
 bool j1UIScene::Start()
 {
+	// Colors for texts
+
+	SDL_Color yellow_color = { 229, 168, 61, 255 };
+	SDL_Color white_color = { 255, 255, 255, 0 };
+	SDL_Color grey_color = { 190, 177, 158, 191 };
+	SDL_Color dark_yellow_color = { 146, 97, 45, 255 };
+	SDL_Color black_color = { 0, 0, 0, 255 };
+
+	// Fonts
+
 	_TTF_Font* big_buttons_font = App->font->Load("fonts/Unknown.ttf", 50);
 	_TTF_Font* mid_buttons_font = App->font->Load("fonts/Unknown.ttf", 30);
 	_TTF_Font* big_texts_font = App->font->Load("fonts/Unknown.ttf", 55);
@@ -44,41 +54,11 @@ bool j1UIScene::Start()
 	_TTF_Font* huge_texts_font = App->font->Load("fonts/Unknown.ttf", 80);
 	_TTF_Font* special_text_font = App->font->Load("fonts/BMYEONSUNG.ttf", 55);
 
-	SDL_Color yellow_color = { 229, 168, 61, 255 };
-	SDL_Color white_color = { 255, 255, 255, 0 };
-	SDL_Color grey_color = { 190, 177, 158, 191 };
-	SDL_Color dark_yellow_color = { 146, 97, 45, 255 };
-	SDL_Color black_color = { 0, 0, 0, 255 };
-
-
+	
 	float music_progress = (float)App->audio->getMusicVolume() / 128;
 	float fx_progress = (float)App->audio->getFxVolume() / 128;
 
-	menu* creditsMenu = new menu(CREDITS_MENU);
-	{
-		UI_element* credits_img = App->gui->createImage(0, 0, App->tex->Load("gui/credits.png"), this);
-		//BACK
-		UI_element* back_button = App->gui->createButton(55 * App->gui->UI_scale, 615 * App->gui->UI_scale, NULL, { 849,69,133,36 }, { 849,106,133,36 }, { 849,143,133,36 }, this);
-		back_button->function = BACK;
-
-		UI_element* back_text = App->gui->createText("BACK", 200, 200, small_texts_font, white_color);
-		back_text->setOutlined(true);
-		back_button->appendChildAtCenter(back_text);
-
-		//WEBPAGE
-		UI_element* web_button = App->gui->createButton(825 * App->gui->UI_scale, 615 * App->gui->UI_scale, NULL, { 849,69,133,36 }, { 849,106,133,36 }, { 849,143,133,36 }, this);
-		web_button->function = WEBPAGE;
-		UI_element* web_text = App->gui->createText("WEB", 200, 200, small_texts_font, white_color);
-		web_text->setOutlined(true);
-		web_button->appendChildAtCenter(web_text);
-
-		creditsMenu->elements.add(credits_img);
-		creditsMenu->elements.add(back_button);
-		creditsMenu->elements.add(back_text);
-		creditsMenu->elements.add(web_button);
-		creditsMenu->elements.add(web_text);
-		menus.add(creditsMenu);
-	}
+	// MENUS
 
 	menu* startMenu = new menu(START_MENU);
 	{
@@ -104,16 +84,16 @@ bool j1UIScene::Start()
 		continueButton->appendChildAtCenter(continue_text);
 
 		//EXIT GAME
-		UI_element* exit_game = App->gui->createButton(372 * App->gui->UI_scale, 595 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+		UI_element* exit_game = App->gui->createButton(31 * App->gui->UI_scale, 677 * App->gui->UI_scale, NULL, { 666,0,168,66 }, { 666,67,168,66 }, { 835,0,168,66 }, this);
 
 		exit_game->function = EXIT;
 
-		UI_element* exit_text = App->gui->createText("EXIT", 200, 200, big_buttons_font, yellow_color);
+		UI_element* exit_text = App->gui->createText("EXIT", 200, 200, mid_buttons_font, yellow_color);
 		exit_text->setOutlined(true);
 		exit_game->appendChildAtCenter(exit_text);
 
 		//CREDITS
-		UI_element* credits = App->gui->createButton(31 * App->gui->UI_scale, 647 * App->gui->UI_scale, NULL, { 666,0,168,66 }, { 666,67,168,66 }, { 835,0,168,66 }, this);
+		UI_element* credits = App->gui->createButton(823 * App->gui->UI_scale, 687 * App->gui->UI_scale, NULL, { 666,0,168,66 }, { 666,67,168,66 }, { 835,0,168,66 }, this);
 
 		credits->function = CREDITS;
 
@@ -122,7 +102,7 @@ bool j1UIScene::Start()
 		credits->appendChildAtCenter(credits_text);
 
 		//SETTINGS
-		UI_element* settings_start_menu = App->gui->createButton(823 * App->gui->UI_scale, 647 * App->gui->UI_scale, NULL, { 666,0,168,66 }, { 666,67,168,66 }, { 835,0,168,66 }, this);
+		UI_element* settings_start_menu = App->gui->createButton(823 * App->gui->UI_scale, 607 * App->gui->UI_scale, NULL, { 666,0,168,66 }, { 666,67,168,66 }, { 835,0,168,66 }, this);
 
 		settings_start_menu->function = SETTINGS;
 
@@ -144,69 +124,30 @@ bool j1UIScene::Start()
 		menus.add(startMenu);
 	}
 
-	menu* inGameMenu = new menu(INGAME_MENU);
+	menu* creditsMenu = new menu(CREDITS_MENU);
 	{
-		//PAUSE BUTTON
-		UI_element* pause_button = App->gui->createButton(947 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 666,266,60,63 }, { 726,266,60,63 }, { 786,266,60,63 }, this);
-		pause_button->function = PAUSE;
+		UI_element* credits_img = App->gui->createImage(0, 0, App->tex->Load("gui/credits.png"), this);
+		//BACK
+		UI_element* back_button = App->gui->createButton(55 * App->gui->UI_scale, 615 * App->gui->UI_scale, NULL, { 849,69,133,36 }, { 849,106,133,36 }, { 849,143,133,36 }, this);
+		back_button->function = BACK;
 
-		//LIVES TXT
-		UI_element* lives_txt = App->gui->createText("LIVES: ", 25 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, white_color, this);
-		lives_txt->setOutlined(true);
+		UI_element* back_text = App->gui->createText("BACK", 200, 200, small_texts_font, white_color);
+		back_text->setOutlined(true);
+		back_button->appendChildAtCenter(back_text);
 
-		//PLAYER INFO
-		UI_element* playerInfo = App->gui->createPlayerInfo(0, 0, this);
+		//WEBPAGE
+		UI_element* web_button = App->gui->createButton(825 * App->gui->UI_scale, 615 * App->gui->UI_scale, NULL, { 849,69,133,36 }, { 849,106,133,36 }, { 849,143,133,36 }, this);
+		web_button->function = WEBPAGE;
+		UI_element* web_text = App->gui->createText("WEB", 200, 200, small_texts_font, white_color);
+		web_text->setOutlined(true);
+		web_button->appendChildAtCenter(web_text);
 
-		//TIME
-		UI_element* time_txt = App->gui->createText("TIME:", 700 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, white_color, this);
-		time_txt->setOutlined(true);
-
-		//CLOCK
-		clock = App->gui->createStopWatch(800 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, black_color, this);
-
-
-		inGameMenu->elements.add(pause_button);
-		inGameMenu->elements.add(lives_txt);
-		inGameMenu->elements.add(time_txt);
-		inGameMenu->elements.add(clock);
-		inGameMenu->elements.add(playerInfo);
-
-		menus.add(inGameMenu);
-
-	}
-
-	menu* pauseMenu = new menu(PAUSE_MENU);
-	{
-		//HOME BUTTON
-		UI_element* home_button = App->gui->createButton(947 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 353,506,62,64 }, { 415,506,62,64 }, { 477,506,62,64 }, this);
-		home_button->function = HOME;
-
-		//WINDOW
-		UI_element* pause_window = App->gui->createWindow(208 * App->gui->UI_scale, 182 * App->gui->UI_scale, App->tex->Load("gui/medium_parchment.png"), { 0,0,588,404 }, this);
-
-		//SETTING CIRCLE BUTTON
-		UI_element* settings_button = App->gui->createButton(275 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 876,341,119,124 }, { 876,465,119,124 }, { 876,589,119,124 }, this);
-		settings_button->function = SETTINGS;
-		pause_window->appendChild(67 * App->gui->UI_scale, 150 * App->gui->UI_scale, settings_button);
-
-		//PLAY CIRCLE BUTTON
-		UI_element* play_button = App->gui->createButton(439 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 638,341,119,124 }, { 638,465,119,124 }, { 638,589,119,124 }, this);
-		play_button->function = PAUSE;
-		pause_window->appendChild(231 * App->gui->UI_scale, 150 * App->gui->UI_scale, play_button);
-
-		//NEW GAME CIRCLE BUTTON
-		UI_element* newGame_pauseMenu = App->gui->createButton(606 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 757,341,119,124 }, { 757,465,119,124 }, { 757,589,119,124 }, this);
-		newGame_pauseMenu->function = NEW_GAME;
-		pause_window->appendChild(398 * App->gui->UI_scale, 150 * App->gui->UI_scale, newGame_pauseMenu);
-
-
-		pauseMenu->elements.add(home_button);
-		pauseMenu->elements.add(pause_window);
-		pauseMenu->elements.add(settings_button);
-		pauseMenu->elements.add(newGame_pauseMenu);
-		pauseMenu->elements.add(play_button);
-
-		menus.add(pauseMenu);
+		creditsMenu->elements.add(credits_img);
+		creditsMenu->elements.add(back_button);
+		creditsMenu->elements.add(back_text);
+		creditsMenu->elements.add(web_button);
+		creditsMenu->elements.add(web_text);
+		menus.add(creditsMenu);
 	}
 
 	menu* settingsMenu = new menu(SETTINGS_MENU);
@@ -289,7 +230,71 @@ bool j1UIScene::Start()
 		settingsMenu->elements.add(switchB);
 		menus.add(settingsMenu);
 	}
+	menu* inGameMenu = new menu(INGAME_MENU);
+	{
+		//PAUSE BUTTON
+		UI_element* pause_button = App->gui->createButton(947 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 666,266,60,63 }, { 726,266,60,63 }, { 786,266,60,63 }, this);
+		pause_button->function = PAUSE;
 
+		//LIVES TXT
+		UI_element* lives_txt = App->gui->createText("LIVES: ", 25 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, white_color, this);
+		lives_txt->setOutlined(true);
+
+		//PLAYER INFO
+		UI_element* playerInfo = App->gui->createPlayerInfo(0, 0, this);
+
+		//TIME
+		UI_element* time_txt = App->gui->createText("TIME:", 700 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, white_color, this);
+		time_txt->setOutlined(true);
+
+		//CLOCK
+		clock = App->gui->createStopWatch(800 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, black_color, this);
+
+
+		inGameMenu->elements.add(pause_button);
+		inGameMenu->elements.add(lives_txt);
+		inGameMenu->elements.add(time_txt);
+		inGameMenu->elements.add(clock);
+		inGameMenu->elements.add(playerInfo);
+
+		menus.add(inGameMenu);
+
+	}
+
+	menu* pauseMenu = new menu(PAUSE_MENU);
+	{
+		//HOME BUTTON
+		UI_element* home_button = App->gui->createButton(947 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 353,506,62,64 }, { 415,506,62,64 }, { 477,506,62,64 }, this);
+		home_button->function = HOME;
+
+		//WINDOW
+		UI_element* pause_window = App->gui->createWindow(208 * App->gui->UI_scale, 182 * App->gui->UI_scale, App->tex->Load("gui/medium_parchment.png"), { 0,0,588,404 }, this);
+
+		//SETTING CIRCLE BUTTON
+		UI_element* settings_button = App->gui->createButton(275 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 876,341,119,124 }, { 876,465,119,124 }, { 876,589,119,124 }, this);
+		settings_button->function = SETTINGS;
+		pause_window->appendChild(67 * App->gui->UI_scale, 150 * App->gui->UI_scale, settings_button);
+
+		//PLAY CIRCLE BUTTON
+		UI_element* play_button = App->gui->createButton(439 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 638,341,119,124 }, { 638,465,119,124 }, { 638,589,119,124 }, this);
+		play_button->function = PAUSE;
+		pause_window->appendChild(231 * App->gui->UI_scale, 150 * App->gui->UI_scale, play_button);
+
+		//NEW GAME CIRCLE BUTTON
+		UI_element* newGame_pauseMenu = App->gui->createButton(606 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 757,341,119,124 }, { 757,465,119,124 }, { 757,589,119,124 }, this);
+		newGame_pauseMenu->function = NEW_GAME;
+		pause_window->appendChild(398 * App->gui->UI_scale, 150 * App->gui->UI_scale, newGame_pauseMenu);
+
+
+		pauseMenu->elements.add(home_button);
+		pauseMenu->elements.add(pause_window);
+		pauseMenu->elements.add(settings_button);
+		pauseMenu->elements.add(newGame_pauseMenu);
+		pauseMenu->elements.add(play_button);
+
+		menus.add(pauseMenu);
+	}
+	
 	menu* endMenu = new menu(FINAL_MENU);
 	{
 		j1Player* player = (j1Player*)App->entityManager->getPlayer();
@@ -311,7 +316,7 @@ bool j1UIScene::Start()
 		home_button2->function = HOME;
 		lvl_end_window->appendChild(302 * App->gui->UI_scale, 400 * App->gui->UI_scale, home_button2);
 
-		//COISN AND SCORE
+		//COINS AND SCORE
 		UI_element* finalInfo = App->gui->createFinalInfo(-100, 0, this);
 
 
@@ -389,8 +394,6 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		{
 			App->paused = false;
 			App->transition->sceneTransition(2);
-			//App->scene->load_lvl = true;
-			//App->scene->newLvl = 2;
 			App->entityManager->player_god_mode = false;
 			App->setSaveFileLoadable(false);
 		}
@@ -449,7 +452,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->transition->sceneTransition(1);
 			break;
 		case WEBPAGE:
-			App->RequestBrowser("https://www.youtube.com/watch?v=SQNtGoM3FVU");
+			App->RequestBrowser("https://william25bor.wixsite.com/santasplatformer");
 		}
 	}
 	else if (event_type == MOUSE_LEFT_RELEASE)
@@ -633,6 +636,19 @@ void j1UIScene::applySettings(settings_values values)
 	}
 }
 
+void j1UIScene::playClock()
+{
+	for (p2List_item<UI_element*>* item = current_menu->elements.start; item; item = item->next)
+	{
+		if (item->data->element_type == CLOCK)
+		{
+			Clock* clock = (Clock*)item->data;
+			if (clock->counter.isPaused())
+				clock->counter.Play();
+		}
+	}
+}
+
 void j1UIScene::pauseClock()
 {
 	for (p2List_item<UI_element*>* item = current_menu->elements.start; item; item = item->next)
@@ -646,15 +662,3 @@ void j1UIScene::pauseClock()
 	}
 }
 
-void j1UIScene::playClock()
-{
-	for (p2List_item<UI_element*>* item = current_menu->elements.start; item; item = item->next)
-	{
-		if (item->data->element_type == CLOCK)
-		{
-			Clock* clock = (Clock*)item->data;
-			if (clock->counter.isPaused())
-				clock->counter.Play();
-		}
-	}
-}

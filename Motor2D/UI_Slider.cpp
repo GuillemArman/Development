@@ -24,7 +24,7 @@ void Slider::setProgress(float newProgress)
 }
 void Slider::BlitElement()
 {
-	BROFILER_CATEGORY("Slider Blit", Profiler::Color::GreenYellow);
+	BROFILER_CATEGORY("Slider Blit", Profiler::Color::Chocolate);
 
 	iPoint globalPos = calculateAbsolutePosition();
 	App->render->Blit(texture, globalPos.x, globalPos.y, &section, false, App->gui->UI_scale);

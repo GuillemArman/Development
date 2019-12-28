@@ -15,15 +15,25 @@ Decompress the .zip file in any directory and execute the executable inside the 
 ## Debug Keys:
 
 #### F1: Start from the very first level
-#### F2: Start from the beggining of current level
+#### F2: Start from the second level
 #### F3: Start from the beginning of the current level
 #### F5: Save state
 #### F6: Load previous saved state
+#### F8: Debug UI
 #### F9: See colliders and pathfinding
 #### F10: Godmode
 #### F11: Enable/Disable FPS cap to 30
+#### º: Console
 
 ## Innovation:
+Assignment 3:
+
+- Pause Mode.
+- Sliders for Volume and Fx + option to Windowed or Fullscreen.
+- Measurable: You can see the final score after completing the game.
+
+Previous Assignments:
+
 - Simple entity system for player, thought to hold more entity types.
 
 - Logic for entities(animations, speed, jump force and collider size and position) is defined in tiled.

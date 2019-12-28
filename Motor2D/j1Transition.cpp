@@ -12,6 +12,29 @@ Transition::Transition()
 Transition::~Transition()
 {
 }
+
+void Transition::sceneTransition(int newLvl, float time)
+{
+
+	this->newLvl = newLvl;
+	timer.Start();
+	total_time = time * 0.5f;
+	doingSceneTransition = true;
+	sceneState = GIN;
+
+}
+
+void Transition::menuTransition(menu_id newMenuID, float time)
+{
+
+	this->newMenuID = newMenuID;
+	timer.Start();
+	total_time = time * 0.5f;
+	doingMenuTransition = true;
+	menuState = GIN;
+
+}
+
 bool Transition::Update(float dt)
 {
 	if (doingMenuTransition)
@@ -77,23 +100,4 @@ bool Transition::PostUpdate(float dt)
 	return true;
 }
 
-void Transition::menuTransition(menu_id newMenuID, float time)
-{
 
-	this->newMenuID = newMenuID;
-	timer.Start();
-	total_time = time * 0.5f;
-	doingMenuTransition = true;
-	menuState = GIN;
-
-}
-void Transition::sceneTransition(int newLvl, float time)
-{
-
-	this->newLvl = newLvl;
-	timer.Start();
-	total_time = time * 0.5f;
-	doingSceneTransition = true;
-	sceneState = GIN;
-
-}

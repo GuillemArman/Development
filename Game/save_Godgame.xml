@@ -7,23 +7,22 @@
 	<:anonymous />
 	<scene />
 	<entityManager>
-		<player position_x="43" position_y="248" level="2" lives="3" score="0" coin1="false" coin2="false" coin3="false" coin4="false" />
-		<player position_x="43" position_y="253" />
-		<walking position_x="447" position_y="184" />
-		<flying position_x="361" position_y="55" />
-		<collectible position_x="360" position_y="227" />
-		<collectible position_x="1196" position_y="142" />
-		<flying position_x="765" position_y="32" />
-		<walking position_x="1705" position_y="272" />
-		<flying position_x="1169" position_y="283" />
+		<player position_x="25" position_y="181" level="3" lives="3" score="0" coin1="false" coin2="false" coin3="false" coin4="false" />
+		<player position_x="25" position_y="186" />
+		<walking position_x="275" position_y="310" />
+		<flying position_x="766" position_y="169" />
+		<walking position_x="1994" position_y="271" />
+		<flying position_x="1582" position_y="71" />
+		<collectible position_x="204" position_y="322" />
+		<collectible position_x="1784" position_y="287" />
 	</entityManager>
 	<map />
 	<:anonymous />
 	<fonts />
 	<gui />
-	<:anonymous chrono="2674" />
+	<:anonymous chrono="4270" />
 	<:anonymous />
 	<renderer>
-		<camera x="-9" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>

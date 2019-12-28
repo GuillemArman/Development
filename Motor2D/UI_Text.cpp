@@ -30,13 +30,14 @@ void Text::createTexture()
 	uint outline_width, outline_height;
 	if (outlined)
 	{
+
 		App->font->setFontOutline(font, 2);
-		outline = App->font->Print(text.GetString(), outline_color, font); //Outlined texture
+		outline = App->font->Print(text.GetString(), outline_color, font); 
 		App->tex->GetSize(outline, outline_width, outline_height);
 	}
 
 	App->font->setFontOutline(font, 0);
-	texture = App->font->Print(text.GetString(), color, font); //Normal texture
+	texture = App->font->Print(text.GetString(), color, font); 
 	App->tex->GetSize(texture, tex_width, tex_height);
 	section.w = tex_width;
 	section.h = tex_height;
@@ -63,6 +64,15 @@ void Text::setOutlineColor(SDL_Color newColor)
 		createTexture();
 }
 
+void Text::setOutlined(bool isOutlined)
+{
+	if (isOutlined != outlined)
+	{
+		outlined = isOutlined;
+		createTexture();
+	}
+}
+
 void Text::BlitElement()
 {
 	BROFILER_CATEGORY("Text Blit", Profiler::Color::AliceBlue);
@@ -76,15 +86,6 @@ void Text::BlitElement()
 			App->render->Blit(outline, globalPos.x + outline_offset.x, globalPos.y + outline_offset.y, NULL, false, App->gui->UI_scale);
 		}
 		App->render->Blit(texture, globalPos.x, globalPos.y, NULL, false, App->gui->UI_scale);
-	}
-}
-
-void Text::setOutlined(bool isOutlined)
-{
-	if (isOutlined != outlined)
-	{
-		outlined = isOutlined;
-		createTexture();
 	}
 }
 

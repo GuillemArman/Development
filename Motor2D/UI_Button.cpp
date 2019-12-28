@@ -30,7 +30,7 @@ void Button::appendChildAtCenter(UI_element * child)
 
 void Button::BlitElement()
 {
-	BROFILER_CATEGORY("Button Blit", Profiler::Color::Beige);
+	BROFILER_CATEGORY("Button Blit", Profiler::Color::Bisque);
 
 	iPoint globalPos = calculateAbsolutePosition();
 	switch (state)

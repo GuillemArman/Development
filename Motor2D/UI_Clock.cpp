@@ -29,7 +29,7 @@ void Clock::restartChrono()
 
 void Clock::BlitElement()
 {
-	BROFILER_CATEGORY("Clock Blit", Profiler::Color::PowderBlue);
+	BROFILER_CATEGORY("Clock Blit", Profiler::Color::Aqua);
 
 	time_elapsed = counter.ReadSec();
 
