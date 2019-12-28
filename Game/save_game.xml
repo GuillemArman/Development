@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<game_state loadable="false">
+<game_state loadable="true">
 	<input />
 	<window />
 	<textures />
@@ -7,20 +7,19 @@
 	<:anonymous />
 	<scene />
 	<entityManager>
-		<player position_x="344" position_y="186" level="2" lives="3" score="900" coin1="false" coin2="false" coin3="false" coin4="false" />
-		<player position_x="344" position_y="191" />
+		<player position_x="26" position_y="248" level="2" lives="2" score="0" coin1="false" coin2="false" coin3="false" coin4="false" />
+		<player position_x="26" position_y="253" />
+		<walking position_x="1736" position_y="279" />
+		<collectible position_x="360" position_y="227" />
 		<collectible position_x="1196" position_y="142" />
-		<flying position_x="752" position_y="46" />
-		<walking position_x="1705" position_y="273" />
-		<flying position_x="1169" position_y="283" />
 	</entityManager>
 	<map />
 	<:anonymous />
 	<fonts />
 	<gui />
-	<:anonymous chrono="9487" />
+	<:anonymous chrono="16544" />
 	<:anonymous />
 	<renderer>
-		<camera x="-189" y="0" />
+		<camera x="-9" y="0" />
 	</renderer>
 </game_state>
