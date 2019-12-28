@@ -10,6 +10,7 @@
 #include "UI_Image.h"
 #include "UI_Text.h"
 #include "UI_Button.h"
+#include "UI_InputBox.h"
 #include "UI_Window.h"
 #include "j1Window.h"
 #include "j1UIScene.h"
@@ -325,3 +326,12 @@ FinalInfo* j1Gui::createFinalInfo(int x, int y, j1Module* callback)
 	return ret;
 }
 
+InputBox* j1Gui::createInputBox(_TTF_Font* font, SDL_Color color, int x, int y, SDL_Texture * texture, SDL_Rect section, j1Module* callback)
+{
+	SDL_Texture* usingTexture = (texture) ? texture : atlas;
+
+	InputBox* ret = new InputBox(font, color, x, y, usingTexture, section, callback);
+	UI_elements.add(ret);
+
+	return ret;
+}
