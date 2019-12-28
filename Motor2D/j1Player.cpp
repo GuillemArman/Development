@@ -109,7 +109,7 @@ bool j1Player::Start()
 	if (landing_fx == 0)
 		landing_fx = App->audio->LoadFx("audio/fx/landing.wav");
 	if (die_fx == 0)
-		die_fx = App->audio->LoadFx("audio/fx/die.wav");
+		die_fx = App->audio->LoadFx("audio/fx/bat_die.wav");
 	if (godmode_on == 0)
 		godmode_on = App->audio->LoadFx("audio/fx/godmode_on_fx.wav");
 	if (godmode_off == 0)

@@ -25,8 +25,8 @@ j1Scene::j1Scene() : j1Module()
 	
 	// Add all levels to the list
 	level* main_lvl = new level(1, "main_menu.tmx", START_MENU, "audio/music/menu_music.ogg", true);
-	level* lvl1 = new level(2, "platformer.tmx", INGAME_MENU, "audio/music/ambient_music.wav");
-	level* lvl2 = new level(3, "platformer2.tmx", INGAME_MENU, "audio/music/ambient_music.wav");
+	level* lvl1 = new level(2, "platformer.tmx", INGAME_MENU, "audio/music/MusicXmas.ogg");
+	level* lvl2 = new level(3, "platformer2.tmx", INGAME_MENU, "audio/music/MusicXmas.ogg");
 	level* endGame_lvl = new level(4, "main_menu.tmx", FINAL_MENU, "audio/music/menu_music.ogg", true);
 
 	levels.add(main_lvl);
