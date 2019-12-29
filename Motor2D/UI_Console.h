@@ -14,15 +14,17 @@ public:
 	Console()
 	{}
 
-	Console(int x, int y, SDL_Color color, j1Module* callback) : UI_element(x, y, element_type::CONSOLE, { 0, 0, 0, 0 }, callback, nullptr)
-	{
-	}
+	Console(int x, int y, j1Module* callback) : UI_element(x, y, element_type::CONSOLE, { 0, 0, 0, 0 }, callback)
+	{}
 
 	~Console()
 	{}
 
 	void BlitElement();
 
+	// By now we will only show LOG's
+	void appendChild(int x, int y, UI_element* child);
+	void appendChildAtCenter(UI_element* child); 
 
 public:
 

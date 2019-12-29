@@ -18,6 +18,7 @@ class Slider;
 class Clock;
 class PlayerInfo;
 class FinalInfo;
+class Console;
 
 enum event_type
 {
@@ -76,6 +77,8 @@ public:
 	Window* createWindow(int x, int y, SDL_Texture* texture, SDL_Rect section, j1Module* callback = nullptr);
 	//NULL texture to use atlas
 	Slider* createSlider(int x, int y, SDL_Texture* texture, SDL_Rect empty, SDL_Rect full, Button* button, _TTF_Font* text_font, SDL_Color text_color, float default_progress = 0.5f, j1Module* callback = nullptr, char* text = "");
+	//NULL texture to use atlas
+	Console* CreateConsole(int x, int y, j1Module* callback = nullptr);
 
 	PlayerInfo* createPlayerInfo(int x, int y, j1Module* callback = nullptr);
 	FinalInfo* createFinalInfo(int x, int y, j1Module* callback = nullptr);

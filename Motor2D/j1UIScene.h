@@ -6,6 +6,7 @@
 class Button;
 class UI_element;
 class Clock;
+class Console;
 
 enum menu_id
 {
@@ -62,6 +63,8 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+	
+
 public:
 	p2List<menu*> menus;
 	menu* current_menu = nullptr;
@@ -72,5 +75,6 @@ public:
 	Clock* clock = nullptr;
 	Button* continueButton = nullptr;
 	menu_id previous_menu;
+
 };
 #endif // !__j1UISCENE_H__ 

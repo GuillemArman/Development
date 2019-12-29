@@ -10,6 +10,7 @@
 #include "UI_Image.h"
 #include "UI_Text.h"
 #include "UI_Button.h"
+#include "UI_Console.h"
 #include "UI_InputBox.h"
 #include "UI_Window.h"
 #include "j1Window.h"
@@ -264,6 +265,15 @@ Button* j1Gui::createButton(int x, int y, SDL_Texture* texture, SDL_Rect standby
 	SDL_Texture* usingTexture = (texture) ? texture : atlas;
 
 	Button* ret = new Button(x, y, usingTexture, standby, OnMouse, OnClick, callback);
+	UI_elements.add(ret);
+
+	return ret;
+}
+
+Console* j1Gui::CreateConsole(int x, int y, j1Module* callback)
+{
+
+	Console* ret = new Console(x, y, callback);
 	UI_elements.add(ret);
 
 	return ret;

@@ -127,6 +127,11 @@ bool j1Scene::Update(float dt)
 		App->cap_frames = !App->cap_frames;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_GRAVE) == KEY_DOWN) //'º'
+	{
+		
+	}
+
 	// camera move -----------------------
 	uint win_width, win_height;
 	App->win->GetWindowSize(win_width, win_height);

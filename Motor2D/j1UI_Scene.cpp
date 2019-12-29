@@ -11,6 +11,7 @@
 #include "j1Render.h"
 #include "UI_Window.h"
 #include "UI_Clock.h"
+#include "UI_Console.h"
 #include "j1EntityManager.h"
 #include "j1Audio.h"
 #include "j1Window.h"
@@ -336,6 +337,10 @@ bool j1UIScene::Start()
 	newValues = defaultValues;
 
 	return true;
+
+
+
+
 }
 
 bool j1UIScene::PreUpdate()
@@ -661,4 +666,3 @@ void j1UIScene::pauseClock()
 		}
 	}
 }
-
