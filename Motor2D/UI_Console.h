@@ -28,6 +28,7 @@ public:
 
 public:
 
+	// 2 windows in console. 1 with inputbox text, reads the string and execute the command. The other one shows only text (LOGS)
 	Window* window;
 	InputBox* inputbox;
 	Text* text;

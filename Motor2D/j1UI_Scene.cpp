@@ -258,8 +258,8 @@ bool j1UIScene::Start()
 
 		
 		
-			inGameMenu->elements.add(console);
-			inGameMenu->elements.add(console_window);
+		//	inGameMenu->elements.add(console);
+			//inGameMenu->elements.add(console_window);
 		
 
 		
