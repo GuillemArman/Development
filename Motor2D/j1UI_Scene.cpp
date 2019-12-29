@@ -251,12 +251,24 @@ bool j1UIScene::Start()
 		//CLOCK
 		clock = App->gui->createStopWatch(800 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, black_color, this);
 
+		//CONSOLE 
 
+		UI_element* console = App->gui->CreateConsole(208 * App->gui->UI_scale, 182 * App->gui->UI_scale, this);
+		UI_element* console_window = App->gui->createWindow(208 * App->gui->UI_scale, 182 * App->gui->UI_scale, App->tex->Load("gui/medium_parchment_console.png"), { 0,0,588,404 }, this);
+
+		
+		
+			inGameMenu->elements.add(console);
+			inGameMenu->elements.add(console_window);
+		
+
+		
 		inGameMenu->elements.add(pause_button);
 		inGameMenu->elements.add(lives_txt);
 		inGameMenu->elements.add(time_txt);
 		inGameMenu->elements.add(clock);
 		inGameMenu->elements.add(playerInfo);
+		
 
 		menus.add(inGameMenu);
 

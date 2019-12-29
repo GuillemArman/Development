@@ -129,7 +129,7 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_GRAVE) == KEY_DOWN) //'º'
 	{
-		
+		App->uiScene->bo_console = true;
 	}
 
 	// camera move -----------------------

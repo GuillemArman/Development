@@ -76,5 +76,7 @@ public:
 	Button* continueButton = nullptr;
 	menu_id previous_menu;
 
+	bool bo_console = false;
+
 };
 #endif // !__j1UISCENE_H__ 

@@ -272,7 +272,6 @@ Button* j1Gui::createButton(int x, int y, SDL_Texture* texture, SDL_Rect standby
 
 Console* j1Gui::CreateConsole(int x, int y, j1Module* callback)
 {
-
 	Console* ret = new Console(x, y, callback);
 	UI_elements.add(ret);
 
