@@ -103,6 +103,9 @@
     <ClCompile Include="UI_InputBox.cpp">
       <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
     </ClCompile>
+    <ClCompile Include="UI_Console.cpp">
+      <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -232,6 +235,9 @@
       <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
     </ClInclude>
     <ClInclude Include="UI_InputBox.h">
+      <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Console.h">
       <Filter>Desenvolupament  ========\Modules\UI_Elements</Filter>
     </ClInclude>
   </ItemGroup>

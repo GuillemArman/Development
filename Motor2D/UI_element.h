@@ -27,6 +27,7 @@ enum element_type
 	INPUTTEXT,
 	WINDOW,
 	CLOCK,
+	CONSOLE,
 	PLAYERINFO,
 	FINALINFO
 };
